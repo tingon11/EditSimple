@@ -34,10 +34,14 @@ def _options(labels: dict[str, str]) -> dict[str, str]:
 
 
 class PropertiesPanel(ctk.CTkFrame):
-    def __init__(self, master, fonts: theme.Fonts, app) -> None:
+    def __init__(self, master, fonts: theme.Fonts, app, static: bool = False) -> None:
         super().__init__(master, fg_color="transparent", corner_radius=0, width=330)
         self.fonts = fonts
         self.app = app
+        # static: effetti su un'immagine ferma (pagina Immagini), senza tempi, inseguimento ne' keyframe
+        self.static = static
+        # pannelli in piu' di chi usa il pannello: tipo -> (titolo(), costruttore(pannello, oggetto))
+        self.extra_builders: dict[str, tuple] = {}
         self.kind: str | None = None
         self.obj: dict | None = None
         self._vars: dict[str, tk.Variable] = {}
@@ -83,6 +87,10 @@ class PropertiesPanel(ctk.CTkFrame):
         elif kind == "oaudio_all":
             self.card.set_title(tr("Audio originale (tutto)"))
             self._build_oaudio_all()
+        elif kind in self.extra_builders or (kind is None and "empty" in self.extra_builders):
+            title, builder = self.extra_builders[kind or "empty"]
+            self.card.set_title(title())
+            builder(self, obj)
         else:
             self.card.set_title(tr("Proprieta'"))
             self._build_empty()
@@ -112,12 +120,10 @@ class PropertiesPanel(ctk.CTkFrame):
                     var.set(bool(value))
                 elif isinstance(var, tk.DoubleVar):
                     var.set(float(value))
-                elif key in getattr(self, "_choices", {}) and key not in ("corner", "align", "shape", "speed"):
+                elif key in getattr(self, "_choices", {}) and key not in ("corner", "align", "speed"):
                     var.set(self._choices[key].get(str(value), str(value)))
                 elif key in ("corner", "align"):
                     var.set(tr({"corner": CORNERS, "align": ALIGNS}[key].get(value, value)))
-                elif key == "shape":
-                    var.set(tr("Ovale") if value == "oval" else tr("Rettangolare"))
                 elif key == "speed":
                     var.set(speed_text(value))
                 else:
@@ -396,11 +402,16 @@ class PropertiesPanel(ctk.CTkFrame):
             clip["clock"] = False
         self.after(10, lambda: self.show("clip", clip))
 
+    def _full_check(self) -> None:
+        if not self.static:
+            self._check("full", tr("Per tutto il video"), on_apply=self._apply_full)
+
     def _build_effect(self, fx: dict) -> None:
         kind = fx["type"]
-        self._section(tr("Tempo"))
-        self._time_row("start", tr("Inizio (s)"))
-        self._time_row("end", tr("Fine (s)"))
+        if not self.static:
+            self._section(tr("Tempo"))
+            self._time_row("start", tr("Inizio (s)"))
+            self._time_row("end", tr("Fine (s)"))
         if kind == "text":
             self._section(tr("Testo"))
             box = ctk.CTkTextbox(self.body, height=70, font=self.fonts.body, wrap="word")
@@ -441,12 +452,12 @@ class PropertiesPanel(ctk.CTkFrame):
         elif kind in overlays.TIMER_TYPES:
             if kind == "frames":
                 self._section(tr("Numero del fotogramma"))
-                self._check("full", tr("Per tutto il video"), on_apply=self._apply_full)
+                self._full_check()
                 self._choice("origin", tr("Conta"), _options(overlays.TIMER_ORIGINS))
                 self._choice("first", tr("Primo fotogramma"), {"0": "0", "1": "1"})
             else:
                 self._section(tr("Tempo trascorso"))
-                self._check("full", tr("Per tutto il video"), on_apply=self._apply_full)
+                self._full_check()
                 self._choice("format", tr("Formato"), _options(overlays.TIMER_FORMATS))
                 self._choice("origin", tr("Conta"), _options(overlays.TIMER_ORIGINS))
             self._entry("prefix", tr("Testo davanti"), "str", width=170)
@@ -515,13 +526,59 @@ class PropertiesPanel(ctk.CTkFrame):
             row.pack(fill="x", pady=(4, 0))
             self._entry("x2", tr("Punta X"), "int", width=70, row=row)
             self._entry("y2", "  Y", "int", width=70, row=row)
+            self._choice("heads", tr("Terminali"), _options(overlays.ARROW_HEADS))
+            self._choice("head", tr("Tipo di terminale"), _options(overlays.HEAD_STYLES))
             self._color("color", tr("Colore"))
             self._entry("thickness", tr("Spessore"), "int")
             self._slider("opacity", tr("Opacita'"), 0.0, 1.0)
+            if not self.static:
+                self._choice("tail", tr("Coda"), _options(overlays.ARROW_TAILS))
             self._build_follow(fx, tr("Si disegna un rettangolo attorno al soggetto: la freccia lo segue nei "
                                    "fotogrammi successivi tenendo la punta su di lui; quando esce "
                                    "dall'inquadratura l'effetto finisce."))
-            if fx.get("target"):
+            if fx.get("target") and not self.static:
+                self._button(tr("Scegli un altro soggetto"), lambda: self.app.pick_arrow_target(fx))
+        elif kind == "link":
+            self._section(tr("Collegamento"))
+            self._choice("shape", tr("Forma"), {"rect": tr("Rettangoli"), "oval": tr("Ovali")})
+            self._slider("radius", tr("Angoli (rettangoli)"), 0.0, 50.0, fmt=lambda v: f"{v:.0f} %")
+            self._color("color", tr("Colore"))
+            self._entry("thickness", tr("Spessore"), "int")
+            self._check("dashed", tr("Linea tratteggiata"))
+            self._slider("opacity", tr("Opacita'"), 0.0, 1.0)
+            widgets.note(self.body, tr("Due punti uniti da una linea, anche su due immagini diverse: ognuno segue la "
+                                    "sua. Sull'anteprima: trascina una forma per spostarla, dagli angoli per "
+                                    "ridimensionarla, la linea per spostare tutto."), self.fonts,
+                         wraplength=280).pack(fill="x", pady=(6, 0))
+        elif kind == "marker":
+            self._section(tr("Punto {label}").format(label=fx.get("label", "")))
+            self._entry("label", tr("Numero o lettera"), "str", width=90)
+            if self.static:                 # le note servono per la didascalia delle immagini, non nel video
+                ctk.CTkLabel(self.body, text=tr("Nota"), font=self.fonts.small, text_color=theme.TEXT_SOFT,
+                             anchor="w").pack(fill="x", pady=(8, 0))
+                box = ctk.CTkTextbox(self.body, height=90, font=self.fonts.body, wrap="word")
+                box.pack(fill="x", pady=(2, 0))
+                box.insert("1.0", fx.get("note", ""))
+                box.bind("<KeyRelease>", lambda _e: self._note_changed(box))
+            self._choice("style", tr("Numerazione"), _options(overlays.MARKER_STYLES))
+            self._entry("size", tr("Diametro (px)"), "int")
+            self._color("bg_color", tr("Colore sfondo"))
+            self._color("color", tr("Colore testo"))
+            self._check("ring", tr("Bordo del colore del testo"))
+            self._slider("opacity", tr("Opacita'"), 0.0, 1.0)
+            self._section(tr("Posizione"))
+            row = ctk.CTkFrame(self.body, fg_color="transparent")
+            row.pack(fill="x", pady=(4, 0))
+            self._entry("x", "X", "int", width=70, row=row)
+            self._entry("y", "  Y", "int", width=70, row=row)
+            widgets.note(self.body, tr("Ogni nuovo punto prende il numero (o la lettera) dopo l'ultimo inserito. "
+                                    "Le note vanno nella didascalia dell'immagine con il pulsante Word.") if self.static
+                         else tr("Ogni nuovo punto prende il numero (o la lettera) dopo l'ultimo inserito."),
+                         self.fonts, wraplength=280).pack(fill="x", pady=(6, 0))
+            self._build_follow(fx, tr("Si disegna un rettangolo attorno al soggetto: il punto lo segue nei "
+                                   "fotogrammi successivi restandogli accanto; quando esce dall'inquadratura "
+                                   "l'effetto finisce."))
+            if fx.get("target") and not self.static:
                 self._button(tr("Scegli un altro soggetto"), lambda: self.app.pick_arrow_target(fx))
         elif kind == "zoom":
             self._section(tr("Area da ingrandire"))
@@ -557,7 +614,7 @@ class PropertiesPanel(ctk.CTkFrame):
                                    "dall'inquadratura lo zoom finisce."))
         elif kind == "logo":
             self._section(tr("Logo e testo dell'operatore"))
-            self._check("full", tr("Per tutto il video"), on_apply=self._apply_full)
+            self._full_check()
             row = ctk.CTkFrame(self.body, fg_color="transparent")
             row.pack(fill="x", pady=(6, 0))
             ctk.CTkLabel(row, text=tr("Logo"), font=self.fonts.small, text_color=theme.TEXT_SOFT, anchor="w", width=110).pack(side="left", padx=(0, 6))
@@ -589,8 +646,9 @@ class PropertiesPanel(ctk.CTkFrame):
         elif kind == "pixelate":
             self._section(tr("Pixelatura"))
             points = len(fx.get("track") or [])
-            self._label_row(tr("Inseguimento"), tr("{points} punti").format(points=points) if points else tr("fisso"))
-            if fx.get("lost"):
+            if not self.static:
+                self._label_row(tr("Inseguimento"), tr("{points} punti").format(points=points) if points else tr("fisso"))
+            if fx.get("lost") and not self.static:
                 self._label_row(tr("Soggetto perso"), tr("{frames} fotogrammi").format(frames=fx["lost"]))
             self._choice("shape", tr("Forma"), {"rect": tr("Rettangolare"), "oval": tr("Ovale")})
             self._slider("radius", tr("Angoli (rettangolare)"), 0.0, 50.0, fmt=lambda v: f"{v:.0f} %")
@@ -599,13 +657,16 @@ class PropertiesPanel(ctk.CTkFrame):
             self._entry("w", tr("Largh."), "int", width=70, row=row)
             self._entry("h", tr("  Alt."), "int", width=70, row=row)
             self._entry("block", tr("Grandezza pixel"), "int")
-            widgets.note(self.body, tr("Ripeti l'inseguimento dopo aver cambiato inizio o fine."), self.fonts,
-                         wraplength=280).pack(fill="x", pady=(6, 0))
-            self._button(tr("Ripeti inseguimento dal cursore"), lambda: self.app.retrack(fx))
-            self._build_keys(fx)
+            if not self.static:
+                widgets.note(self.body, tr("Ripeti l'inseguimento dopo aver cambiato inizio o fine."), self.fonts,
+                             wraplength=280).pack(fill="x", pady=(6, 0))
+                self._button(tr("Ripeti inseguimento dal cursore"), lambda: self.app.retrack(fx))
+                self._build_keys(fx)
         self._button(tr("Elimina effetto"), lambda: self.app.delete_effect(fx["id"]), danger=True)
 
     def _build_follow(self, fx: dict, help_text: str) -> None:
+        if self.static:
+            return                      # su un'immagine ferma non c'e' nulla da inseguire
         self._section(tr("Inseguimento del soggetto"))
         points = len(fx.get("track") or [])
         self._label_row(tr("Stato"), tr("segue il soggetto ({points} punti)").format(points=points) if points else tr("fermo"))
@@ -708,6 +769,14 @@ class PropertiesPanel(ctk.CTkFrame):
             if self._job is not None:
                 self.after_cancel(self._job)
             self._job = self.after(200, self._text_apply)
+
+    def _note_changed(self, box: ctk.CTkTextbox) -> None:
+        """Nota di un punto numerato: non si disegna, serve per la didascalia."""
+        text = box.get("1.0", "end-1c")
+        if text != self.obj.get("note", ""):
+            self._touch("note")
+            self.obj["note"] = text
+            self.app.project.dirty = True
 
     def _text_apply(self) -> None:
         self._job = None

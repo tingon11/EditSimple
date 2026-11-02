@@ -6,20 +6,27 @@ EditSimple is a video editing program for anyone who needs to **explain an
 event or show evidence** in a video: a hand-off in the middle of a crowd, a
 vehicle arriving, a person to follow or to make unrecognizable. You import
 the footage, point out what matters and the program does the rest: arrows,
-boxes, zooms and pixelations **follow the subject on their own** in the
-following frames, and where tracking goes wrong you just drag the shape to
-the right place to correct it. In a few minutes you get an MP4 ready to show
-or to attach, with opening and closing slides, texts, logo and the
-operator's signature.
+boxes, numbered points, zooms and pixelations **follow the subject on their
+own** in the following frames, and where tracking goes wrong you just drag
+the shape to the right place to correct it. In a few minutes you get an MP4
+ready to show or to attach, with opening and closing slides, texts, logo and
+the operator's signature.
+
+The **Images** page does the same job on photographs: one or more photos on
+a sheet, the same annotations, numbered points with their notes and a button
+that **inserts the figure with its caption directly into Word**.
 
 *Andrea Cumini — www.osintinfo.net — andrea@osintinfo.net*
 *EditSimple is one of the [Seity](https://www.seity.com) tools.*
 
-> **A note on the sample video.** The images in this manual use a stock
+> **A note on the sample material.** The images in this manual use a stock
 > video published on Pexels: a pedestrian street with ordinary passers-by.
 > **The people who appear are not doing anything wrong**: the arrows, boxes,
 > zooms and pixelations placed on them only serve to show how the program
-> works, and the subjects were chosen at random.
+> works, and the subjects were chosen at random. The two photographs on the
+> Images page are by
+> [Andrea Dalle Piatte](https://www.pexels.com/it-it/@andreadallepiatte/),
+> published on Pexels.
 
 ## Contents
 
@@ -38,16 +45,19 @@ operator's signature.
 13. [Transitions](#13-transitions)
 14. [Audio](#14-audio)
 15. [Exporting the video](#15-exporting-the-video)
-16. [Tips for a good result](#16-tips-for-a-good-result)
-17. [Keyboard and mouse shortcuts](#17-keyboard-and-mouse-shortcuts)
-18. [The project file](#18-the-project-file)
+16. [The Images page](#16-the-images-page)
+17. [Tips for a good result](#17-tips-for-a-good-result)
+18. [Keyboard and mouse shortcuts](#18-keyboard-and-mouse-shortcuts)
+19. [The project files](#19-the-project-files)
 
 ## 1. What you can do
 
 | Feature | In short |
 | --- | --- |
-| **Subject tracking** | Boxes, ovals, arrows, zooms and pixelations follow a person, a face, an object or a vehicle; they grow and shrink with it as it moves toward or away from the camera; they end on their own when it leaves the frame. |
+| **Subject tracking** | Boxes, ovals, arrows, numbered points, zooms and pixelations follow a person, a face, an object or a vehicle; they grow and shrink with it as it moves toward or away from the camera; they end on their own when it leaves the frame. |
 | **Correction keyframes** | Where tracking goes wrong (a pole, a person passing in front) you drag the shape onto the subject: the program corrects the path before and after that point. |
+| **Arrows** | Ends at the tip, at the tail, on both ends or none; solid or open arrowhead, dot, small square, bar. In the video the tail can **stay fixed** while the tip follows the subject. |
+| **Numbered points** | Small circles with a number (1, 2, 3) or a letter (A, B, C), always the one after the last placed; they follow the subject in the video; in images they have a note that goes into the caption. |
 | **Zoom** | A small detail (hands, a license plate) magnified from 2x to 16x in a box, with an outline and a line connecting it to the object. Rectangular or oval. |
 | **Pixelation** | Rectangular or oval, for faces and license plates; it follows the subject and grows with it. |
 | **Texts and images** | Multi-line texts with background and rounded corners; images on top (a frame, a map, a document). |
@@ -60,7 +70,8 @@ operator's signature.
 | **Audio** | Added tracks (commentary, music) with volume and fades; original audio with volume, fades and deletion of single stretches. |
 | **Preview** | Playback with audio, backwards, frame by frame; zoomable preview that can be **detached** into a separate window. |
 | **Export** | MP4 (H.264 + AAC) identical to the preview. |
-| **Languages** | Interface in 9 languages, switchable without restarting. |
+| **Images** | One or more photos on a sheet (up to four, eleven layouts, five formats), the same annotations as the video plus the **link** between two points, numbered points with notes, the caption and the **Word** button; project saved in an editable JSON; sheet exported as PNG or JPG or copied to the clipboard. |
+| **Languages and manual** | Interface in 9 languages, switchable without restarting; this manual opens inside the program, in the chosen language. |
 
 ## 2. Installation and first start
 
@@ -88,11 +99,14 @@ Without it, tracking works anyway.
 
 ![The EditSimple window](images/en/01_start.webp)
 
+- **Bar on the left**, with the pages: **Video** (editing), **Images**
+  (photographs, chapter 16), **Configure** and **Manual**, which opens this
+  manual in a separate window, in the language of the interface.
 - **Toolbar**, in four groups: *Project* (new, open, save, undo, redo),
   *Clip* (import video, audio, cut, delete, freeze frame, slide, speed),
-  *Overlays* (text, image, logo, time, frames, box, oval, arrow, rectangular
-  and oval zoom, rectangular and oval pixel) and *Output* (export MP4). Each
-  button has a tooltip with its shortcut.
+  *Overlays* (text, image, logo, time, frames, box, oval, arrow, numbers,
+  letters, rectangular and oval zoom, rectangular and oval pixel) and
+  *Output* (export MP4). Each button has a tooltip with its shortcut.
 - **Preview**, in the center: shows the frame at the cursor with all the
   effects, exactly as in the exported video. You draw and move the effects on
   it.
@@ -102,7 +116,14 @@ Without it, tracking works anyway.
   next frame, +10 frames, end; the cursor time (you can type it); IN, OUT and
   clearing the marks; on the right, the timeline zoom.
 - **Timeline**, at the bottom: ruler, filmstrip **Video** track, **Original
-  audio**, added audio tracks and **Effects**.
+  audio**, added audio tracks and **Effects**, one per row.
+
+![The manual opens inside the program, with the contents on the left and the language menu](images/en/34_manual.webp)
+
+The **Manual** window has the list of chapters on the left (a click jumps to
+the chapter) and the language menu at the top; the links in the text work,
+and the images are the ones on these pages. The manual changes language
+together with the interface.
 
 ## 4. Configure page
 
@@ -119,7 +140,7 @@ It opens from the bar on the left. It contains:
   the text (name, organization, website), the logo width, the text height,
   the distance from the edges, the corner, the layout, the colors and a
   background with opacity and rounded corners. You prepare them once; then
-  the **Logo** button puts them in the video.
+  the **Logo** button puts them in the video (and on the image sheet).
 
 ![Configure: rounded corners, language and credits](images/en/03_settings_more.webp)
 
@@ -136,8 +157,9 @@ The example in this chapter is a 19-second video shot in a crowded pedestrian
 street (see the note at the top: the passers-by are not doing anything
 wrong). In a few steps we enrich it: the operator's logo and website at the
 bottom, a zoom on a man's hands that follows their movements, an arrow
-pointing at a person for 12 seconds, two boxes on other people and the
-pixelation of a face at the end.
+pointing at a person for 12 seconds, two boxes on other people, the
+pixelation of a face at the end, a numbered point that follows a person and
+an arrow with a fixed tail pointing at a phone for the whole video.
 
 ### 5.1 Importing the video
 
@@ -198,6 +220,11 @@ keeping the tip on it.
 In the timeline the arrow's bar shows *(follows)* and the diamonds of the
 keyframes we used to correct the path (see chapter 6).
 
+In the arrow panel you also choose the **Ends** (at the tip, at the tail, on
+both ends, none: line only) and the **End style**: solid arrowhead, open
+arrowhead, dot, small square or bar. With two ends the arrow shows a
+connection between two things.
+
 ### 5.5 Boxes on people
 
 ![Box: Follow the subject](images/en/11_box.webp)
@@ -221,6 +248,37 @@ camera, so it always covers it. If the subject leaves the frame, the
 pixelation goes with it until it is completely out: no frame is left
 uncovered.
 
+### 5.7 A numbered point that follows a person
+
+![Numbered point (letter A) following a person](images/en/31_marker_video.webp)
+
+**Numbers** (N) and **Letters** (Shift+N) place a **numbered point**: a small
+circle with a number (1, 2, 3...) or a capital letter (A, B, C...) inside.
+Press the button and click where the point goes; **every point needs a new
+click on the button**, and it always takes the number or letter after the
+last one placed (after Z comes AA). In the panel you change the number or
+the letter, the diameter, the color of the circle and of the text, the white
+ring and the opacity.
+
+Like the other shapes, the point **follows the subject**: *Follow the
+subject* and a rectangle around the person. In the video the points have no
+notes; they are there so you can refer to "person A" or "object 2" in the
+commentary or in a slide.
+
+### 5.8 An arrow with a fixed tail
+
+![Arrow with a fixed tail: the tip follows the phone, the tail stays next to the text](images/en/32_arrow_tail.webp)
+
+An arrow that follows a subject normally moves as a whole. The **Tail**
+choice in the panel has the alternative **Stays fixed where you drew it**:
+the tail stays at the point of the first frame and only the **tip follows
+the subject**. It is useful when the tail starts from a text or from a
+reference point: here the "Phone" label stays at the bottom and the arrow
+stretches and shortens to stay on the phone for the whole video.
+
+Dragging the tail handle really moves the tail there; dragging the tip or
+the line creates a keyframe, as for the other shapes.
+
 ## 6. Correcting tracking with keyframes
 
 ![Keyframes on the zoom bar](images/en/08_keyframes.webp)
@@ -241,24 +299,28 @@ On the bar of the selected effect you also see the points found by tracking
 (dots). A click selects a point and moves the cursor there, Shift+click
 selects a range, Ctrl+click adds or removes; **Delete** or the right mouse
 button deletes the selected points. In the panel, the **Keyframe** section
-has the *< Prev.* and *Next >* buttons, *Keyframe here (fix the position)*
-(fixes the current position) and *Remove keyframe at the cursor*.
+has the *< Prev.* and *Next >* buttons, *Keyframe here* (fixes the current
+position) and *Remove keyframe at the cursor*.
 
 ## 7. The timeline
 
+![Each effect sits on its own row, in the order it was added](images/en/33_timeline_rows.webp)
+
+- **Effect bars**: **each effect has its own row**, in the order it was
+  added, so no bar covers another. You move them by dragging; the right edge
+  changes the duration. With many effects the audio and effects area
+  **scrolls vertically** (scroll bar on the right, mouse wheel over the row
+  names or Shift+wheel), while ruler and video stay fixed at the top.
+
 ![Eye: an effect hidden while you work](images/en/14_hide.webp)
 
-- **Effect bars**: you move them by dragging; the right edge changes the
-  duration. Effects are arranged on several lanes; with many effects the
-  audio and effects area **scrolls vertically** (scroll bar on the right,
-  mouse wheel over the row names or Shift+wheel), while ruler and video stay
-  fixed at the top.
 - **Eye**: the icon to the left of each bar **hides or shows** the effect, in
   the preview and in the exported video. Useful when many effects overlap
   while you work.
 - **Right-click on a bar**: *Extend to cursor* (if the cursor is past the
-  end; if the effect follows a subject, tracking continues) and *Stop at
-  cursor* (if the cursor is inside the effect).
+  end; if the effect follows a subject, tracking continues up to the cursor
+  and, if the subject is lost before that, the shape stays still where it
+  was last seen) and *Stop at cursor* (if the cursor is inside the effect).
 - **Timeline zoom**: Ctrl+wheel, or the − + buttons and *Fit the timeline*.
   Close up, the filmstrip shows every single frame.
 - **Scrolling**: mouse wheel, Alt+drag or drag with the middle button.
@@ -391,23 +453,129 @@ offers to open the folder.
 
 ![Export completed](images/en/29_export_done.webp)
 
-## 16. Tips for a good result
+## 16. The Images page
+
+The **Images** page (bar on the left) is for preparing a **figure for a
+report or a presentation** starting from one or more photographs: the photos
+on the sheet, the annotations on top, the numbered points with their notes
+and the caption, to insert into Word with one click or to export as an
+image. The example in this chapter uses two photos of a motorbike.
+
+### 16.1 Layout and photographs
+
+![Choosing the layout: how many images and how to arrange them](images/en/40_images_layout.webp)
+
+When you first open the page it asks for the **layout**: one image; two side
+by side or one above the other; three in a row, in a column, one large on
+the left or one large on top; four in a grid, in a row, one large on the
+left or one large on top. Below you choose the **sheet format**: 16:9
+(1920×1080), 4:3, square, 9:16 portrait or A4 portrait. Layout and format
+can be changed at any time (**Layout** in the toolbar, or *Change layout...*
+in the sheet panel): the images already placed stay.
+
+![Two photos loaded; in the panel, the zoom and the position](images/en/41_images_loaded.webp)
+
+You place photographs with **Load** (one or more, into the chosen box and
+the next empty ones), with a **click on an empty box**, by dragging a file
+from your computer onto the box or with **Ctrl+V** from the clipboard (for
+example a screenshot). Each photo fills its box: the **mouse wheel** over
+the photo zooms in, **dragging it** moves it within the box to frame the
+detail that matters. The photo panel shows the file name, the size, the zoom
+slider and the buttons to replace or remove it. The **sheet** panel (when
+nothing is selected) has the format, the space between the images and the
+sheet color.
+
+### 16.2 Annotations
+
+![The annotations on the sheet: link, arrow between two photos, zoom, pixel, text, logo and numbered points](images/en/42_images_annotations.webp)
+
+The tools are the same as for the video (**Text**, **Image**, **Logo**,
+**Box**, **Oval**, **Arrow**, **Numbers**, **Letters**, rectangular and oval
+**Zoom**, rectangular and oval **Pixel**), without timing or tracking, plus
+a new one:
+
+- **Link** (C rectangles, Shift+C ovals): one click on the first point and
+  one on the second; a shape appears around each (rectangle or oval,
+  resizable from the corners) and a line joins them edge to edge. In the
+  panel: shape, corners, color, thickness, dashed line, opacity. It is there
+  to say "this is that one": the detail of one photo found again in the
+  other.
+
+Each annotation **belongs to the photo it sits on**: if the photo is moved or
+zoomed, the annotation follows it. An arrow or a link between two photos has
+one end on each, and each end follows its own photo. An annotation that
+straddles two photos (a text, a circle, a box) stays whole on the sheet.
+
+### 16.3 Numbered points and notes
+
+![A selected numbered point: its note in the panel](images/en/43_images_marker_note.webp)
+
+**Numbers** (N) and **Letters** (Shift+N) work as in the video: a click on
+the button, a click on the photo, and the point takes the number or letter
+after the last one. Here, in addition, each point has a **Note** in the
+panel: what it marks. The notes go into the caption, in the order of the
+points (numbers first, then letters). In the sheet panel the **Numbered
+points** list shows all the points with their note: a click selects the
+point.
+
+### 16.4 Caption and Word
+
+![The caption: the text that goes after "Figure N :"](images/en/44_images_caption.webp)
+
+The **Caption** button (or the *Caption for Word* box in the sheet panel)
+opens the caption text: it goes right after "Figure N :", and the notes of
+the numbered points follow it. With the text "Motorbike" and four points the
+caption becomes:
+
+`Figure 1 : Motorbike. 1) tank, 2) brake, A) headlight, B) exhaust`
+
+![The figure inserted into Word with its caption](images/en/45_images_word.webp)
+
+The **Word** button inserts the figure **into the open Word document, at the
+cursor**: the image, as wide as the page, and below it the caption in Word's
+*Caption* style, with the automatic number ("Figure 1", "Figure 2"...). The
+number is a Word field: Word's **cross-references** and **table of figures**
+work as they do for figures made by hand. If Word is not open, it is started
+with a new document; if Word does not respond, the image and the caption are
+copied to the clipboard, ready to paste.
+
+### 16.5 Saving, exporting, copying
+
+![Project saved; Export, Copy and Word in the Output group](images/en/46_images_output.webp)
+
+- **Save** (Ctrl+S, Ctrl+Shift+S to save as) writes the **project**: a JSON
+  file with the layout, the format, the photos (framing and zoom), the
+  annotations and the caption, and next to it a `<name>_file` folder with
+  copies of the photos and of the images used. The JSON is readable and can
+  be edited by hand. **Open** (Ctrl+O) reopens it; on closing, if something
+  is not saved, the program asks.
+- **Export** saves the sheet as **PNG or JPG** at the size of the format.
+- **Copy** puts the sheet on the **clipboard**, to paste into an email, a
+  presentation or elsewhere.
+- Undo and redo (Ctrl+Z, Ctrl+Y) apply to everything: photos, annotations,
+  layout and caption.
+
+## 17. Tips for a good result
 
 - **Put the zoom box in a neutral area**: the magnified box covers the part
   of the video it sits on, for the whole time it appears. Put it where
   nothing interesting happens (sky, wall, floor).
 - **Draw tightly around the subject** for boxes, ovals and pixelations: the
   content of the shape is the template searched for in the following frames.
-- **For the arrow, a slightly larger rectangle** (head and shoulders instead
-  of just the head) holds up better when other people pass in front.
+- **For the arrow and the numbered point, a slightly larger rectangle**
+  (head and shoulders instead of just the head) holds up better when other
+  people pass in front.
 - **After tracking, scroll through the video**: where the shape goes wrong,
   drag it onto the subject. A few keyframes are enough even for long paths.
 - **With many effects**, use the eye to hide the ones you don't need at the
   moment, and the detached preview to have more room in the timeline.
+- **In images, arrange the photos first** (framing and zoom) and then the
+  annotations: the annotations follow the photo, but it is easier to draw
+  them on the final framing.
 - **Save often** (Ctrl+S): the project is a small JSON file that you can
   reopen and edit whenever you want.
 
-## 17. Keyboard and mouse shortcuts
+## 18. Keyboard and mouse shortcuts
 
 | Key | Action |
 | --- | --- |
@@ -421,14 +589,17 @@ offers to open the folder.
 | F | Freeze frame |
 | V | Speed of the IN-OUT range |
 | T / R / E / A | Text / box / oval / arrow |
+| N / Shift+N | Numbered point with numbers / with letters |
+| C / Shift+C | Link with rectangles / with ovals (Images page) |
 | Z / Shift+Z | Rectangular / oval zoom |
 | P / K | Rectangular / oval pixelation |
 | L | Logo and operator |
 | Delete | Delete the selection (or the IN-OUT range) |
 | Esc | Cancel the drawing in progress |
 | Ctrl+Z / Ctrl+Y | Undo / redo |
-| Ctrl+N / Ctrl+O / Ctrl+S / Ctrl+Shift+S | New / open / save / save as |
+| Ctrl+N / Ctrl+O / Ctrl+S / Ctrl+Shift+S | New / open / save / save as (on the Images page: the image project) |
 | Ctrl+I | Import video |
+| Ctrl+V | Paste an image from the clipboard (Images page) |
 | Ctrl+E | Export MP4 |
 
 | Mouse | Where | Action |
@@ -442,14 +613,24 @@ offers to open the folder.
 | Shift+wheel, wheel over the names | Timeline | Scrolls audio and effects vertically |
 | Right button | Effect bar | Extend to cursor / stop at cursor |
 | Right button | Keyframe or point | Deletes |
+| Wheel / drag | Photo on the Images page | Zooms / moves the photo within its box |
+| Click on an empty box, dragged file | Images page | Loads a photo |
 
-## 18. The project file
+## 19. The project files
 
-The project is a JSON file with the clips, the audio tracks, the effects
-(with the tracking paths and the keyframes) and the paths of the files used.
-Videos, audio files and images are not copied into the project: leave them
-where they are until the work is finished. The exported video, on the other
-hand, is a self-contained MP4.
+The **video** project is a JSON file with the clips, the audio tracks, the
+effects (with the tracking paths and the keyframes) and the paths of the
+files used. Videos, audio files and images are not copied into the project:
+leave them where they are until the work is finished. The exported video, on
+the other hand, is a self-contained MP4.
+
+The **image** project is a JSON file (`kind: editsimple-images`) with the
+layout, the format, the caption, the boxes with their photo and the
+annotations, plus the `<name>_file` folder next to it with copies of the
+photos, of the overlaid images and of the logo: the project is
+self-contained and can be moved together with its folder. The values in the
+JSON (coordinates, colors, notes, point labels) can be edited with a text
+editor.
 
 ---
 

@@ -158,14 +158,58 @@ def render_oval(fx: dict) -> tuple[Image.Image, int, int]:
     return image, int(fx["x"]) - margin, int(fx["y"]) - margin
 
 
+# terminali della freccia: dove (heads) e di che forma (head)
+ARROW_HEADS = {"end": N_("Alla punta"), "start": N_("Alla coda"), "both": N_("Su entrambi i lati"),
+               "none": N_("Nessuno (solo linea)")}
+ARROW_TAILS = {"follow": N_("Si sposta con la punta"), "fixed": N_("Resta fissa dove l'hai disegnata")}
+HEAD_STYLES = {"triangle": N_("Freccia piena"), "open": N_("Freccia aperta"), "dot": N_("Pallino"),
+               "square": N_("Quadratino"), "bar": N_("Barra")}
+
+
+def _draw_head(draw, style: str, tip_x: float, tip_y: float, ux: float, uy: float, size: float, thick: float,
+               color) -> float:
+    """Disegna un terminale in (tip_x, tip_y), con la linea che arriva nella direzione (ux, uy).
+
+    Restituisce di quanto accorciare la linea (per non far sporgere il tratto oltre una punta piena).
+    """
+    px, py = -uy, ux                                  # perpendicolare
+    if style == "open":
+        hw = size * 0.55
+        bx, by = tip_x - ux * size, tip_y - uy * size
+        for sign in (1, -1):
+            draw.line((tip_x, tip_y, bx + px * hw * sign, by + py * hw * sign), fill=color, width=int(thick))
+        r = thick / 2
+        draw.ellipse((tip_x - r, tip_y - r, tip_x + r, tip_y + r), fill=color)
+        return 0.0
+    if style == "dot":
+        r = max(thick * 1.6, size * 0.38)
+        draw.ellipse((tip_x - r, tip_y - r, tip_x + r, tip_y + r), fill=color)
+        return 0.0
+    if style == "square":
+        r = max(thick * 1.5, size * 0.34)
+        corners = [(tip_x + (ux * a + px * b) * r, tip_y + (uy * a + py * b) * r) for a, b in ((1, 1), (1, -1), (-1, -1), (-1, 1))]
+        draw.polygon(corners, fill=color)
+        return 0.0
+    if style == "bar":
+        hw = max(thick * 2.0, size * 0.55)
+        draw.line((tip_x + px * hw, tip_y + py * hw, tip_x - px * hw, tip_y - py * hw), fill=color, width=int(thick))
+        return 0.0
+    hw = size * 0.55                                  # freccia piena (triangle)
+    bx, by = tip_x - ux * size, tip_y - uy * size
+    draw.polygon([(tip_x, tip_y), (bx + px * hw, by + py * hw), (bx - px * hw, by - py * hw)], fill=color)
+    return size - thick * 0.5
+
+
 def render_arrow(fx: dict) -> tuple[Image.Image, int, int]:
-    """Freccia da (x1, y1) a (x2, y2) con la punta in (x2, y2)."""
+    """Freccia da (x1, y1) a (x2, y2): terminali alla punta, alla coda, a entrambe o a nessuna (`heads`),
+    della forma `head` (freccia piena o aperta, pallino, quadratino, barra)."""
     x1, y1, x2, y2 = (float(fx[k]) for k in ("x1", "y1", "x2", "y2"))
     thick = max(1, int(fx.get("thickness", 6)))
     head = thick * 3 + 10
     margin = head + thick
     x0, y0 = int(math.floor(min(x1, x2))) - margin, int(math.floor(min(y1, y2))) - margin
-    key = _vector_key("arrow", fx, ("color", "thickness")) + f":{x1 - x0:.1f},{y1 - y0:.1f},{x2 - x0:.1f},{y2 - y0:.1f}"
+    key = _vector_key("arrow", fx, ("color", "thickness", "heads", "head")) + \
+        f":{x1 - x0:.1f},{y1 - y0:.1f},{x2 - x0:.1f},{y2 - y0:.1f}"
     hit = _cache.get(key)
     if hit is not None:
         return hit[0], x0, y0
@@ -180,18 +224,146 @@ def render_arrow(fx: dict) -> tuple[Image.Image, int, int]:
         draw.ellipse((bx - thick * SS, by - thick * SS, bx + thick * SS, by + thick * SS), fill=color)
     else:
         ux, uy = (bx - ax) / length, (by - ay) / length
-        hl = min(head * SS, length * 0.6)
-        tip_x, tip_y = bx, by
-        base_x, base_y = bx - ux * hl, by - uy * hl
-        draw.line((ax, ay, base_x + ux * thick * SS * 0.5, base_y + uy * thick * SS * 0.5),
+        heads = fx.get("heads") or "end"
+        style = fx.get("head") or "triangle"
+        size = min(head * SS, length * (0.6 if heads != "both" else 0.4))
+        cut_end = _draw_head(draw, style, bx, by, ux, uy, size, thick * SS, color) if heads in ("end", "both") else 0.0
+        cut_start = _draw_head(draw, style, ax, ay, -ux, -uy, size, thick * SS, color) if heads in ("start", "both") else 0.0
+        draw.line((ax + ux * cut_start, ay + uy * cut_start, bx - ux * cut_end, by - uy * cut_end),
                   fill=color, width=thick * SS)
-        draw.ellipse((ax - thick * SS / 2, ay - thick * SS / 2, ax + thick * SS / 2, ay + thick * SS / 2), fill=color)
-        hw = hl * 0.55
-        draw.polygon([(tip_x, tip_y), (base_x - uy * hw, base_y + ux * hw), (base_x + uy * hw, base_y - ux * hw)],
-                     fill=color)
+        for (ex, ey), cut in (((ax, ay), cut_start), ((bx, by), cut_end)):
+            if cut == 0.0:                      # estremo arrotondato dove non c'e' una punta piena
+                r = thick * SS / 2
+                draw.ellipse((ex - r, ey - r, ex + r, ey + r), fill=color)
     image = big.resize((w, h), Image.LANCZOS)
     _remember(key, image)
     return image, x0, y0
+
+
+# ----------------------------------------------------------- collegamento fra due punti
+
+def link_shapes(fx: dict) -> list[tuple[float, float, float, float]]:
+    """Le due forme del collegamento come (x, y, larghezza, altezza)."""
+    return [(float(fx["x1"]), float(fx["y1"]), float(fx["w1"]), float(fx["h1"])),
+            (float(fx["x2"]), float(fx["y2"]), float(fx["w2"]), float(fx["h2"]))]
+
+
+def _edge_point(shape: tuple[float, float, float, float], oval: bool, tx: float, ty: float) -> tuple[float, float]:
+    """Dove la linea dal centro della forma verso (tx, ty) ne attraversa il bordo."""
+    x, y, w, h = shape
+    cx, cy = x + w / 2, y + h / 2
+    dx, dy = tx - cx, ty - cy
+    if abs(dx) < 1e-6 and abs(dy) < 1e-6:
+        return cx, cy
+    if oval:
+        k = 1.0 / math.sqrt((dx / max(w / 2, 1e-6)) ** 2 + (dy / max(h / 2, 1e-6)) ** 2)
+    else:
+        k = min(w / 2 / abs(dx) if dx else math.inf, h / 2 / abs(dy) if dy else math.inf)
+    return cx + dx * k, cy + dy * k
+
+
+def render_link(fx: dict) -> tuple[Image.Image, int, int]:
+    """Due forme (rettangoli o ovali) unite da una linea che parte dai loro bordi."""
+    shapes = link_shapes(fx)
+    oval = fx.get("shape") == "oval"
+    thick = max(1, int(fx.get("thickness", 4)))
+    margin = thick * 2 + 2
+    x0 = int(math.floor(min(s[0] for s in shapes))) - margin
+    y0 = int(math.floor(min(s[1] for s in shapes))) - margin
+    x1 = int(math.ceil(max(s[0] + s[2] for s in shapes))) + margin
+    y1 = int(math.ceil(max(s[1] + s[3] for s in shapes))) + margin
+    key = _vector_key("link", fx, ("w1", "h1", "w2", "h2", "shape", "color", "thickness", "radius", "dashed")) + \
+        ":" + ",".join(f"{sx - x0:.1f},{sy - y0:.1f}" for sx, sy, _sw, _sh in shapes)
+    hit = _cache.get(key)
+    if hit is not None:
+        return hit[0], x0, y0
+    w, h = max(1, x1 - x0), max(1, y1 - y0)
+    big = Image.new("RGBA", (w * SS, h * SS), (0, 0, 0, 0))
+    draw = ImageDraw.Draw(big)
+    color = rgba(fx.get("color", "#FF3B30"))
+    local = [((sx - x0) * SS, (sy - y0) * SS, sw * SS, sh * SS) for sx, sy, sw, sh in shapes]
+    for sx, sy, sw, sh in local:
+        box = (sx, sy, sx + sw, sy + sh)
+        if oval:
+            draw.ellipse(box, outline=color, width=thick * SS)
+        else:
+            draw.rounded_rectangle(box, radius=round_px(sw, sh, fx.get("radius", 0)), outline=color, width=thick * SS)
+    (ax, ay, aw, ah), (bx, by, bw, bh) = local
+    c2 = (bx + bw / 2, by + bh / 2)
+    c1 = (ax + aw / 2, ay + ah / 2)
+    p1 = _edge_point(local[0], oval, *c2)
+    p2 = _edge_point(local[1], oval, *c1)
+    length = math.hypot(p2[0] - p1[0], p2[1] - p1[1])
+    if length > 1:
+        if fx.get("dashed"):
+            ux, uy = (p2[0] - p1[0]) / length, (p2[1] - p1[1]) / length
+            dash, gap, pos = thick * SS * 4, thick * SS * 3, 0.0
+            while pos < length:
+                end = min(length, pos + dash)
+                draw.line((p1[0] + ux * pos, p1[1] + uy * pos, p1[0] + ux * end, p1[1] + uy * end),
+                          fill=color, width=thick * SS)
+                pos = end + gap
+        else:
+            draw.line((*p1, *p2), fill=color, width=thick * SS)
+    image = big.resize((w, h), Image.LANCZOS)
+    _remember(key, image)
+    return image, x0, y0
+
+
+# ----------------------------------------------------------- punti numerati
+
+MARKER_STYLES = {"number": N_("Numeri (1, 2, 3)"), "letter": N_("Lettere (A, B, C)")}
+
+
+def next_label(style: str, last: str | None) -> str:
+    """L'etichetta che segue `last`: 1, 2, 3 ... oppure A, B ... Z, AA, AB (la prima se non ce n'e' una)."""
+    if style == "letter":
+        letters = "".join(ch for ch in str(last or "").upper() if "A" <= ch <= "Z")
+        n = 0
+        for ch in letters:
+            n = n * 26 + ord(ch) - 64
+        n += 1
+        out = ""
+        while n:
+            n, r = divmod(n - 1, 26)
+            out = chr(65 + r) + out
+        return out
+    digits = "".join(ch for ch in str(last or "") if ch.isdigit())
+    return str(int(digits) + 1 if digits else 1)
+
+
+def new_marker(effects: list[dict], style: str, x: float, y: float, height: int) -> dict:
+    """Valori di un nuovo punto centrato in (x, y): l'etichetta dopo l'ultimo punto dello stesso tipo
+    inserito, e misura e colori come quello."""
+    same = [e for e in effects if e.get("type") == "marker" and e.get("style", "number") == style]
+    last = same[-1] if same else {}
+    size = int(last.get("size") or max(28, height // 18))
+    return {"style": style, "label": next_label(style, last.get("label")), "size": size,
+            "bg_color": last.get("bg_color", "#FF3B30"), "color": last.get("color", "#FFFFFF"),
+            "ring": last.get("ring", True), "x": int(round(x - size / 2)), "y": int(round(y - size / 2))}
+
+
+def render_marker(fx: dict) -> tuple[Image.Image, int, int]:
+    """Cerchietto colorato con dentro il numero o la lettera; (x, y) e' l'angolo in alto a sinistra."""
+    size = max(8, int(fx.get("size", 48)))
+    key = _vector_key("marker", fx, ("size", "label", "bg_color", "color", "ring", "font"))
+    hit = _cache.get(key)
+    if hit is None:
+        big = Image.new("RGBA", (size * SS, size * SS), (0, 0, 0, 0))
+        draw = ImageDraw.Draw(big)
+        color = rgba(fx.get("color", "#FFFFFF"))
+        ring = max(1, size // 14) * SS if fx.get("ring", True) else 0
+        draw.ellipse((0, 0, size * SS - 1, size * SS - 1), fill=rgba(fx.get("bg_color", "#FF3B30")),
+                     outline=color if ring else None, width=ring)
+        label = str(fx.get("label") or "")
+        ratio = {1: 0.6, 2: 0.5, 3: 0.38}.get(len(label), 0.3)
+        font = fonts.load_font(fx.get("font") or fonts.default_font(), size * SS * ratio)
+        draw.text((size * SS / 2, size * SS / 2), label, font=font, fill=color, anchor="mm")
+        image = big.resize((size, size), Image.LANCZOS)
+        _remember(key, image)
+    else:
+        image = hit[0]
+    return image, int(round(fx["x"])), int(round(fx["y"]))
 
 
 # ----------------------------------------------------------- logo e testo dell'operatore
@@ -454,6 +626,10 @@ def _render_effect(fx: dict) -> tuple[Image.Image, int, int] | None:
         return render_oval(fx)
     if kind == "arrow":
         return render_arrow(fx)
+    if kind == "link":
+        return render_link(fx)
+    if kind == "marker":
+        return render_marker(fx)
     if kind == "logo":
         return render_logo(fx)
     if kind == "image":
@@ -461,7 +637,7 @@ def _render_effect(fx: dict) -> tuple[Image.Image, int, int] | None:
     return None
 
 
-STATIC_TYPES = ("text", "box", "oval", "arrow", "logo", "image")   # sovraimpressioni disegnate come immagini
+STATIC_TYPES = ("text", "box", "oval", "arrow", "link", "marker", "logo", "image")   # sovraimpressioni disegnate come immagini
 
 
 def anchor_of(fx: dict) -> tuple[float, float]:
@@ -493,6 +669,7 @@ def displaced(fx: dict, t: float) -> dict:
     con la sua scala; la geometria salvata corrisponde alla prima chiave.
     Riquadri, ovali e area dello zoom crescono e calano attorno al centro;
     il riquadro ingrandito dello zoom resta della sua misura (`iw`, `ih`).
+    La freccia si sposta intera, o solo con la punta se la coda e' fissa (`tail`).
     """
     keys = fx.get("track")
     if not keys or fx.get("type") == "pixelate":
@@ -504,9 +681,9 @@ def displaced(fx: dict, t: float) -> dict:
         return fx
     out = dict(fx)
     if fx.get("type") == "arrow":
-        for key in ("x1", "x2"):
+        for key in ("x1", "x2") if fx.get("tail") != "fixed" else ("x2",):
             out[key] = fx[key] + dx
-        for key in ("y1", "y2"):
+        for key in ("y1", "y2") if fx.get("tail") != "fixed" else ("y2",):
             out[key] = fx[key] + dy
     else:
         w0, h0 = float(fx.get("w", 0)), float(fx.get("h", 0))
@@ -531,6 +708,13 @@ def effect_bbox(fx: dict) -> tuple[float, float, float, float]:
     if kind == "arrow":
         return (min(fx["x1"], fx["x2"]), min(fx["y1"], fx["y2"]),
                 max(fx["x1"], fx["x2"]), max(fx["y1"], fx["y2"]))
+    if kind == "marker":
+        size = max(8, int(fx.get("size", 48)))
+        return fx["x"], fx["y"], fx["x"] + size, fx["y"] + size
+    if kind == "link":
+        shapes = link_shapes(fx)
+        return (min(s[0] for s in shapes), min(s[1] for s in shapes),
+                max(s[0] + s[2] for s in shapes), max(s[1] + s[3] for s in shapes))
     if kind == "pixelate":
         x, y = fx.get("x", 0), fx.get("y", 0)
         return x, y, x + fx["w"], y + fx["h"]
@@ -538,8 +722,8 @@ def effect_bbox(fx: dict) -> tuple[float, float, float, float]:
 
 
 def _remember(key: str, image: Image.Image) -> None:
-    if len(_cache) > 96:
-        _cache.clear()
+    while len(_cache) > 96:
+        del _cache[next(iter(_cache))]      # il disegno piu' vecchio
     _cache[key] = (image, 0, 0)
 
 
@@ -972,7 +1156,8 @@ def _scaled(fx: dict, scale: float) -> dict:
     if scale == 1.0:
         return fx
     out = dict(fx)
-    for key in ("x", "y", "w", "h", "iw", "ih", "bx", "by", "bw", "bh", "x1", "y1", "x2", "y2", "size", "thickness"):
+    for key in ("x", "y", "w", "h", "iw", "ih", "bx", "by", "bw", "bh", "x1", "y1", "x2", "y2", "w1", "h1", "w2", "h2",
+                "size", "thickness"):
         if key in out:
             out[key] = out[key] * scale
     if "block" in out:

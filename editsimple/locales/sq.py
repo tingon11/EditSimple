@@ -124,7 +124,6 @@ CATALOG: dict[str, str] = {
     "PROGETTO": "PROJEKTI",
     "nuovo": "i ri",
     "Nessun video": "Asnjë video",
-    "Montaggio": "Montazhi",
     "Configura": "Konfiguro",
     "Riproduci / pausa (Spazio)": "Luaj / pauzë (Hapësirë)",
     "larghezza logo % del video": "gjerësia e logos % e videos",
@@ -694,4 +693,217 @@ CATALOG: dict[str, str] = {
     "Impossibile leggere l'impronta SHA-256 di ffmpeg: {error}": 'Nuk mund të lexohet gjurma SHA-256 e ffmpeg: {error}',
     'Impronta SHA-256 di ffmpeg non valida.': 'Gjurmë SHA-256 e pavlefshme për ffmpeg.',
     "L'archivio di ffmpeg scaricato non corrisponde all'impronta SHA-256 pubblicata: non viene installato.": 'Arkivi i ffmpeg i shkarkuar nuk përputhet me gjurmën SHA-256 të publikuar: nuk instalohet.',
+    "Testo (T): clic dove metterlo": "Tekst (T): klikoni ku të vendoset",
+    "Immagine sopra il foglio, da spostare e ridimensionare": "Imazh mbi fletën, për ta lëvizur dhe ndryshuar përmasat",
+    "Logo e testo dell'operatore della Configurazione (L)": "Logoja dhe teksti i operatorit nga Konfigurimi (L)",
+    "Riquadro (R)": "Kornizë (R)",
+    "Ovale (E)": "Oval (E)",
+    "Freccia (A): dalla coda alla punta": "Shigjetë (A): nga bishti te maja",
+    "Zoom rettangolare (Z): l'area scelta in un riquadro ingrandito": "Zmadhim drejtkëndor (Z): zona e zgjedhur në një kornizë të zmadhuar",
+    "Zoom ovale (Maiusc+Z)": "Zmadhim oval (Shift+Z)",
+    "Pixelatura rettangolare (P)": "Pikselim drejtkëndor (P)",
+    "Pixelatura ovale (K)": "Pikselim oval (K)",
+    "Scegli un layout per cominciare": "Zgjidhni një paraqitje për të filluar",
+    "Layout": "Paraqitja",
+    "Scegli quante immagini e come disporle": "Zgjedh sa imazhe dhe si të vendosen",
+    "Carica": "Ngarko",
+    "Carica una o piu' immagini nel riquadro scelto e nei successivi vuoti": "Ngarkon një ose më shumë imazhe në kornizën e zgjedhur dhe në ato bosh që vijojnë",
+    "Annotazioni": "Shënime",
+    "Esporta immagine": "Eksporto imazhin",
+    "Salva il foglio in PNG o JPG": "Ruan fletën në PNG ose JPG",
+    "Copia": "Kopjo",
+    "Copia il foglio negli appunti, da incollare altrove": "Kopjon fletën në kujtesën e fragmenteve, për ta ngjitur gjetkë",
+    "Foglio": "Fleta",
+    "Spazio fra le immagini (px)": "Hapësira midis imazheve (px)",
+    "Colore del foglio": "Ngjyra e fletës",
+    "Cambia layout...": "Ndrysho paraqitjen...",
+    "Carica da file...": "Ngarko nga skedari...",
+    "Incolla dagli appunti (Ctrl+V)": "Ngjit nga kujtesa e fragmenteve (Ctrl+V)",
+    "Scegli il layout": "Zgjidhni paraqitjen",
+    "Carica immagini": "Ngarko imazhe",
+    "Negli appunti non c'e' un'immagine: copia uno screenshot o un file immagine.": "Në kujtesën e fragmenteve nuk ka imazh: kopjoni një pamje ekrani ose një skedar imazhi.",
+    "appunti": "kujtesa e fragmenteve",
+    "Misura": "Përmasat",
+    "Togli l'immagine": "Hiq imazhin",
+    "Il foglio e' vuoto: carica almeno un'immagine.": "Fleta është bosh: ngarkoni të paktën një imazh.",
+    "Impossibile copiare negli appunti.": "Kopjimi në kujtesën e fragmenteve nuk u arrit.",
+    "Quante immagini e come disporle: si puo' cambiare in ogni momento, le immagini gia' messe restano.": "Sa imazhe dhe si të vendosen: mund të ndryshohet në çdo kohë, imazhet e vendosura mbeten.",
+    "Layout: {name}. Clicca un riquadro, trascinaci un file o usa Ctrl+V.": "Paraqitja: {name}. Klikoni një kornizë, zvarritni aty një skedar ose përdorni Ctrl+V.",
+    "Immagine incollata nel riquadro {n}.": "Imazhi u ngjit në kornizën {n}.",
+    "Clicca un riquadro vuoto per caricare un'immagine, oppure trascinaci un file o incollala con Ctrl+V. Rotellina sull'immagine: ingrandisce; trascinandola: si sposta nel suo riquadro. Le annotazioni si aggiungono con gli strumenti in alto, come nel montaggio video. Esporta immagine salva il foglio in PNG o JPG.": "Klikoni një kornizë bosh për të ngarkuar një imazh, ose zvarritni aty një skedar ose ngjiteni me Ctrl+V. Rrotulla mbi imazh: e zmadhon; duke e zvarritur: lëviz brenda kornizës së vet. Shënimet shtohen me mjetet lart, si në montazhin e videos. Eksporto imazhin e ruan fletën në PNG ose JPG.",
+    "Rotellina sull'immagine: ingrandisce attorno al mouse. Trascinandola: si sposta nel suo riquadro. Adatta: tutta visibile; Riempi: copre tutto il riquadro.": "Rrotulla mbi imazh: e zmadhon rreth miut. Duke e zvarritur: lëviz brenda kornizës së vet. Përshtat: i dukshëm i tëri; Mbush: mbulon gjithë kornizën.",
+    "Immagine salvata: {path} ({width} x {height} px)": "Imazhi u ruajt: {path} ({width} x {height} px)",
+    "Riquadro {n}": "Korniza {n}",
+    "Formato del foglio": "Formati i fletës",
+    "Clicca per caricare un'immagine\noppure trascina qui un file\no incolla con Ctrl+V": "Klikoni për të ngarkuar një imazh\nose zvarritni këtu një skedar\nose ngjiteni me Ctrl+V",
+    "Questi file non si aprono come immagini:\n{files}": "Këta skedarë nuk hapen si imazhe:\n{files}",
+    "Adatta": "Përshtat",
+    "Riempi": "Mbush",
+    "Immagine PNG": "Imazh PNG",
+    "Immagine JPG": "Imazh JPG",
+    "Foglio copiato negli appunti ({width} x {height} px).": "Fleta u kopjua në kujtesën e fragmenteve ({width} x {height} px).",
+    "{count} immagini caricate.": "U ngarkuan {count} imazhe.",
+    "Immagine caricata: {name}": "Imazhi u ngarkua: {name}",
+    "Una immagine": "Një imazh",
+    "Affiancate": "Krah për krah",
+    "Una sopra l'altra": "Njëri mbi tjetrin",
+    "Tre in fila": "Tre në rresht",
+    "Tre in colonna": "Tre në kolonë",
+    "Una grande a sinistra": "Një i madh majtas",
+    "Una grande sopra": "Një i madh sipër",
+    "Griglia 2 x 2": "Rrjetë 2 x 2",
+    "Quattro in fila": "Katër në rresht",
+    "16:9 orizzontale": "16:9 horizontal",
+    "4:3": "4:3",
+    "Quadrato": "Katror",
+    "9:16 verticale": "9:16 vertikal",
+    "A4 verticale": "A4 vertikal",
+    'Collega':
+        'Lidh',
+    'Collega due punti con riquadri e una linea (C)':
+        'Lidhni dy pika me korniza dhe një vijë (C)',
+    'Collega due punti con ovali e una linea (Maiusc+C)':
+        'Lidhni dy pika me ovale dhe një vijë (Shift+C)',
+    'Alla punta':
+        'Te maja',
+    'Alla coda':
+        'Te bishti',
+    'Su entrambi i lati':
+        'Në të dy anët',
+    'Nessuno (solo linea)':
+        'Asnjë (vetëm vijë)',
+    'Freccia piena':
+        'Majë e plotë',
+    'Freccia aperta':
+        'Majë e hapur',
+    'Pallino':
+        'Pikë',
+    'Quadratino':
+        'Katror i vogël',
+    'Barra':
+        'Vizë',
+    'Terminali':
+        'Skajet',
+    'Tipo di terminale':
+        'Lloji i skajit',
+    'Collegamento':
+        'Lidhje',
+    'Rettangoli':
+        'Drejtkëndësha',
+    'Ovali':
+        'Ovale',
+    'Angoli (rettangoli)':
+        'Qoshet (drejtkëndëshat)',
+    'Linea tratteggiata':
+        'Vijë me ndërprerje',
+    "Due punti uniti da una linea, anche su due immagini diverse: ognuno segue la sua. Sull'anteprima: trascina una forma per spostarla, dagli angoli per ridimensionarla, la linea per spostare tutto.":
+        "Dy pika të bashkuara me një vijë, edhe në dy imazhe të ndryshme: secila ndjek të vetin. Në parapamje: zvarritni një formë për ta lëvizur, qoshet për t'i ndryshuar madhësinë, vijën për të lëvizur gjithçka.",
+    'Clicca (o trascina) sul primo punto da collegare':
+        "Klikoni (ose zvarritni) në pikën e parë për t'u lidhur",
+    "Clicca (o trascina) sul secondo punto: verra' unito al primo da una linea":
+        'Klikoni (ose zvarritni) në pikën e dytë: do të bashkohet me të parën me një vijë',
+    'Numeri':
+        'Numra',
+    'Lettere':
+        'Shkronja',
+    'Apri un progetto di immagini salvato (Ctrl+O)':
+        'Hapni një projekt imazhesh të ruajtur (Ctrl+O)',
+    'Salva il progetto: un file JSON e una cartella con le immagini, modificabili (Ctrl+S; Ctrl+Maiusc+S: salva con nome)':
+        'Ruani projektin: një skedar JSON dhe një dosje me imazhet, të modifikueshme (Ctrl+S; Ctrl+Shift+S: ruaj si)',
+    'Word':
+        'Word',
+    'Immagini non salvate':
+        'Imazhe të paruajtura',
+    'Salvare le modifiche al progetto di immagini?':
+        'Të ruhen ndryshimet në projektin e imazheve?',
+    'Punti numerati':
+        'Pika të numëruara',
+    'Figura':
+        'Figura',
+    'Apri progetto di immagini':
+        'Hapni projektin e imazheve',
+    '(nessuna nota)':
+        '(pa shënim)',
+    'Salva progetto di immagini':
+        'Ruani projektin e imazheve',
+    'Progetto salvato: {path} (con la cartella {folder})':
+        'Projekti u ruajt: {path} (me dosjen {folder})',
+    'Progetto aperto: {path}':
+        'Projekti u hap: {path}',
+    'Progetto immagini EditSimple (JSON)':
+        'Projekt imazhesh EditSimple (JSON)',
+    'Numeri (1, 2, 3)':
+        'Numra (1, 2, 3)',
+    'Lettere (A, B, C)':
+        'Shkronja (A, B, C)',
+    'Numero o lettera':
+        'Numër ose shkronjë',
+    'Numerazione':
+        'Numërimi',
+    'Diametro (px)':
+        'Diametri (px)',
+    'Bordo del colore del testo':
+        'Kornizë me ngjyrën e tekstit',
+    'Punto {label}':
+        'Pika {label}',
+    "Ogni nuovo punto prende il numero (o la lettera) dopo l'ultimo inserito. Le note vanno nella didascalia dell'immagine con il pulsante Word.":
+        'Çdo pikë e re merr numrin (ose shkronjën) pas së fundit të shtuar. Shënimet shkojnë në mbishkrimin e imazhit me butonin Word.',
+    'Nota':
+        'Shënim',
+    'Punto numerato':
+        'Pikë e numëruar',
+    'Esporta':
+        'Eksporto',
+    "Inserisce l'immagine con la didascalia (i punti numerati e le loro note) nel documento Word aperto, dove c'e' il cursore":
+        'Fut imazhin me mbishkrimin (pikat e numëruara dhe shënimet e tyre) në dokumentin Word të hapur, aty ku është kursori',
+    'Inserimento in Word...':
+        'Duke futur në Word...',
+    'Inserita in Word ({document}): {caption}':
+        'U fut në Word ({document}): {caption}',
+    'Word non risponde ({error}): immagine e didascalia copiate negli appunti, da incollare in Word.':
+        "Word nuk përgjigjet ({error}): imazhi dhe mbishkrimi u kopjuan në kujtesën e fragmenteve, për t'i ngjitur në Word.",
+    'Punto numerato 1, 2, 3 (N): clic dove metterlo, il prossimo prende il numero dopo':
+        'Pikë e numëruar 1, 2, 3 (N): klikoni ku ta vendosni, e radhës merr numrin pasardhës',
+    'Punto con lettera A, B, C (Maiusc+N): clic dove metterlo, il prossimo prende la lettera dopo':
+        'Pikë me shkronjë A, B, C (Shift+N): klikoni ku ta vendosni, e radhës merr shkronjën pasardhëse',
+    "Trascina un rettangolo attorno al soggetto: il punto lo seguira' restandogli accanto.":
+        'Zvarritni një drejtkëndësh rreth subjektit: pika do ta ndjekë duke qëndruar pranë tij.',
+    'soggetto del punto':
+        'subjekti i pikës',
+    "Si disegna un rettangolo attorno al soggetto: il punto lo segue nei fotogrammi successivi restandogli accanto; quando esce dall'inquadratura l'effetto finisce.":
+        'Vizatohet një drejtkëndësh rreth subjektit: pika e ndjek në kuadrot pasardhëse duke qëndruar pranë tij; kur del nga kuadri, efekti përfundon.',
+    "Ogni nuovo punto prende il numero (o la lettera) dopo l'ultimo inserito.":
+        'Çdo pikë e re merr numrin (ose shkronjën) pas së fundit të shtuar.',
+    'Clicca dove mettere il punto':
+        'Klikoni ku të vendoset pika',
+    'Trascina un rettangolo attorno al soggetto che il punto deve seguire':
+        'Zvarritni një drejtkëndësh rreth subjektit që duhet të ndjekë pika',
+    "; soggetto perso da {time}: la figura resta ferma li' fino alla fine":
+        '; subjekti humbi nga {time}: figura qëndron e palëvizur aty deri në fund',
+    'Didascalia per Word':
+        'Mbishkrim për Word',
+    'Va subito dopo "Figura N :" nella didascalia che il pulsante Word inserisce; dopo vengono le note dei punti numerati.':
+        'Vjen menjëherë pas "Figura N :" në mbishkrimin që fut butoni Word; pas tij vijnë shënimet e pikave të numëruara.',
+    'Coda':
+        'Bishti',
+    'Si sposta con la punta':
+        'Lëviz bashkë me majën',
+    "Resta fissa dove l'hai disegnata":
+        'Qëndron i fiksuar aty ku e vizatuat',
+    'coda fissa':
+        'bisht i fiksuar',
+    'Didascalia':
+        'Mbishkrim',
+    'Scrive o cambia il testo della didascalia per Word (quello dopo "Figura N :")':
+        'Shkruan ose ndryshon tekstin e mbishkrimit për Word (atë pas "Figura N :")',
+    'Manuale':
+        'Manuali',
+    "Manuale d'uso":
+        'Manuali i përdorimit',
+    'Indice':
+        'Përmbajtja',
+    "Il manuale non e' incluso in questa copia del programma.":
+        'Manuali nuk është përfshirë në këtë kopje të programit.',
+    'Si legge in linea su GitHub:':
+        'Lexohet online në GitHub:',
 }

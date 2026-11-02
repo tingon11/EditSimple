@@ -110,7 +110,6 @@ CATALOG: dict[str, str] = {
     "PROGETTO": "PROJECT",
     "nuovo": "new",
     "Nessun video": "No video",
-    "Montaggio": "Editing",
     "Configura": "Configure",
     "Riproduci / pausa (Spazio)": "Play / pause (Space)",
     "larghezza logo % del video": "logo width % of the video",
@@ -612,4 +611,217 @@ CATALOG: dict[str, str] = {
     "Impossibile leggere l'impronta SHA-256 di ffmpeg: {error}": 'Cannot read the SHA-256 fingerprint of ffmpeg: {error}',
     'Impronta SHA-256 di ffmpeg non valida.': 'Invalid SHA-256 fingerprint for ffmpeg.',
     "L'archivio di ffmpeg scaricato non corrisponde all'impronta SHA-256 pubblicata: non viene installato.": 'The downloaded ffmpeg archive does not match the published SHA-256 fingerprint: it is not installed.',
+    "Testo (T): clic dove metterlo": "Text (T): click where to put it",
+    "Immagine sopra il foglio, da spostare e ridimensionare": "Image over the sheet, to move and resize",
+    "Logo e testo dell'operatore della Configurazione (L)": "Operator logo and text from the Configuration (L)",
+    "Riquadro (R)": "Box (R)",
+    "Ovale (E)": "Oval (E)",
+    "Freccia (A): dalla coda alla punta": "Arrow (A): from tail to tip",
+    "Zoom rettangolare (Z): l'area scelta in un riquadro ingrandito": "Rectangular zoom (Z): the chosen area in a magnified box",
+    "Zoom ovale (Maiusc+Z)": "Oval zoom (Shift+Z)",
+    "Pixelatura rettangolare (P)": "Rectangular pixelation (P)",
+    "Pixelatura ovale (K)": "Oval pixelation (K)",
+    "Scegli un layout per cominciare": "Choose a layout to start",
+    "Layout": "Layout",
+    "Scegli quante immagini e come disporle": "Choose how many images and how to arrange them",
+    "Carica": "Load",
+    "Carica una o piu' immagini nel riquadro scelto e nei successivi vuoti": "Load one or more images into the chosen box and the next empty ones",
+    "Annotazioni": "Annotations",
+    "Esporta immagine": "Export image",
+    "Salva il foglio in PNG o JPG": "Save the sheet as PNG or JPG",
+    "Copia": "Copy",
+    "Copia il foglio negli appunti, da incollare altrove": "Copy the sheet to the clipboard, to paste it elsewhere",
+    "Foglio": "Sheet",
+    "Spazio fra le immagini (px)": "Space between images (px)",
+    "Colore del foglio": "Sheet color",
+    "Cambia layout...": "Change layout...",
+    "Carica da file...": "Load from file...",
+    "Incolla dagli appunti (Ctrl+V)": "Paste from clipboard (Ctrl+V)",
+    "Scegli il layout": "Choose the layout",
+    "Carica immagini": "Load images",
+    "Negli appunti non c'e' un'immagine: copia uno screenshot o un file immagine.": "There is no image in the clipboard: copy a screenshot or an image file.",
+    "appunti": "clipboard",
+    "Misura": "Size",
+    "Togli l'immagine": "Remove the image",
+    "Il foglio e' vuoto: carica almeno un'immagine.": "The sheet is empty: load at least one image.",
+    "Impossibile copiare negli appunti.": "Cannot copy to the clipboard.",
+    "Quante immagini e come disporle: si puo' cambiare in ogni momento, le immagini gia' messe restano.": "How many images and how to arrange them: you can change it at any time, the images already placed stay.",
+    "Layout: {name}. Clicca un riquadro, trascinaci un file o usa Ctrl+V.": "Layout: {name}. Click a box, drag a file onto it or use Ctrl+V.",
+    "Immagine incollata nel riquadro {n}.": "Image pasted into box {n}.",
+    "Clicca un riquadro vuoto per caricare un'immagine, oppure trascinaci un file o incollala con Ctrl+V. Rotellina sull'immagine: ingrandisce; trascinandola: si sposta nel suo riquadro. Le annotazioni si aggiungono con gli strumenti in alto, come nel montaggio video. Esporta immagine salva il foglio in PNG o JPG.": "Click an empty box to load an image, or drag a file onto it or paste it with Ctrl+V. Wheel on the image: zooms in; dragging it: moves it within its box. Annotations are added with the tools at the top, as in video editing. Export image saves the sheet as PNG or JPG.",
+    "Rotellina sull'immagine: ingrandisce attorno al mouse. Trascinandola: si sposta nel suo riquadro. Adatta: tutta visibile; Riempi: copre tutto il riquadro.": "Wheel on the image: zooms around the mouse. Dragging it: moves it within its box. Fit: fully visible; Fill: covers the whole box.",
+    "Immagine salvata: {path} ({width} x {height} px)": "Image saved: {path} ({width} x {height} px)",
+    "Riquadro {n}": "Box {n}",
+    "Formato del foglio": "Sheet format",
+    "Clicca per caricare un'immagine\noppure trascina qui un file\no incolla con Ctrl+V": "Click to load an image\nor drag a file here\nor paste with Ctrl+V",
+    "Questi file non si aprono come immagini:\n{files}": "These files cannot be opened as images:\n{files}",
+    "Adatta": "Fit",
+    "Riempi": "Fill",
+    "Immagine PNG": "PNG image",
+    "Immagine JPG": "JPG image",
+    "Foglio copiato negli appunti ({width} x {height} px).": "Sheet copied to the clipboard ({width} x {height} px).",
+    "{count} immagini caricate.": "{count} images loaded.",
+    "Immagine caricata: {name}": "Image loaded: {name}",
+    "Una immagine": "One image",
+    "Affiancate": "Side by side",
+    "Una sopra l'altra": "One above the other",
+    "Tre in fila": "Three in a row",
+    "Tre in colonna": "Three in a column",
+    "Una grande a sinistra": "One large on the left",
+    "Una grande sopra": "One large on top",
+    "Griglia 2 x 2": "Grid 2 x 2",
+    "Quattro in fila": "Four in a row",
+    "16:9 orizzontale": "16:9 landscape",
+    "4:3": "4:3",
+    "Quadrato": "Square",
+    "9:16 verticale": "9:16 portrait",
+    "A4 verticale": "A4 portrait",
+    'Collega':
+        'Link',
+    'Collega due punti con riquadri e una linea (C)':
+        'Link two points with boxes and a line (C)',
+    'Collega due punti con ovali e una linea (Maiusc+C)':
+        'Link two points with ovals and a line (Shift+C)',
+    'Alla punta':
+        'At the tip',
+    'Alla coda':
+        'At the tail',
+    'Su entrambi i lati':
+        'On both ends',
+    'Nessuno (solo linea)':
+        'None (line only)',
+    'Freccia piena':
+        'Solid arrowhead',
+    'Freccia aperta':
+        'Open arrowhead',
+    'Pallino':
+        'Dot',
+    'Quadratino':
+        'Small square',
+    'Barra':
+        'Bar',
+    'Terminali':
+        'Ends',
+    'Tipo di terminale':
+        'End style',
+    'Collegamento':
+        'Link',
+    'Rettangoli':
+        'Rectangles',
+    'Ovali':
+        'Ovals',
+    'Angoli (rettangoli)':
+        'Corners (rectangles)',
+    'Linea tratteggiata':
+        'Dashed line',
+    "Due punti uniti da una linea, anche su due immagini diverse: ognuno segue la sua. Sull'anteprima: trascina una forma per spostarla, dagli angoli per ridimensionarla, la linea per spostare tutto.":
+        'Two points joined by a line, even on two different images: each one follows its own. In the preview: drag a shape to move it, its corners to resize it, the line to move everything.',
+    'Clicca (o trascina) sul primo punto da collegare':
+        'Click (or drag) on the first point to link',
+    "Clicca (o trascina) sul secondo punto: verra' unito al primo da una linea":
+        'Click (or drag) on the second point: it will be joined to the first by a line',
+    'Numeri':
+        'Numbers',
+    'Lettere':
+        'Letters',
+    'Apri un progetto di immagini salvato (Ctrl+O)':
+        'Open a saved image project (Ctrl+O)',
+    'Salva il progetto: un file JSON e una cartella con le immagini, modificabili (Ctrl+S; Ctrl+Maiusc+S: salva con nome)':
+        'Save the project: a JSON file and a folder with the images, both editable (Ctrl+S; Ctrl+Shift+S: save as)',
+    'Word':
+        'Word',
+    'Immagini non salvate':
+        'Images not saved',
+    'Salvare le modifiche al progetto di immagini?':
+        'Save the changes to the image project?',
+    'Punti numerati':
+        'Numbered points',
+    'Figura':
+        'Figure',
+    'Apri progetto di immagini':
+        'Open image project',
+    '(nessuna nota)':
+        '(no note)',
+    'Salva progetto di immagini':
+        'Save image project',
+    'Progetto salvato: {path} (con la cartella {folder})':
+        'Project saved: {path} (with the folder {folder})',
+    'Progetto aperto: {path}':
+        'Project opened: {path}',
+    'Progetto immagini EditSimple (JSON)':
+        'EditSimple image project (JSON)',
+    'Numeri (1, 2, 3)':
+        'Numbers (1, 2, 3)',
+    'Lettere (A, B, C)':
+        'Letters (A, B, C)',
+    'Numero o lettera':
+        'Number or letter',
+    'Numerazione':
+        'Numbering',
+    'Diametro (px)':
+        'Diameter (px)',
+    'Bordo del colore del testo':
+        'Border in the text colour',
+    'Punto {label}':
+        'Point {label}',
+    "Ogni nuovo punto prende il numero (o la lettera) dopo l'ultimo inserito. Le note vanno nella didascalia dell'immagine con il pulsante Word.":
+        'Each new point takes the number (or letter) after the last one added. The notes go into the image caption with the Word button.',
+    'Nota':
+        'Note',
+    'Punto numerato':
+        'Numbered point',
+    'Esporta':
+        'Export',
+    "Inserisce l'immagine con la didascalia (i punti numerati e le loro note) nel documento Word aperto, dove c'e' il cursore":
+        'Inserts the image with its caption (the numbered points and their notes) into the open Word document, at the cursor',
+    'Inserimento in Word...':
+        'Inserting into Word...',
+    'Inserita in Word ({document}): {caption}':
+        'Inserted into Word ({document}): {caption}',
+    'Word non risponde ({error}): immagine e didascalia copiate negli appunti, da incollare in Word.':
+        'Word is not responding ({error}): image and caption copied to the clipboard, to paste into Word.',
+    'Punto numerato 1, 2, 3 (N): clic dove metterlo, il prossimo prende il numero dopo':
+        'Numbered point 1, 2, 3 (N): click where to place it, the next one takes the following number',
+    'Punto con lettera A, B, C (Maiusc+N): clic dove metterlo, il prossimo prende la lettera dopo':
+        'Point with letter A, B, C (Shift+N): click where to place it, the next one takes the following letter',
+    "Trascina un rettangolo attorno al soggetto: il punto lo seguira' restandogli accanto.":
+        'Drag a rectangle around the subject: the point will follow it, staying beside it.',
+    'soggetto del punto':
+        'subject of the point',
+    "Si disegna un rettangolo attorno al soggetto: il punto lo segue nei fotogrammi successivi restandogli accanto; quando esce dall'inquadratura l'effetto finisce.":
+        'Draw a rectangle around the subject: the point follows it in the next frames, staying beside it; when it leaves the frame the effect ends.',
+    "Ogni nuovo punto prende il numero (o la lettera) dopo l'ultimo inserito.":
+        'Each new point takes the number (or letter) after the last one added.',
+    'Clicca dove mettere il punto':
+        'Click where to place the point',
+    'Trascina un rettangolo attorno al soggetto che il punto deve seguire':
+        'Drag a rectangle around the subject the point must follow',
+    "; soggetto perso da {time}: la figura resta ferma li' fino alla fine":
+        '; subject lost from {time}: the figure stays still there until the end',
+    'Didascalia per Word':
+        'Caption for Word',
+    'Va subito dopo "Figura N :" nella didascalia che il pulsante Word inserisce; dopo vengono le note dei punti numerati.':
+        'Goes right after "Figure N :" in the caption the Word button inserts; the notes of the numbered points follow it.',
+    'Coda':
+        'Tail',
+    'Si sposta con la punta':
+        'Moves with the tip',
+    "Resta fissa dove l'hai disegnata":
+        'Stays fixed where you drew it',
+    'coda fissa':
+        'fixed tail',
+    'Didascalia':
+        'Caption',
+    'Scrive o cambia il testo della didascalia per Word (quello dopo "Figura N :")':
+        'Writes or changes the caption text for Word (the part after "Figure N :")',
+    'Manuale':
+        'Manual',
+    "Manuale d'uso":
+        'User manual',
+    'Indice':
+        'Contents',
+    "Il manuale non e' incluso in questa copia del programma.":
+        'The manual is not included in this copy of the program.',
+    'Si legge in linea su GitHub:':
+        'It can be read online on GitHub:',
 }

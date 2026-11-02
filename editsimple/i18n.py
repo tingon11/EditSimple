@@ -42,6 +42,13 @@ class Text(str):
         self.values = values or {}
         return self
 
+    # immutabile come una stringa: una copia (anche profonda, per l'annulla) e' l'oggetto stesso
+    def __copy__(self) -> Text:
+        return self
+
+    def __deepcopy__(self, memo) -> Text:
+        return self
+
     def format(self, *args, **values) -> Text:
         return Text(super().format(*args, **values), self.msgid, args, values)
 

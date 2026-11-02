@@ -6,22 +6,28 @@ EditSimple è un programma di montaggio video pensato per chi deve **spiegare
 un fatto o mostrare un'evidenza** in un video: un passaggio di mano in mezzo
 alla folla, un veicolo che arriva, una persona da seguire o da rendere
 irriconoscibile. Si importa il filmato, si indica ciò che conta e il
-programma fa il resto: le frecce, i riquadri, gli zoom e le pixelature
-**seguono da soli il soggetto** nei fotogrammi successivi, e dove
+programma fa il resto: le frecce, i riquadri, i punti numerati, gli zoom e le
+pixelature **seguono da soli il soggetto** nei fotogrammi successivi, e dove
 l'inseguimento sbaglia basta trascinare la figura al posto giusto per
 correggerlo. In pochi minuti si ottiene un MP4 pronto da proiettare o da
 allegare, con slide di apertura e di chiusura, testi, logo e firma
 dell'operatore.
 
+La pagina **Immagini** fa lo stesso lavoro sulle fotografie: una o più foto
+su un foglio, le stesse annotazioni, i punti numerati con le note e un
+pulsante che **inserisce la figura con la didascalia direttamente in Word**.
+
 *Andrea Cumini — www.osintinfo.net — andrea@osintinfo.net*
 *EditSimple fa parte degli strumenti di [Seity](https://www.seity.com).*
 
-> **Premessa sul video di esempio.** Le immagini di questo manuale usano un
-> video di archivio pubblicato su Pexels: una via pedonale con normali
+> **Premessa sul materiale di esempio.** Le immagini di questo manuale usano
+> un video di archivio pubblicato su Pexels: una via pedonale con normali
 > passanti. **Le persone che compaiono non stanno facendo nulla di male**:
 > le frecce, i riquadri, gli zoom e le pixelature messi su di loro servono
 > solo a mostrare come funziona il programma, e i soggetti sono stati scelti a
-> caso.
+> caso. Le due fotografie della pagina Immagini sono di
+> [Andrea Dalle Piatte](https://www.pexels.com/it-it/@andreadallepiatte/),
+> pubblicate su Pexels.
 
 ## Indice
 
@@ -40,16 +46,19 @@ dell'operatore.
 13. [Transizioni](#13-transizioni)
 14. [Audio](#14-audio)
 15. [Esportare il video](#15-esportare-il-video)
-16. [Consigli per un buon risultato](#16-consigli-per-un-buon-risultato)
-17. [Scorciatoie da tastiera e mouse](#17-scorciatoie-da-tastiera-e-mouse)
-18. [Il file di progetto](#18-il-file-di-progetto)
+16. [La pagina Immagini](#16-la-pagina-immagini)
+17. [Consigli per un buon risultato](#17-consigli-per-un-buon-risultato)
+18. [Scorciatoie da tastiera e mouse](#18-scorciatoie-da-tastiera-e-mouse)
+19. [I file di progetto](#19-i-file-di-progetto)
 
 ## 1. Che cosa si può fare
 
 | Funzione | In breve |
 | --- | --- |
-| **Inseguimento del soggetto** | Riquadri, ovali, frecce, zoom e pixelature seguono una persona, un volto, un oggetto o un veicolo; crescono e calano con lui se si avvicina o si allontana dalla camera; finiscono da soli quando esce dall'inquadratura. |
+| **Inseguimento del soggetto** | Riquadri, ovali, frecce, punti numerati, zoom e pixelature seguono una persona, un volto, un oggetto o un veicolo; crescono e calano con lui se si avvicina o si allontana dalla camera; finiscono da soli quando esce dall'inquadratura. |
 | **Keyframe di correzione** | Dove l'inseguimento sbaglia (un palo, una persona che passa davanti) si trascina la figura sul soggetto: il programma corregge il percorso prima e dopo quel punto. |
+| **Frecce** | Terminali alla punta, alla coda, su entrambi i lati o nessuno; freccia piena o aperta, pallino, quadratino, barra. Nel video la coda può **restare fissa** mentre la punta segue il soggetto. |
+| **Punti numerati** | Cerchietti con un numero (1, 2, 3) o una lettera (A, B, C), sempre il successivo dell'ultimo messo; seguono il soggetto nel video; nelle immagini hanno una nota che finisce nella didascalia. |
 | **Zoom** | Un dettaglio piccolo (le mani, una targa) ingrandito da 2x a 16x in un riquadro, con contorno e linea che lo collegano all'oggetto. Rettangolare od ovale. |
 | **Pixelatura** | Rettangolare od ovale, per volti e targhe; segue il soggetto e cresce con lui. |
 | **Testi e immagini** | Testi su più righe con sfondo e angoli arrotondati; immagini sovrapposte (un fotogramma, una mappa, un documento). |
@@ -62,7 +71,8 @@ dell'operatore.
 | **Audio** | Tracce aggiunte (commento, musica) con volume e dissolvenze; audio originale con volume, dissolvenze ed eliminazione di singoli tratti. |
 | **Anteprima** | Riproduzione con audio, all'indietro, fotogramma per fotogramma; anteprima ingrandibile e **staccabile** in una finestra a parte. |
 | **Esportazione** | MP4 (H.264 + AAC) identico all'anteprima. |
-| **Lingue** | Interfaccia in 9 lingue, cambiabile senza riavviare. |
+| **Immagini** | Una o più foto su un foglio (fino a quattro, undici disposizioni, cinque formati), le stesse annotazioni del video più il **collegamento** fra due punti, i punti numerati con le note, la didascalia e il pulsante **Word**; progetto salvato in un JSON modificabile; foglio esportato in PNG o JPG o copiato negli appunti. |
+| **Lingue e manuale** | Interfaccia in 9 lingue, cambiabile senza riavviare; questo manuale si apre dentro il programma, nella lingua scelta. |
 
 ## 2. Installazione e primo avvio
 
@@ -90,12 +100,15 @@ dopo un ostacolo. Senza, l'inseguimento funziona lo stesso.
 
 ![La finestra di EditSimple](images/it/01_start.webp)
 
+- **Barra a sinistra**, con le pagine: **Video** (il montaggio), **Immagini**
+  (le fotografie, capitolo 16), **Configura** e **Manuale**, che apre questo
+  manuale in una finestra a parte, nella lingua dell'interfaccia.
 - **Barra degli strumenti**, in quattro gruppi: *Progetto* (nuovo, apri, salva,
   annulla, ripeti), *Clip* (importa video, audio, taglia, elimina, fermo
   immagine, slide, velocità), *Sovraimpressioni* (testo, immagine, logo, tempo,
-  fotogrammi, riquadro, ovale, freccia, zoom rettangolare e ovale, pixel
-  rettangolare e ovale) e *Uscita* (esporta MP4). Ogni pulsante ha un
-  suggerimento con la sua scorciatoia.
+  fotogrammi, riquadro, ovale, freccia, numeri, lettere, zoom rettangolare e
+  ovale, pixel rettangolare e ovale) e *Uscita* (esporta MP4). Ogni pulsante
+  ha un suggerimento con la sua scorciatoia.
 - **Anteprima**, al centro: mostra il fotogramma al cursore con tutti gli
   effetti, esattamente come nel video esportato. Sopra si disegnano e si
   spostano gli effetti.
@@ -106,7 +119,14 @@ dopo un ostacolo. Senza, l'inseguimento funziona lo stesso.
   tempo del cursore (si può scrivere); IN, OUT e la cancellazione dei segni;
   a destra lo zoom della timeline.
 - **Timeline**, in basso: righello, traccia **Video** a pellicola, **Audio
-  originale**, tracce audio aggiunte ed **Effetti**.
+  originale**, tracce audio aggiunte ed **Effetti**, uno per riga.
+
+![Il manuale si apre dentro il programma, con l'indice a sinistra e la scelta della lingua](images/it/34_manual.webp)
+
+La finestra del **Manuale** ha l'indice dei capitoli a sinistra (un clic porta
+al capitolo) e in alto il menu della lingua; i link del testo funzionano, e le
+immagini sono quelle di queste pagine. Il manuale cambia lingua insieme
+all'interfaccia.
 
 ## 4. Pagina Configura
 
@@ -123,7 +143,7 @@ Si apre dalla barra a sinistra. Contiene:
   JPG), il testo (nome, ente, sito), la larghezza del logo, l'altezza del
   testo, la distanza dai bordi, l'angolo, la disposizione, i colori e uno
   sfondo con opacità e angoli arrotondati. Si preparano una volta; poi il
-  pulsante **Logo** li mette nel video.
+  pulsante **Logo** li mette nel video (e nel foglio delle immagini).
 
 ![Configura: angoli arrotondati, lingua e crediti](images/it/03_settings_more.webp)
 
@@ -140,8 +160,9 @@ L'esempio di questo capitolo è un video di 19 secondi girato in una via
 pedonale affollata (vedi la premessa: i passanti non fanno nulla di male).
 In pochi passi lo arricchiamo: il logo e il sito dell'operatore in basso, uno
 zoom sulle mani di un uomo che segue i suoi movimenti, una freccia che indica
-una persona per 12 secondi, due riquadri su altre persone e la pixelatura di
-un volto alla fine.
+una persona per 12 secondi, due riquadri su altre persone, la pixelatura di
+un volto alla fine, un punto numerato che segue una persona e una freccia
+con la coda fissa che indica un telefono per tutto il video.
 
 ### 5.1 Importare il video
 
@@ -202,6 +223,11 @@ tenendo la punta su di lui.
 Nella timeline la barra della freccia mostra *(segue)* e i rombi dei keyframe
 con cui abbiamo corretto il percorso (vedi il capitolo 6).
 
+Nel pannello della freccia si scelgono anche i **Terminali** (alla punta,
+alla coda, su entrambi i lati, nessuno: solo la linea) e il **Tipo di
+terminale**: freccia piena, freccia aperta, pallino, quadratino o barra. Con
+due terminali la freccia indica un collegamento fra due cose.
+
 ### 5.5 Riquadri sulle persone
 
 ![Riquadro: Segui il soggetto](images/it/11_box.webp)
@@ -223,6 +249,36 @@ finestra chiede fino a quando inseguirlo e la grandezza dei pixel.
 La pixelatura segue il volto e **cresce quando si avvicina** alla camera, così
 lo copre sempre. Se il soggetto esce dall'inquadratura la pixelatura lo
 accompagna finché è uscito del tutto: nessun fotogramma resta scoperto.
+
+### 5.7 Un punto numerato che segue una persona
+
+![Punto numerato (lettera A) che segue una persona](images/it/31_marker_video.webp)
+
+**Numeri** (N) e **Lettere** (Maiusc+N) mettono un **punto numerato**: un
+cerchietto con dentro un numero (1, 2, 3...) o una lettera maiuscola (A, B,
+C...). Si preme il pulsante e si fa un clic dove va il punto; **ogni punto
+vuole un nuovo clic sul pulsante**, e prende sempre il numero o la lettera
+dopo l'ultimo messo (dopo Z viene AA). Nel pannello si cambiano il numero o
+la lettera, il diametro, il colore del cerchio e del testo, l'anello bianco e
+l'opacità.
+
+Come le altre figure, il punto **segue il soggetto**: *Segui il soggetto* e
+un rettangolo attorno alla persona. Nel video i punti non hanno note; servono
+per richiamare nel parlato o in una slide "la persona A", "l'oggetto 2".
+
+### 5.8 Una freccia con la coda fissa
+
+![Freccia con la coda fissa: la punta segue il telefono, la coda resta accanto al testo](images/it/32_arrow_tail.webp)
+
+Una freccia che segue un soggetto, di norma, si sposta tutta intera. La
+scelta **Coda** del pannello ha l'alternativa **Resta fissa dove l'hai
+disegnata**: la coda rimane nel punto del primo fotogramma e solo la **punta
+segue il soggetto**. È utile quando la coda parte da un testo o da un punto
+di riferimento: qui la scritta "Telefono" resta in basso e la freccia si
+allunga e si accorcia per restare sul telefono per tutto il video.
+
+Trascinando la maniglia della coda la si sposta davvero lì; trascinando la
+punta o la linea si crea un keyframe, come per le altre figure.
 
 ## 6. Correggere l'inseguimento con i keyframe
 
@@ -249,19 +305,25 @@ posizione attuale) e *Togli keyframe al cursore*.
 
 ## 7. La timeline
 
+![Ogni effetto sta sulla sua riga, nell'ordine in cui è stato aggiunto](images/it/33_timeline_rows.webp)
+
+- **Barre degli effetti**: **ogni effetto ha la sua riga**, nell'ordine in cui
+  è stato aggiunto, così nessuna barra ne copre un'altra. Si spostano
+  trascinandole; il bordo destro cambia la durata. Con tanti effetti la parte
+  di audio ed effetti **scorre in verticale** (barra a destra, rotellina sui
+  nomi delle righe o Maiusc+rotellina), mentre righello e video restano fermi
+  in alto.
+
 ![Occhio: un effetto nascosto mentre si lavora](images/it/14_hide.webp)
 
-- **Barre degli effetti**: si spostano trascinandole; il bordo destro cambia
-  la durata. Gli effetti si dispongono su più corsie; con tanti effetti la
-  parte di audio ed effetti **scorre in verticale** (barra a destra, rotellina
-  sui nomi delle righe o Maiusc+rotellina), mentre righello e video restano
-  fermi in alto.
 - **Occhio**: l'icona a sinistra di ogni barra **nasconde o mostra** l'effetto,
   in anteprima e nel video esportato. Utile quando molti effetti si
   sovrappongono mentre si lavora.
 - **Tasto destro su una barra**: *Allunga fino al cursore* (se il cursore è
-  oltre la fine; se l'effetto segue un soggetto, l'inseguimento continua) e
-  *Interrompi al cursore* (se il cursore è dentro l'effetto).
+  oltre la fine; se l'effetto segue un soggetto, l'inseguimento continua fino
+  al cursore e, se il soggetto si perde prima, la figura resta ferma dove
+  l'ha visto l'ultima volta) e *Interrompi al cursore* (se il cursore è dentro
+  l'effetto).
 - **Zoom della timeline**: Ctrl+rotellina, o i pulsanti − + e *Adatta*. Da
   vicino la pellicola mostra ogni singolo fotogramma.
 - **Scorrimento**: rotellina, Alt+trascina o trascinamento con il tasto
@@ -400,7 +462,109 @@ propone di aprire la cartella.
 
 ![Esportazione completata](images/it/29_export_done.webp)
 
-## 16. Consigli per un buon risultato
+## 16. La pagina Immagini
+
+La pagina **Immagini** (barra a sinistra) serve a preparare una **figura per
+un rapporto o una presentazione** partendo da una o più fotografie: le foto
+sul foglio, le annotazioni sopra, i punti numerati con le loro note e la
+didascalia, da inserire in Word con un clic o da esportare come immagine.
+L'esempio di questo capitolo usa due foto di una motocicletta.
+
+### 16.1 Layout e fotografie
+
+![La scelta del layout: quante immagini e come disporle](images/it/40_images_layout.webp)
+
+Alla prima apertura la pagina chiede il **layout**: una immagine; due
+affiancate o una sopra l'altra; tre in fila, in colonna, una grande a
+sinistra o una grande sopra; quattro in griglia, in fila, una grande a
+sinistra o una grande sopra. Sotto si sceglie il **formato del foglio**: 16:9
+(1920×1080), 4:3, quadrato, 9:16 verticale o A4 verticale. Layout e formato
+si cambiano in ogni momento (**Layout** nella barra, o *Cambia layout...*
+nel pannello del foglio): le immagini già messe restano.
+
+![Due foto caricate; nel pannello l'ingrandimento e la posizione](images/it/41_images_loaded.webp)
+
+Le fotografie si mettono con **Carica** (una o più, nel riquadro scelto e nei
+successivi vuoti), con un **clic su un riquadro vuoto**, trascinando un file
+dal computer sul riquadro o con **Ctrl+V** dagli appunti (per esempio uno
+screenshot). Ogni foto riempie il suo riquadro: la **rotellina** sulla foto
+la ingrandisce, **trascinandola** si sposta nel riquadro per inquadrare il
+dettaglio che conta. Nel pannello della foto ci sono il nome del file, la
+misura, il cursore dell'ingrandimento e i pulsanti per sostituirla o
+toglierla. Nel pannello del **foglio** (quando nulla è selezionato): formato,
+spazio fra le immagini e colore del foglio.
+
+### 16.2 Annotazioni
+
+![Le annotazioni sul foglio: collegamento, freccia fra due foto, zoom, pixel, testo, logo e punti numerati](images/it/42_images_annotations.webp)
+
+Gli strumenti sono gli stessi del video (**Testo**, **Immagine**, **Logo**,
+**Riquadro**, **Ovale**, **Freccia**, **Numeri**, **Lettere**, **Zoom**
+rettangolare e ovale, **Pixel** rettangolare e ovale), senza tempi né
+inseguimento, più uno nuovo:
+
+- **Collega** (C rettangoli, Maiusc+C ovali): un clic sul primo punto e uno
+  sul secondo; attorno a ciascuno compare una forma (rettangolo od ovale,
+  ridimensionabile dagli angoli) e una linea le unisce da bordo a bordo. Nel
+  pannello: forma, angoli, colore, spessore, linea tratteggiata, opacità.
+  Serve per dire "questo è quello": il dettaglio di una foto ritrovato
+  nell'altra.
+
+Ogni annotazione **appartiene alla foto su cui sta**: se la foto si sposta o
+si ingrandisce, l'annotazione la segue. Una freccia o un collegamento fra due
+foto hanno un capo su ciascuna, e ogni capo segue la sua foto. Un'annotazione
+a cavallo di due foto (un testo, un cerchio, un riquadro) resta intera sul
+foglio.
+
+### 16.3 Punti numerati e note
+
+![Un punto numerato selezionato: nel pannello la sua nota](images/it/43_images_marker_note.webp)
+
+**Numeri** (N) e **Lettere** (Maiusc+N) funzionano come nel video: un clic
+sul pulsante, un clic sulla foto, e il punto prende il numero o la lettera
+dopo l'ultimo. Qui in più ogni punto ha una **Nota** nel pannello: che cosa
+indica. Le note finiscono nella didascalia, nell'ordine dei punti (prima i
+numeri, poi le lettere). Nel pannello del foglio l'elenco **Punti numerati**
+mostra tutti i punti con la loro nota: un clic seleziona il punto.
+
+### 16.4 Didascalia e Word
+
+![La didascalia: il testo che va dopo "Figura N :"](images/it/44_images_caption.webp)
+
+Il pulsante **Didascalia** (o la casella *Didascalia per Word* nel pannello
+del foglio) apre il testo della didascalia: va subito dopo "Figura N :", e
+dopo di lui vengono le note dei punti numerati. Con il testo "Motocicletta" e
+quattro punti la didascalia diventa:
+
+`Figura 1 : Motocicletta. 1) serbatoio, 2) freno, A) faro, B) scarico`
+
+![La figura inserita in Word con la didascalia](images/it/45_images_word.webp)
+
+Il pulsante **Word** inserisce la figura **nel documento Word aperto, dove
+c'è il cursore**: l'immagine, larga quanto la pagina, e sotto la didascalia
+nello stile *Didascalia* di Word, con il numero automatico ("Figura 1",
+"Figura 2"...). Il numero è un campo di Word: i **riferimenti incrociati** e
+l'**indice delle figure** di Word funzionano come per le figure fatte a mano.
+Se Word non è aperto, viene avviato con un documento nuovo; se Word non
+risponde, immagine e didascalia vengono copiate negli appunti, da incollare.
+
+### 16.5 Salvare, esportare, copiare
+
+![Progetto salvato; Esporta, Copia e Word nel gruppo Uscita](images/it/46_images_output.webp)
+
+- **Salva** (Ctrl+S, Ctrl+Maiusc+S con nome) scrive il **progetto**: un file
+  JSON con layout, formato, foto (inquadratura e ingrandimento), annotazioni
+  e didascalia, e accanto una cartella `<nome>_file` con le copie delle foto e
+  delle immagini usate. Il JSON è leggibile e si può modificare a mano.
+  **Apri** (Ctrl+O) lo riapre; alla chiusura, se c'è qualcosa di non salvato,
+  il programma lo chiede.
+- **Esporta** salva il foglio in **PNG o JPG** alla misura del formato.
+- **Copia** mette il foglio negli **appunti**, da incollare in una mail, in
+  una presentazione o altrove.
+- Annulla e ripeti (Ctrl+Z, Ctrl+Y) valgono per tutto: foto, annotazioni,
+  layout e didascalia.
+
+## 17. Consigli per un buon risultato
 
 - **Il riquadro dello zoom va in un'area neutra**: il riquadro ingrandito
   copre la parte di video su cui è posato, per tutto il tempo in cui compare.
@@ -408,16 +572,20 @@ propone di aprire la cartella.
 - **Disegna stretto il soggetto** per riquadri, ovali e pixelature: il
   contenuto della figura è il modello che viene cercato nei fotogrammi
   successivi.
-- **Per la freccia, un rettangolo un po' più grande** (testa e spalle invece
-  della sola testa) regge meglio quando altre persone passano davanti.
+- **Per la freccia e per il punto numerato, un rettangolo un po' più grande**
+  (testa e spalle invece della sola testa) regge meglio quando altre persone
+  passano davanti.
 - **Dopo l'inseguimento, scorri il video**: dove la figura sbaglia, trascinala
   sul soggetto. Pochi keyframe bastano anche per percorsi lunghi.
 - **Con molti effetti**, usa l'occhio per nascondere quelli che non ti servono
   in quel momento, e l'anteprima staccata per avere più spazio nella timeline.
+- **Nelle immagini, metti prima a posto le foto** (inquadratura e
+  ingrandimento) e poi le annotazioni: le annotazioni seguono la foto, ma è
+  più comodo disegnarle sull'inquadratura definitiva.
 - **Salva spesso** (Ctrl+S): il progetto è un piccolo file JSON che si riapre
   e si modifica quando si vuole.
 
-## 17. Scorciatoie da tastiera e mouse
+## 18. Scorciatoie da tastiera e mouse
 
 | Tasto | Azione |
 | --- | --- |
@@ -431,14 +599,17 @@ propone di aprire la cartella.
 | F | Fermo immagine |
 | V | Velocità della porzione IN-OUT |
 | T / R / E / A | Testo / riquadro / ovale / freccia |
+| N / Maiusc+N | Punto numerato con numeri / con lettere |
+| C / Maiusc+C | Collegamento con rettangoli / con ovali (pagina Immagini) |
 | Z / Maiusc+Z | Zoom rettangolare / ovale |
 | P / K | Pixelatura rettangolare / ovale |
 | L | Logo e operatore |
 | Canc | Elimina la selezione (o la porzione IN-OUT) |
 | Esc | Annulla il disegno in corso |
 | Ctrl+Z / Ctrl+Y | Annulla / ripeti |
-| Ctrl+N / Ctrl+O / Ctrl+S / Ctrl+Maiusc+S | Nuovo / apri / salva / salva con nome |
+| Ctrl+N / Ctrl+O / Ctrl+S / Ctrl+Maiusc+S | Nuovo / apri / salva / salva con nome (nella pagina Immagini: il progetto di immagini) |
 | Ctrl+I | Importa video |
+| Ctrl+V | Incolla un'immagine dagli appunti (pagina Immagini) |
 | Ctrl+E | Esporta MP4 |
 
 | Mouse | Dove | Azione |
@@ -452,13 +623,23 @@ propone di aprire la cartella.
 | Maiusc+rotellina, rotellina sui nomi | Timeline | Scorre audio ed effetti in verticale |
 | Tasto destro | Barra di un effetto | Allunga fino al cursore / interrompi al cursore |
 | Tasto destro | Keyframe o punto | Cancella |
+| Rotellina / trascina | Foto nella pagina Immagini | Ingrandisce / sposta la foto nel riquadro |
+| Clic su un riquadro vuoto, file trascinato | Pagina Immagini | Carica una foto |
 
-## 18. Il file di progetto
+## 19. I file di progetto
 
-Il progetto è un file JSON con le clip, le tracce audio, gli effetti (con i
-percorsi dell'inseguimento e i keyframe) e i percorsi dei file usati. I video,
-gli audio e le immagini non vengono copiati nel progetto: lasciali dove sono
-finché il lavoro non è finito. Il video esportato, invece, è un MP4 autonomo.
+Il progetto **video** è un file JSON con le clip, le tracce audio, gli
+effetti (con i percorsi dell'inseguimento e i keyframe) e i percorsi dei file
+usati. I video, gli audio e le immagini non vengono copiati nel progetto:
+lasciali dove sono finché il lavoro non è finito. Il video esportato, invece,
+è un MP4 autonomo.
+
+Il progetto di **immagini** è un file JSON (`kind: editsimple-images`) con
+layout, formato, didascalia, i riquadri con la loro foto e le annotazioni,
+più la cartella `<nome>_file` accanto con le copie delle foto, delle immagini
+sovrapposte e del logo: il progetto è autonomo e si può spostare insieme alla
+sua cartella. I valori del JSON (coordinate, colori, note, etichette dei
+punti) si possono modificare con un editor di testo.
 
 ---
 

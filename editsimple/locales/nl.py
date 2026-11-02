@@ -114,7 +114,6 @@ CATALOG: dict[str, str] = {
     "PROGETTO": "PROJECT",
     "nuovo": "nieuw",
     "Nessun video": "Geen video",
-    "Montaggio": "Montage",
     "Configura": "Configuratie",
     "Riproduci / pausa (Spazio)": "Afspelen / pauze (Spatie)",
     "larghezza logo % del video": "logobreedte % van de video",
@@ -659,4 +658,217 @@ CATALOG: dict[str, str] = {
     "Impossibile leggere l'impronta SHA-256 di ffmpeg: {error}": 'De SHA-256-vingerafdruk van ffmpeg kan niet worden gelezen: {error}',
     'Impronta SHA-256 di ffmpeg non valida.': 'Ongeldige SHA-256-vingerafdruk voor ffmpeg.',
     "L'archivio di ffmpeg scaricato non corrisponde all'impronta SHA-256 pubblicata: non viene installato.": 'Het gedownloade ffmpeg-archief komt niet overeen met de gepubliceerde SHA-256-vingerafdruk: het wordt niet geïnstalleerd.',
+    "Testo (T): clic dove metterlo": "Tekst (T): klik waar hij moet komen",
+    "Immagine sopra il foglio, da spostare e ridimensionare": "Afbeelding boven het blad, te verplaatsen en te schalen",
+    "Logo e testo dell'operatore della Configurazione (L)": "Logo en tekst van de operator uit de Configuratie (L)",
+    "Riquadro (R)": "Kader (R)",
+    "Ovale (E)": "Ovaal (E)",
+    "Freccia (A): dalla coda alla punta": "Pijl (A): van staart naar punt",
+    "Zoom rettangolare (Z): l'area scelta in un riquadro ingrandito": "Rechthoekige zoom (Z): het gekozen gebied in een vergroot kader",
+    "Zoom ovale (Maiusc+Z)": "Ovale zoom (Shift+Z)",
+    "Pixelatura rettangolare (P)": "Rechthoekige pixelering (P)",
+    "Pixelatura ovale (K)": "Ovale pixelering (K)",
+    "Scegli un layout per cominciare": "Kies een indeling om te beginnen",
+    "Layout": "Indeling",
+    "Scegli quante immagini e come disporle": "Kiest hoeveel afbeeldingen en hoe ze geschikt worden",
+    "Carica": "Laden",
+    "Carica una o piu' immagini nel riquadro scelto e nei successivi vuoti": "Laadt een of meer afbeeldingen in het gekozen kader en de volgende lege",
+    "Annotazioni": "Annotaties",
+    "Esporta immagine": "Afbeelding exporteren",
+    "Salva il foglio in PNG o JPG": "Slaat het blad op als PNG of JPG",
+    "Copia": "Kopiëren",
+    "Copia il foglio negli appunti, da incollare altrove": "Kopieert het blad naar het klembord, om het elders te plakken",
+    "Foglio": "Blad",
+    "Spazio fra le immagini (px)": "Ruimte tussen de afbeeldingen (px)",
+    "Colore del foglio": "Kleur van het blad",
+    "Cambia layout...": "Indeling wijzigen...",
+    "Carica da file...": "Laden uit bestand...",
+    "Incolla dagli appunti (Ctrl+V)": "Plakken uit klembord (Ctrl+V)",
+    "Scegli il layout": "Kies de indeling",
+    "Carica immagini": "Afbeeldingen laden",
+    "Negli appunti non c'e' un'immagine: copia uno screenshot o un file immagine.": "Er staat geen afbeelding op het klembord: kopieer een schermafbeelding of een afbeeldingsbestand.",
+    "appunti": "klembord",
+    "Misura": "Afmeting",
+    "Togli l'immagine": "Afbeelding verwijderen",
+    "Il foglio e' vuoto: carica almeno un'immagine.": "Het blad is leeg: laad minstens één afbeelding.",
+    "Impossibile copiare negli appunti.": "Kopiëren naar het klembord mislukt.",
+    "Quante immagini e come disporle: si puo' cambiare in ogni momento, le immagini gia' messe restano.": "Hoeveel afbeeldingen en hoe ze geschikt worden: dit kan altijd worden gewijzigd, de geplaatste afbeeldingen blijven staan.",
+    "Layout: {name}. Clicca un riquadro, trascinaci un file o usa Ctrl+V.": "Indeling: {name}. Klik op een kader, sleep er een bestand op of gebruik Ctrl+V.",
+    "Immagine incollata nel riquadro {n}.": "Afbeelding geplakt in kader {n}.",
+    "Clicca un riquadro vuoto per caricare un'immagine, oppure trascinaci un file o incollala con Ctrl+V. Rotellina sull'immagine: ingrandisce; trascinandola: si sposta nel suo riquadro. Le annotazioni si aggiungono con gli strumenti in alto, come nel montaggio video. Esporta immagine salva il foglio in PNG o JPG.": "Klik op een leeg kader om een afbeelding te laden, of sleep er een bestand op of plak haar met Ctrl+V. Scrollwiel op de afbeelding: vergroot; slepen: verplaatst haar binnen haar kader. Annotaties voeg je toe met de gereedschappen bovenaan, zoals bij de videomontage. Afbeelding exporteren slaat het blad op als PNG of JPG.",
+    "Rotellina sull'immagine: ingrandisce attorno al mouse. Trascinandola: si sposta nel suo riquadro. Adatta: tutta visibile; Riempi: copre tutto il riquadro.": "Scrollwiel op de afbeelding: vergroot rond de muis. Slepen: verplaatst haar binnen haar kader. Passend: helemaal zichtbaar; Vullen: bedekt het hele kader.",
+    "Immagine salvata: {path} ({width} x {height} px)": "Afbeelding opgeslagen: {path} ({width} x {height} px)",
+    "Riquadro {n}": "Kader {n}",
+    "Formato del foglio": "Formaat van het blad",
+    "Clicca per caricare un'immagine\noppure trascina qui un file\no incolla con Ctrl+V": "Klik om een afbeelding te laden\nof sleep hier een bestand\nof plak met Ctrl+V",
+    "Questi file non si aprono come immagini:\n{files}": "Deze bestanden kunnen niet als afbeelding worden geopend:\n{files}",
+    "Adatta": "Passend",
+    "Riempi": "Vullen",
+    "Immagine PNG": "PNG-afbeelding",
+    "Immagine JPG": "JPG-afbeelding",
+    "Foglio copiato negli appunti ({width} x {height} px).": "Blad gekopieerd naar het klembord ({width} x {height} px).",
+    "{count} immagini caricate.": "{count} afbeeldingen geladen.",
+    "Immagine caricata: {name}": "Afbeelding geladen: {name}",
+    "Una immagine": "Eén afbeelding",
+    "Affiancate": "Naast elkaar",
+    "Una sopra l'altra": "Boven elkaar",
+    "Tre in fila": "Drie op een rij",
+    "Tre in colonna": "Drie in een kolom",
+    "Una grande a sinistra": "Een grote links",
+    "Una grande sopra": "Een grote boven",
+    "Griglia 2 x 2": "Raster 2 x 2",
+    "Quattro in fila": "Vier op een rij",
+    "16:9 orizzontale": "16:9 liggend",
+    "4:3": "4:3",
+    "Quadrato": "Vierkant",
+    "9:16 verticale": "9:16 staand",
+    "A4 verticale": "A4 staand",
+    'Collega':
+        'Verbinden',
+    'Collega due punti con riquadri e una linea (C)':
+        'Twee punten verbinden met kaders en een lijn (C)',
+    'Collega due punti con ovali e una linea (Maiusc+C)':
+        'Twee punten verbinden met ovalen en een lijn (Shift+C)',
+    'Alla punta':
+        'Bij de punt',
+    'Alla coda':
+        'Bij de staart',
+    'Su entrambi i lati':
+        'Aan beide kanten',
+    'Nessuno (solo linea)':
+        'Geen (alleen lijn)',
+    'Freccia piena':
+        'Gevulde pijlpunt',
+    'Freccia aperta':
+        'Open pijlpunt',
+    'Pallino':
+        'Stip',
+    'Quadratino':
+        'Vierkantje',
+    'Barra':
+        'Streep',
+    'Terminali':
+        'Uiteinden',
+    'Tipo di terminale':
+        'Soort uiteinde',
+    'Collegamento':
+        'Verbinding',
+    'Rettangoli':
+        'Rechthoeken',
+    'Ovali':
+        'Ovalen',
+    'Angoli (rettangoli)':
+        'Hoeken (rechthoeken)',
+    'Linea tratteggiata':
+        'Stippellijn',
+    "Due punti uniti da una linea, anche su due immagini diverse: ognuno segue la sua. Sull'anteprima: trascina una forma per spostarla, dagli angoli per ridimensionarla, la linea per spostare tutto.":
+        'Twee punten verbonden door een lijn, ook op twee verschillende afbeeldingen: elk volgt de zijne. In de voorbeeldweergave: sleep een vorm om hem te verplaatsen, de hoeken om het formaat te wijzigen, de lijn om alles te verplaatsen.',
+    'Clicca (o trascina) sul primo punto da collegare':
+        'Klik (of sleep) op het eerste punt om te verbinden',
+    "Clicca (o trascina) sul secondo punto: verra' unito al primo da una linea":
+        'Klik (of sleep) op het tweede punt: het wordt met een lijn met het eerste verbonden',
+    'Numeri':
+        'Cijfers',
+    'Lettere':
+        'Letters',
+    'Apri un progetto di immagini salvato (Ctrl+O)':
+        'Een opgeslagen afbeeldingsproject openen (Ctrl+O)',
+    'Salva il progetto: un file JSON e una cartella con le immagini, modificabili (Ctrl+S; Ctrl+Maiusc+S: salva con nome)':
+        'Project opslaan: een JSON-bestand en een map met de afbeeldingen, bewerkbaar (Ctrl+S; Ctrl+Shift+S: opslaan als)',
+    'Word':
+        'Word',
+    'Immagini non salvate':
+        'Afbeeldingen niet opgeslagen',
+    'Salvare le modifiche al progetto di immagini?':
+        'Wijzigingen in het afbeeldingsproject opslaan?',
+    'Punti numerati':
+        'Genummerde punten',
+    'Figura':
+        'Figuur',
+    'Apri progetto di immagini':
+        'Afbeeldingsproject openen',
+    '(nessuna nota)':
+        '(geen notitie)',
+    'Salva progetto di immagini':
+        'Afbeeldingsproject opslaan',
+    'Progetto salvato: {path} (con la cartella {folder})':
+        'Project opgeslagen: {path} (met de map {folder})',
+    'Progetto aperto: {path}':
+        'Project geopend: {path}',
+    'Progetto immagini EditSimple (JSON)':
+        'EditSimple-afbeeldingsproject (JSON)',
+    'Numeri (1, 2, 3)':
+        'Cijfers (1, 2, 3)',
+    'Lettere (A, B, C)':
+        'Letters (A, B, C)',
+    'Numero o lettera':
+        'Cijfer of letter',
+    'Numerazione':
+        'Nummering',
+    'Diametro (px)':
+        'Diameter (px)',
+    'Bordo del colore del testo':
+        'Rand in de tekstkleur',
+    'Punto {label}':
+        'Punt {label}',
+    "Ogni nuovo punto prende il numero (o la lettera) dopo l'ultimo inserito. Le note vanno nella didascalia dell'immagine con il pulsante Word.":
+        'Elk nieuw punt krijgt het cijfer (of de letter) na het laatst toegevoegde. De notities komen met de knop Word in het bijschrift van de afbeelding.',
+    'Nota':
+        'Notitie',
+    'Punto numerato':
+        'Genummerd punt',
+    'Esporta':
+        'Exporteren',
+    "Inserisce l'immagine con la didascalia (i punti numerati e le loro note) nel documento Word aperto, dove c'e' il cursore":
+        'Voegt de afbeelding met bijschrift (genummerde punten en hun notities) in het geopende Word-document in, op de plaats van de cursor',
+    'Inserimento in Word...':
+        'Invoegen in Word...',
+    'Inserita in Word ({document}): {caption}':
+        'Ingevoegd in Word ({document}): {caption}',
+    'Word non risponde ({error}): immagine e didascalia copiate negli appunti, da incollare in Word.':
+        'Word reageert niet ({error}): afbeelding en bijschrift naar het klembord gekopieerd, om in Word te plakken.',
+    'Punto numerato 1, 2, 3 (N): clic dove metterlo, il prossimo prende il numero dopo':
+        'Genummerd punt 1, 2, 3 (N): klik waar het moet komen, het volgende krijgt het volgende cijfer',
+    'Punto con lettera A, B, C (Maiusc+N): clic dove metterlo, il prossimo prende la lettera dopo':
+        'Punt met letter A, B, C (Shift+N): klik waar het moet komen, het volgende krijgt de volgende letter',
+    "Trascina un rettangolo attorno al soggetto: il punto lo seguira' restandogli accanto.":
+        'Sleep een rechthoek om het onderwerp: het punt volgt het en blijft ernaast.',
+    'soggetto del punto':
+        'onderwerp van het punt',
+    "Si disegna un rettangolo attorno al soggetto: il punto lo segue nei fotogrammi successivi restandogli accanto; quando esce dall'inquadratura l'effetto finisce.":
+        'Je tekent een rechthoek om het onderwerp: het punt volgt het in de volgende beelden en blijft ernaast; als het uit beeld gaat, eindigt het effect.',
+    "Ogni nuovo punto prende il numero (o la lettera) dopo l'ultimo inserito.":
+        'Elk nieuw punt krijgt het cijfer (of de letter) na het laatst toegevoegde.',
+    'Clicca dove mettere il punto':
+        'Klik waar het punt moet komen',
+    'Trascina un rettangolo attorno al soggetto che il punto deve seguire':
+        'Sleep een rechthoek om het onderwerp dat het punt moet volgen',
+    "; soggetto perso da {time}: la figura resta ferma li' fino alla fine":
+        '; onderwerp kwijt vanaf {time}: de figuur blijft daar stilstaan tot het einde',
+    'Didascalia per Word':
+        'Bijschrift voor Word',
+    'Va subito dopo "Figura N :" nella didascalia che il pulsante Word inserisce; dopo vengono le note dei punti numerati.':
+        'Komt direct na "Figuur N :" in het bijschrift dat de knop Word invoegt; daarna volgen de notities van de genummerde punten.',
+    'Coda':
+        'Staart',
+    'Si sposta con la punta':
+        'Beweegt mee met de punt',
+    "Resta fissa dove l'hai disegnata":
+        'Blijft vast waar u hem tekende',
+    'coda fissa':
+        'vaste staart',
+    'Didascalia':
+        'Bijschrift',
+    'Scrive o cambia il testo della didascalia per Word (quello dopo "Figura N :")':
+        'Schrijft of wijzigt de bijschrifttekst voor Word (het deel na "Figuur N :")',
+    'Manuale':
+        'Handleiding',
+    "Manuale d'uso":
+        'Gebruikershandleiding',
+    'Indice':
+        'Inhoud',
+    "Il manuale non e' incluso in questa copia del programma.":
+        'De handleiding zit niet in deze kopie van het programma.',
+    'Si legge in linea su GitHub:':
+        'Online te lezen op GitHub:',
 }

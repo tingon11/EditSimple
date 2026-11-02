@@ -41,7 +41,6 @@ PAD_RIGHT = 160
 MIN_PPS = 1.0
 MAX_PPS = 3000.0
 TICK_STEPS = (0.04, 0.1, 0.2, 0.5, 1, 2, 5, 10, 15, 30, 60, 120, 300, 600, 1800)
-MAX_LANES = 64         # oltre, gli effetti si sovrappongono (le corsie scorrono in verticale)
 EDGE = 7
 
 
@@ -398,21 +397,9 @@ class TimelineView(ctk.CTkFrame):
             rows.append({"kind": "audio", "id": track["id"], "y0": y, "y1": y + AUDIO_H,
                          "label": track.get("name", tr("Audio"))})
             y += AUDIO_H + ROW_GAP
-        lanes: list[float] = []   # fine dell'ultimo effetto in ogni corsia
-        placement: dict[str, int] = {}
-        for fx in sorted(self.project.effects, key=lambda e: (e["start"], e["end"])):
-            lane = next((i for i, end in enumerate(lanes) if fx["start"] >= end - 1e-6), None)
-            if lane is None:
-                if len(lanes) < MAX_LANES:
-                    lanes.append(fx["end"])
-                    lane = len(lanes) - 1
-                else:
-                    lane = min(range(len(lanes)), key=lambda i: lanes[i])
-                    lanes[lane] = fx["end"]
-            else:
-                lanes[lane] = fx["end"]
-            placement[fx["id"]] = lane
-        n_lanes = max(1, len(lanes))
+        # un effetto per riga, nell'ordine in cui sono stati inseriti: le barre non cambiano mai riga
+        placement = {fx["id"]: i for i, fx in enumerate(self.project.effects)}
+        n_lanes = max(1, len(placement))
         for i in range(n_lanes):
             rows.append({"kind": "fx", "lane": i, "y0": y, "y1": y + FX_H, "label": tr("Effetti") if i == 0 else ""})
             y += FX_H + ROW_GAP
@@ -799,6 +786,8 @@ class TimelineView(ctk.CTkFrame):
             name = tr(EFFECT_NAMES.get(fx["type"], fx["type"]))
             if fx["type"] == "text":
                 name += ": " + (fx.get("text") or "").replace("\n", " ")
+            elif fx["type"] == "marker":
+                name += " " + str(fx.get("label") or "")
             elif fx["type"] == "pixelate":
                 shape = tr("Pixel ovale") if fx.get("shape") == "oval" else tr("Pixel")
                 if fx.get("track"):

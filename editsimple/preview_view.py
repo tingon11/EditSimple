@@ -23,9 +23,9 @@ from .i18n import N_, tr
 
 HANDLE = 6
 HIT = 10
-RECT_MODES = ("box", "oval", "zoom", "pixelate", "logo", "text", "image", "timer", "frames")   # figure con le maniglie agli angoli
-SCALED_BLOCKS = ("logo", "text", "image", "timer", "frames")    # si ridimensionano in proporzione dagli angoli
-KEYED_TYPES = ("box", "oval", "arrow", "zoom", "pixelate")   # figure che seguono un percorso con keyframe
+RECT_MODES = ("box", "oval", "zoom", "pixelate", "logo", "text", "image", "timer", "frames", "marker")   # figure con le maniglie agli angoli
+SCALED_BLOCKS = ("logo", "text", "image", "timer", "frames", "marker")    # si ridimensionano in proporzione dagli angoli
+KEYED_TYPES = ("box", "oval", "arrow", "zoom", "pixelate", "marker")   # figure che seguono un percorso con keyframe
 MODE_HELP = {
     "box": N_("Trascina sull'anteprima per disegnare il riquadro"),
     "oval": N_("Trascina sull'anteprima per disegnare l'ovale"),
@@ -34,13 +34,19 @@ MODE_HELP = {
     "pixelate": N_("Trascina sull'anteprima l'area da pixelare: verra' inseguita nei fotogrammi successivi"),
     "arrow": N_("Trascina dalla coda alla punta della freccia"),
     "arrow_target": N_("Trascina un rettangolo attorno al soggetto che la freccia deve seguire"),
+    "link": N_("Clicca (o trascina) sul primo punto da collegare"),
+    "link_second": N_("Clicca (o trascina) sul secondo punto: verra' unito al primo da una linea"),
     "text": N_("Clicca sull'anteprima dove mettere il testo"),
     "timer": N_("Clicca sull'anteprima dove mettere il tempo trascorso"),
     "frames": N_("Clicca sull'anteprima dove mettere il numero del fotogramma"),
+    "marker": N_("Clicca dove mettere il punto"),
+    "marker_target": N_("Trascina un rettangolo attorno al soggetto che il punto deve seguire"),
 }
 
 
 MAX_VIEW_ZOOM = 16.0                    # ingrandimento massimo della vista (Ctrl+rotellina)
+LINK_MODES = ("link", "link_second")    # collegamento: primo punto, poi secondo
+CORNERS = ("nw", "ne", "sw", "se")
 
 
 class PreviewView(ctk.CTkFrame):
@@ -77,12 +83,22 @@ class PreviewView(ctk.CTkFrame):
         self.on_edit_text: Callable | None = None
         # keyframe dall'anteprima: (effetto, istante, centro x, centro y, scala, copia del percorso, definitivo)
         self.on_key: Callable | None = None
+        # agganci facoltativi (pagina Immagini): disegno dopo l'immagine, rotellina con la posizione,
+        # trascinamento su un punto senza effetti: press(event) -> True se lo prende, poi drag e release
+        self.on_redraw: Callable[[], None] | None = None
+        self.on_wheel_at: Callable | None = None
+        self.on_empty_press: Callable | None = None
+        self.on_empty_drag: Callable | None = None
+        self.on_empty_release: Callable | None = None
         self._resize_job: str | None = None
         # zoom: dopo il rettangolo sull'oggetto, un riquadro fantasma segue il mouse finche' si clicca
         self.zoom_factor = 2
         self._zoom_area: tuple[int, int, int, int] | None = None
         self._ghost_at: tuple[float, float] | None = None
         self._ghost_photo: ImageTk.PhotoImage | None = None
+        # collegamento: forma dei due punti e primo punto gia' scelto (x, y, larghezza, altezza)
+        self.link_shape = "rect"
+        self._link_first: tuple[float, float, float, float] | None = None
 
         self.canvas.bind("<Configure>", self._configured)
         self.canvas.bind("<ButtonPress-1>", self._press)
@@ -192,6 +208,7 @@ class PreviewView(ctk.CTkFrame):
         self._rubber = None
         self._zoom_area = None
         self._ghost_at = None
+        self._link_first = None
         self._redraw()
 
     def set_zoom_factor(self, factor: int) -> None:
@@ -205,6 +222,9 @@ class PreviewView(ctk.CTkFrame):
             i = factors.index(self.zoom_factor) if self.zoom_factor in factors else 0
             i = min(len(factors) - 1, i + 1) if event.delta > 0 else max(0, i - 1)
             self.set_zoom_factor(factors[i])
+            return
+        if self.on_wheel_at is not None:
+            self.on_wheel_at(event)
             return
         self._on_wheel(-1 if event.delta > 0 else 1)
 
@@ -259,6 +279,8 @@ class PreviewView(ctk.CTkFrame):
                                outline=theme.BORDER_STRONG)
         else:
             self._draw_zoomed(cw, ch)
+        if self.on_redraw is not None:
+            self.on_redraw()                # disegno di chi usa la vista (i riquadri della pagina Immagini)
         if self.selected is not None and self._active(self.selected):
             # la cornice di selezione solo mentre l'effetto si vede (fuori dal suo tempo non c'e' nulla da toccare)
             self._draw_selection(self.selected)
@@ -266,6 +288,8 @@ class PreviewView(ctk.CTkFrame):
             x0, y0, x1, y1 = self._rubber
             if self.mode == "arrow":
                 c.create_line(x0, y0, x1, y1, fill=theme.ACCENT, width=2, arrow="last", dash=(5, 3))
+            elif self.mode in LINK_MODES and self.link_shape == "oval":
+                c.create_oval(x0, y0, x1, y1, outline=theme.ACCENT, width=2, dash=(5, 3))
             else:
                 c.create_rectangle(x0, y0, x1, y1, outline=theme.ACCENT, width=2, dash=(5, 3))
         if self.mode == "zoom_place" and self._zoom_area is not None:
@@ -274,6 +298,11 @@ class PreviewView(ctk.CTkFrame):
             x1, y1 = self._to_canvas(ax + aw, ay + ah)
             c.create_rectangle(x0, y0, x1, y1, outline=theme.ACCENT, width=2)
             self._draw_ghost()
+        if self.mode == "link_second" and self._link_first is not None:
+            x0, y0, x1, y1 = self._canvas_rect(self._link_first)
+            (c.create_oval if self.link_shape == "oval" else c.create_rectangle)(
+                x0, y0, x1, y1, outline=theme.ACCENT, width=2)
+            self._draw_link_ghost()
         if self.mode:
             # la scritta di aiuto ha uno sfondo e resta sopra a tutto (anche al riquadro fantasma dello zoom)
             item = c.create_text(cw // 2, max(0, self._oy) + 14, text=tr(MODE_HELP.get(self.mode, "")).format(factor=self.zoom_factor),
@@ -349,9 +378,52 @@ class PreviewView(ctk.CTkFrame):
                       font=(theme.ui_font(), 12, "bold"), tags="ghost")
         c.tag_raise("help")
 
+    def _canvas_rect(self, rect: tuple[float, float, float, float]) -> tuple[float, float, float, float]:
+        x, y, w, h = rect
+        x0, y0 = self._to_canvas(x, y)
+        x1, y1 = self._to_canvas(x + w, y + h)
+        return x0, y0, x1, y1
+
+    def _draw_link_ghost(self, at: tuple[float, float] | None = None) -> None:
+        """Collegamento in corso: linea dal primo punto al mouse."""
+        c = self.canvas
+        c.delete("linkghost")
+        if at is None or self._link_first is None:
+            return
+        x0, y0, x1, y1 = self._canvas_rect(self._link_first)
+        c.create_line((x0 + x1) / 2, (y0 + y1) / 2, *at, fill=theme.ACCENT, width=2, dash=(5, 3), tags="linkghost")
+        c.tag_raise("help")
+
+    def _link_canvas_shapes(self, fx: dict) -> list[tuple[float, float, float, float]]:
+        return [self._canvas_rect(shape) for shape in overlays.link_shapes(fx)]
+
+    def _link_hit(self, fx: dict, cx: float, cy: float) -> str | None:
+        """'1nw'..'2se' sugli angoli delle due forme, 'move1'/'move2' dentro, 'move' sulla linea, None fuori."""
+        shapes = self._link_canvas_shapes(fx)
+        for n, (x0, y0, x1, y1) in enumerate(shapes, 1):
+            for name, (hx, hy) in zip(CORNERS, ((x0, y0), (x1, y0), (x0, y1), (x1, y1))):
+                if abs(cx - hx) <= HIT and abs(cy - hy) <= HIT:
+                    return f"{n}{name}"
+        for n, (x0, y0, x1, y1) in enumerate(shapes, 1):
+            if x0 - 2 <= cx <= x1 + 2 and y0 - 2 <= cy <= y1 + 2:
+                return f"move{n}"
+        (a0, b0, a1, b1), (c0, d0, c1, d1) = shapes
+        if _segment_distance(cx, cy, (a0 + a1) / 2, (b0 + b1) / 2, (c0 + c1) / 2, (d0 + d1) / 2) <= HIT:
+            return "move"
+        return None
+
     def _draw_selection(self, fx: dict) -> None:
         c = self.canvas
         color = theme.FX_BORDERS.get(fx["type"], theme.ACCENT)
+        if fx["type"] == "link":
+            centers = []
+            for x0, y0, x1, y1 in self._link_canvas_shapes(fx):
+                c.create_rectangle(x0, y0, x1, y1, outline=color, width=2, dash=(6, 3))
+                for hx, hy in ((x0, y0), (x1, y0), (x0, y1), (x1, y1)):
+                    c.create_rectangle(hx - HANDLE, hy - HANDLE, hx + HANDLE, hy + HANDLE, fill=color, outline=theme.BG)
+                centers.append(((x0 + x1) / 2, (y0 + y1) / 2))
+            c.create_line(*centers[0], *centers[1], fill=color, width=1, dash=(4, 3))
+            return
         if fx["type"] == "arrow":
             g = overlays.displaced(fx, self._current_time())     # dove l'inseguimento la mostra adesso
             x0, y0 = self._to_canvas(g["x1"], g["y1"])
@@ -359,14 +431,17 @@ class PreviewView(ctk.CTkFrame):
             c.create_line(x0, y0, x1, y1, fill=color, width=1, dash=(4, 3))
             for hx, hy in ((x0, y0), (x1, y1)):
                 c.create_oval(hx - HANDLE, hy - HANDLE, hx + HANDLE, hy + HANDLE, fill=color, outline=theme.BG)
+            if fx.get("track") and fx.get("tail") == "fixed":
+                c.create_text(x0, y0 - 10, text=tr("coda fissa"), anchor="s", fill=color, font=(theme.ui_font(), 9, "bold"))
             return
         bx0, by0, bx1, by1 = self._selection_bbox(fx)
         x0, y0 = self._to_canvas(bx0, by0)
         x1, y1 = self._to_canvas(bx1, by1)
         c.create_rectangle(x0, y0, x1, y1, outline=color, width=2, dash=(6, 3))
         if fx["type"] in RECT_MODES:
+            size = HANDLE if min(x1 - x0, y1 - y0) >= 4 * HIT else 3     # su una figura piccola non la coprono
             for hx, hy in ((x0, y0), (x1, y0), (x0, y1), (x1, y1)):
-                c.create_rectangle(hx - HANDLE, hy - HANDLE, hx + HANDLE, hy + HANDLE, fill=color, outline=theme.BG)
+                c.create_rectangle(hx - size, hy - size, hx + size, hy + size, fill=color, outline=theme.BG)
         if fx.get("track") and fx["type"] != "pixelate":
             c.create_text(x0, y0 - 10, text=tr("segue il soggetto"), anchor="sw", fill=color, font=(theme.ui_font(), 9, "bold"))
         if fx["type"] == "zoom":
@@ -421,6 +496,8 @@ class PreviewView(ctk.CTkFrame):
         fx = self.selected
         if fx is None or not self._active(fx):
             return None
+        if fx["type"] == "link":
+            return self._link_hit(fx, cx, cy)
         if fx["type"] == "arrow":
             g = overlays.displaced(fx, self._current_time())
             p1 = self._to_canvas(g["x1"], g["y1"])
@@ -441,6 +518,10 @@ class PreviewView(ctk.CTkFrame):
         bx0, by0, bx1, by1 = self._selection_bbox(fx)
         x0, y0 = self._to_canvas(bx0, by0)
         x1, y1 = self._to_canvas(bx1, by1)
+        # figura piccola (un punto numerato): le maniglie la coprirebbero tutta, al centro si sposta
+        middle = (x0 + (x1 - x0) * 0.25 <= cx <= x1 - (x1 - x0) * 0.25 and y0 + (y1 - y0) * 0.25 <= cy <= y1 - (y1 - y0) * 0.25)
+        if middle and min(x1 - x0, y1 - y0) < 4 * HIT:
+            return "move"
         if fx["type"] in RECT_MODES:
             for name, (hx, hy) in {"nw": (x0, y0), "ne": (x1, y0), "sw": (x0, y1), "se": (x1, y1)}.items():
                 if abs(cx - hx) <= HIT and abs(cy - hy) <= HIT:
@@ -460,12 +541,17 @@ class PreviewView(ctk.CTkFrame):
             self._ghost_at = self._to_project(event.x, event.y)
             self._draw_ghost()
             return
+        if self.mode == "link_second" and not self._drag:
+            self._draw_link_ghost((event.x, event.y))
+            return
         if self.mode or self._drag or self._image is None:
             return
         hit = self._hit(event.x, event.y)
+        if hit and hit[0] in "12":
+            hit = hit[1:]                   # angolo di una delle due forme del collegamento
         cursor = {"nw": "size_nw_se", "se": "size_nw_se", "ne": "size_ne_sw", "sw": "size_ne_sw",
                   "inw": "size_nw_se", "ise": "size_nw_se", "ine": "size_ne_sw", "isw": "size_ne_sw",
-                  "move": "fleur", "imove": "fleur", "p1": "hand2", "p2": "hand2"}.get(
+                  "move": "fleur", "imove": "fleur", "move1": "fleur", "move2": "fleur", "p1": "hand2", "p2": "hand2"}.get(
             hit, "fleur" if self.view_zoom > 1 else "arrow")
         self.canvas.configure(cursor=cursor)
 
@@ -483,7 +569,7 @@ class PreviewView(ctk.CTkFrame):
             return
         if self.mode:
             self._drag = {"mode": "draw", "start": (event.x, event.y)}
-            if self.mode in ("text", "timer", "frames"):
+            if self.mode in ("text", "timer", "frames", "marker"):
                 x, y = self._to_project(event.x, event.y)
                 self._drag = None
                 self._on_draw(self.mode, {"x": int(x), "y": int(y)})
@@ -493,7 +579,9 @@ class PreviewView(ctk.CTkFrame):
             # clic su un altro effetto attivo: selezione
             px, py = self._to_project(event.x, event.y)
             for fx in reversed(self._active_effects()):
-                if fx["type"] == "arrow":
+                if fx["type"] == "link":
+                    inside = self._link_hit(fx, event.x, event.y) is not None
+                elif fx["type"] == "arrow":
                     g = overlays.displaced(fx, self._current_time())
                     p1 = self._to_canvas(g["x1"], g["y1"])
                     p2 = self._to_canvas(g["x2"], g["y2"])
@@ -508,6 +596,9 @@ class PreviewView(ctk.CTkFrame):
                     self._on_select(fx)
                     return
             self._on_select(None)
+            if self.on_empty_press is not None and self.on_empty_press(event):
+                self._drag = {"mode": "empty"}      # lo gestisce chi usa la vista (riquadri della pagina Immagini)
+                return
             if self.view_zoom > 1:
                 # vista ingrandita: clic e trascina su un punto vuoto sposta la vista
                 self._pan_start(event)
@@ -517,13 +608,14 @@ class PreviewView(ctk.CTkFrame):
         self._on_edit_start(fx)
         t = self._current_time()
         if (self.on_key is not None and fx.get("track") and fx["type"] in KEYED_TYPES
-                and fx["start"] <= t < fx["end"] and (hit in ("move", "nw", "ne", "sw", "se") or hit == "p2")):
+                and fx["start"] <= t < fx["end"] and (hit in ("move", "nw", "ne", "sw", "se") or hit == "p2")
+                and not (fx["type"] == "marker" and hit != "move")):    # dagli angoli il punto cambia solo misura
             # la figura segue un percorso: spostarla o ridimensionarla qui mette un keyframe a questo istante
             cx, cy, s = overlays.figure_center(fx, t)
             self._drag = {"mode": "key_" + hit, "start": self._to_project(event.x, event.y), "t": t,
                           "center": (cx, cy), "scale": s,
                           "snap": ([list(k) for k in fx.get("track") or []], [list(k) for k in fx.get("keys") or []])}
-            if fx["type"] != "arrow":
+            if fx["type"] not in ("arrow", "marker"):
                 g = overlays.displaced(fx, t)
                 self._drag["rect"] = (float(g["x"]), float(g["y"]), float(g["w"]), float(g["h"]))
             return
@@ -539,6 +631,10 @@ class PreviewView(ctk.CTkFrame):
             return
         if d["mode"] == "pan":
             self._pan_move(event)
+            return
+        if d["mode"] == "empty":
+            if self.on_empty_drag is not None:
+                self.on_empty_drag(event)
             return
         if d["mode"] == "draw":
             x0, y0 = d["start"]
@@ -561,12 +657,34 @@ class PreviewView(ctk.CTkFrame):
         off_x, off_y = self._track_offset(fx)
         px -= off_x
         py -= off_y
-        if fx["type"] == "arrow":
+        if fx["type"] == "link":
+            ends = (1, 2) if mode == "move" else (int(mode[-1]),) if mode.startswith("move") else ()
+            for n in ends:
+                fx[f"x{n}"], fx[f"y{n}"] = int(round(o[f"x{n}"] + dx)), int(round(o[f"y{n}"] + dy))
+            if not ends:
+                # angolo di una delle due forme: l'angolo opposto resta fermo
+                n, corner = mode[0], mode[1:]
+                x0, y0 = o["x" + n], o["y" + n]
+                x1, y1 = x0 + o["w" + n], y0 + o["h" + n]
+                MIN = 8
+                if "w" in corner:
+                    x0 = min(px, x1 - MIN)
+                else:
+                    x1 = max(px, x0 + MIN)
+                if "n" in corner:
+                    y0 = min(py, y1 - MIN)
+                else:
+                    y1 = max(py, y0 + MIN)
+                fx["x" + n], fx["y" + n] = int(round(x0)), int(round(y0))
+                fx["w" + n], fx["h" + n] = max(MIN, int(round(x1 - x0))), max(MIN, int(round(y1 - y0)))
+        elif fx["type"] == "arrow":
             if mode == "move":
                 fx["x1"], fx["y1"] = o["x1"] + dx, o["y1"] + dy
                 fx["x2"], fx["y2"] = o["x2"] + dx, o["y2"] + dy
             elif mode == "p1":
-                fx["x1"], fx["y1"] = px, py
+                # la coda fissa non e' spostata dall'inseguimento: il mouse lavora sulle coordinate vere
+                fixed = fx.get("tail") == "fixed"
+                fx["x1"], fx["y1"] = (px + off_x, py + off_y) if fixed else (px, py)
             else:
                 fx["x2"], fx["y2"] = px, py
             for key in ("x1", "y1", "x2", "y2"):
@@ -579,7 +697,7 @@ class PreviewView(ctk.CTkFrame):
             ratio = max(0.05, abs(px - ax) / max(1.0, x1 - x0))
             if fx["type"] in ("logo", "image"):
                 fx["w"] = max(8, int(round(d["lw"] * ratio)))
-            if fx["type"] in ("logo", "text", "timer", "frames"):
+            if fx["type"] in ("logo", "text", "timer", "frames", "marker"):
                 fx["size"] = max(6, int(round(d["lsize"] * ratio)))
             nb = overlays.effect_bbox(dict(fx, x=0, y=0))
             fx["x"] = int(round(ax - (nb[2] - nb[0]) if "w" in mode else ax))
@@ -649,14 +767,29 @@ class PreviewView(ctk.CTkFrame):
         if d["mode"] == "pan":
             self._pan_end(event)
             return
+        if d["mode"] == "empty":
+            if self.on_empty_release is not None:
+                self.on_empty_release(event)
+            return
         if d["mode"] == "draw":
             self._rubber = None
             x0, y0 = d["start"]
             x1, y1 = event.x, event.y
-            if abs(x1 - x0) < 4 and abs(y1 - y0) < 4 and self.mode != "arrow":
+            if abs(x1 - x0) < 4 and abs(y1 - y0) < 4 and self.mode != "arrow" and self.mode not in LINK_MODES:
                 self._redraw()
                 return
-            if self.mode == "arrow":
+            if self.mode in LINK_MODES:
+                shape = self._link_rect(x0, y0, x1, y1)
+                if self.mode == "link":
+                    # secondo passo: il secondo punto, unito al primo
+                    self.mode = "link_second"
+                    self._link_first = shape
+                    self._redraw()
+                    return
+                (ax, ay, aw, ah), (bx, by, bw, bh) = self._link_first, shape
+                self._link_first = None
+                self._on_draw("link", {"x1": ax, "y1": ay, "w1": aw, "h1": ah, "x2": bx, "y2": by, "w2": bw, "h2": bh})
+            elif self.mode == "arrow":
                 ax, ay = self._to_project(x0, y0)
                 bx, by = self._to_project(x1, y1)
                 if math.hypot(bx - ax, by - ay) < 6:
@@ -680,6 +813,18 @@ class PreviewView(ctk.CTkFrame):
             return
         if self.selected is not None:
             self._on_edit(self.selected, True)
+
+    def _link_rect(self, x0: float, y0: float, x1: float, y1: float) -> tuple[int, int, int, int]:
+        """Forma di un punto del collegamento: quella trascinata, o con un clic una di misura normale li' attorno."""
+        if abs(x1 - x0) >= 4 or abs(y1 - y0) >= 4:
+            ax, ay = self._to_project(min(x0, x1), min(y0, y1))
+            bx, by = self._to_project(max(x0, x1), max(y0, y1))
+            return int(ax), int(ay), max(8, int(bx - ax)), max(8, int(by - ay))
+        W, H = self._project_size
+        side = min(W, H)
+        w, h = (int(side * 0.12), int(side * 0.12)) if self.link_shape == "oval" else (int(side * 0.16), int(side * 0.11))
+        px, py = self._to_project(x1, y1)
+        return int(px - w / 2), int(py - h / 2), w, h
 
     def _double(self, event) -> None:
         """Doppio clic su un testo: si riapre la finestra per scriverlo."""
@@ -715,7 +860,8 @@ class PreviewView(ctk.CTkFrame):
 
 
 def _copy_geometry(fx: dict) -> dict:
-    out = {k: fx[k] for k in ("x", "y", "w", "h", "bx", "by", "bw", "bh", "x1", "y1", "x2", "y2") if k in fx}
+    out = {k: fx[k] for k in ("x", "y", "w", "h", "bx", "by", "bw", "bh", "x1", "y1", "x2", "y2", "w1", "h1", "w2", "h2")
+           if k in fx}
     if fx.get("track"):
         out["track"] = [list(k) for k in fx["track"]]
     return out

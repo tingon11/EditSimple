@@ -36,7 +36,7 @@ def speed_text(value) -> str:
     """Etichetta della velocita': 0.25x, 0.5x, 2x..."""
     return f"{float(speed_value(value)):g}x"
 EFFECT_TYPES = ("text", "box", "oval", "arrow", "zoom", "pixelate")
-TRACKABLE = ("box", "oval", "arrow", "zoom", "pixelate")   # effetti che possono seguire un soggetto
+TRACKABLE = ("box", "oval", "arrow", "zoom", "pixelate", "marker")   # effetti che possono seguire un soggetto
 MIN_LEN = 0.04          # durata minima di una clip o di un effetto, in secondi
 EPS = 1e-6
 
@@ -46,6 +46,8 @@ EFFECT_NAMES = {
     "box": N_("Riquadro"),
     "oval": N_("Ovale"),
     "arrow": N_("Freccia"),
+    "link": N_("Collegamento"),
+    "marker": N_("Punto numerato"),
     "zoom": N_("Zoom"),
     "pixelate": N_("Pixelatura"),
     "logo": N_("Logo e operatore"),

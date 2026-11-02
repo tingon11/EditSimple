@@ -6,22 +6,29 @@ EditSimple ist ein Videoschnittprogramm für alle, die in einem Video **einen
 Sachverhalt erklären oder einen Beweis zeigen** müssen: eine Übergabe mitten
 in der Menge, ein ankommendes Fahrzeug, eine Person, die verfolgt oder
 unkenntlich gemacht werden soll. Sie importieren das Material, markieren das
-Wichtige, und das Programm erledigt den Rest: Pfeile, Rahmen, Zooms und
-Verpixelungen **folgen dem Motiv von selbst** in den nächsten Frames, und wo
-die Verfolgung danebenliegt, ziehen Sie die Figur einfach an die richtige
-Stelle, um sie zu korrigieren. In wenigen Minuten entsteht ein MP4, bereit
-zum Vorführen oder Anhängen, mit Vorspann- und Abspannfolie, Texten, Logo
-und Signatur des Bedieners.
+Wichtige, und das Programm erledigt den Rest: Pfeile, Rahmen, nummerierte
+Punkte, Zooms und Verpixelungen **folgen dem Motiv von selbst** in den
+nächsten Frames, und wo die Verfolgung danebenliegt, ziehen Sie die Figur
+einfach an die richtige Stelle, um sie zu korrigieren. In wenigen Minuten
+entsteht ein MP4, bereit zum Vorführen oder Anhängen, mit Vorspann- und
+Abspannfolie, Texten, Logo und Signatur des Bedieners.
+
+Die Seite **Bilder** macht dasselbe mit Fotografien: ein oder mehrere Fotos
+auf einem Blatt, dieselben Anmerkungen, die nummerierten Punkte mit ihren
+Notizen und eine Schaltfläche, die **die Abbildung mit Beschriftung direkt
+in Word einfügt**.
 
 *Andrea Cumini — www.osintinfo.net — andrea@osintinfo.net*
 *EditSimple gehört zu den Werkzeugen von [Seity](https://www.seity.com).*
 
-> **Hinweis zum Beispielvideo.** Die Bilder dieses Handbuchs verwenden ein
+> **Hinweis zum Beispielmaterial.** Die Bilder dieses Handbuchs verwenden ein
 > auf Pexels veröffentlichtes Archivvideo: eine Fußgängerzone mit ganz
 > normalen Passanten. **Die gezeigten Personen tun nichts Unrechtes**: Die
 > Pfeile, Rahmen, Zooms und Verpixelungen auf ihnen dienen nur dazu, die
 > Funktionsweise des Programms zu zeigen, und die Personen wurden zufällig
-> ausgewählt.
+> ausgewählt. Die beiden Fotografien der Seite Bilder stammen von
+> [Andrea Dalle Piatte](https://www.pexels.com/it-it/@andreadallepiatte/)
+> und wurden auf Pexels veröffentlicht.
 
 ## Inhalt
 
@@ -40,16 +47,19 @@ und Signatur des Bedieners.
 13. [Übergänge](#13-übergänge)
 14. [Audio](#14-audio)
 15. [Das Video exportieren](#15-das-video-exportieren)
-16. [Tipps für ein gutes Ergebnis](#16-tipps-für-ein-gutes-ergebnis)
-17. [Tastenkürzel und Maus](#17-tastenkürzel-und-maus)
-18. [Die Projektdatei](#18-die-projektdatei)
+16. [Die Seite Bilder](#16-die-seite-bilder)
+17. [Tipps für ein gutes Ergebnis](#17-tipps-für-ein-gutes-ergebnis)
+18. [Tastenkürzel und Maus](#18-tastenkürzel-und-maus)
+19. [Die Projektdateien](#19-die-projektdateien)
 
 ## 1. Was Sie damit tun können
 
 | Funktion | Kurz gesagt |
 | --- | --- |
-| **Verfolgung des Motivs** | Rahmen, Ovale, Pfeile, Zooms und Verpixelungen folgen einer Person, einem Gesicht, einem Objekt oder einem Fahrzeug; sie wachsen und schrumpfen mit, wenn es sich der Kamera nähert oder sich entfernt; sie enden von selbst, wenn es das Bild verlässt. |
+| **Verfolgung des Motivs** | Rahmen, Ovale, Pfeile, nummerierte Punkte, Zooms und Verpixelungen folgen einer Person, einem Gesicht, einem Objekt oder einem Fahrzeug; sie wachsen und schrumpfen mit, wenn es sich der Kamera nähert oder sich entfernt; sie enden von selbst, wenn es das Bild verlässt. |
 | **Korrektur-Keyframes** | Wo die Verfolgung danebenliegt (ein Pfosten, eine Person, die vorbeigeht), ziehen Sie die Figur auf das Motiv: Das Programm korrigiert den Pfad vor und nach diesem Punkt. |
+| **Pfeile** | Enden an der Spitze, am Ende, an beiden Seiten oder keine; gefüllte oder offene Pfeilspitze, Punkt, kleines Quadrat, Querstrich. Im Video kann das Ende **fest bleiben**, während die Spitze dem Motiv folgt. |
+| **Nummerierte Punkte** | Kleine Kreise mit einer Zahl (1, 2, 3) oder einem Buchstaben (A, B, C), immer der nächste nach dem zuletzt gesetzten; sie folgen dem Motiv im Video; bei den Bildern haben sie eine Notiz, die in die Beschriftung kommt. |
 | **Zoom** | Ein kleines Detail (die Hände, ein Kennzeichen) 2- bis 16-fach vergrößert in einem Rahmen, mit Kontur und Linie zum Objekt. Rechteckig oder oval. |
 | **Verpixelung** | Rechteckig oder oval, für Gesichter und Kennzeichen; folgt dem Motiv und wächst mit ihm. |
 | **Texte und Bilder** | Mehrzeilige Texte mit Hintergrund und abgerundeten Ecken; eingeblendete Bilder (ein Frame, eine Karte, ein Dokument). |
@@ -62,7 +72,8 @@ und Signatur des Bedieners.
 | **Audio** | Zusätzliche Spuren (Kommentar, Musik) mit Lautstärke und Blenden; Originalton mit Lautstärke, Blenden und Löschen einzelner Abschnitte. |
 | **Vorschau** | Wiedergabe mit Ton, rückwärts, Frame für Frame; vergrößerbare Vorschau, die sich in ein eigenes Fenster **lösen** lässt. |
 | **Export** | MP4 (H.264 + AAC), identisch mit der Vorschau. |
-| **Sprachen** | Oberfläche in 9 Sprachen, ohne Neustart umschaltbar. |
+| **Bilder** | Ein oder mehrere Fotos auf einem Blatt (bis zu vier, elf Anordnungen, fünf Formate), dieselben Anmerkungen wie im Video plus die **Verbindung** zwischen zwei Punkten, die nummerierten Punkte mit ihren Notizen, die Beschriftung und die Schaltfläche **Word**; Projekt in einer bearbeitbaren JSON-Datei gespeichert; Blatt als PNG oder JPG exportiert oder in die Zwischenablage kopiert. |
+| **Sprachen und Handbuch** | Oberfläche in 9 Sprachen, ohne Neustart umschaltbar; dieses Handbuch öffnet sich im Programm, in der gewählten Sprache. |
 
 ## 2. Installation und erster Start
 
@@ -91,12 +102,15 @@ Hindernis wiederzufinden. Ohne VitTrack funktioniert die Verfolgung trotzdem.
 
 ![Das Fenster von EditSimple](images/de/01_start.webp)
 
+- **Leiste links**, mit den Seiten: **Video** (der Schnitt), **Bilder** (die
+  Fotografien, Kapitel 16), **Konfiguration** und **Handbuch**, das dieses
+  Handbuch in einem eigenen Fenster öffnet, in der Sprache der Oberfläche.
 - **Werkzeugleiste**, in vier Gruppen: *Projekt* (neu, öffnen, speichern,
   rückgängig, wiederholen), *Clip* (Video importieren, Audio, schneiden,
   löschen, Standbild, Folie, Tempo), *Einblendungen* (Text, Bild, Logo, Zeit,
-  Frames, Rahmen, Oval, Pfeil, rechteckiger und ovaler Zoom, rechteckige und
-  ovale Pixel) und *Ausgabe* (MP4 exportieren). Jede Schaltfläche hat einen
-  Tooltip mit ihrem Tastenkürzel.
+  Frames, Rahmen, Oval, Pfeil, Zahlen, Buchstaben, rechteckiger und ovaler
+  Zoom, rechteckige und ovale Pixel) und *Ausgabe* (MP4 exportieren). Jede
+  Schaltfläche hat einen Tooltip mit ihrem Tastenkürzel.
 - **Vorschau**, in der Mitte: zeigt den Frame am Cursor mit allen Effekten,
   genau wie im exportierten Video. Darauf werden die Effekte gezeichnet und
   verschoben.
@@ -107,7 +121,14 @@ Hindernis wiederzufinden. Ohne VitTrack funktioniert die Verfolgung trotzdem.
   (editierbar); IN, OUT und das Löschen der Markierungen; rechts der Zoom der
   Timeline.
 - **Timeline**, unten: Lineal, Spur **Video** als Filmstreifen,
-  **Originalton**, zusätzliche Audiospuren und **Effekte**.
+  **Originalton**, zusätzliche Audiospuren und **Effekte**, einer pro Zeile.
+
+![Das Handbuch öffnet sich im Programm, mit dem Inhalt links und der Sprachauswahl](images/de/34_manual.webp)
+
+Das Fenster **Handbuch** hat links das Verzeichnis der Kapitel (ein Klick
+führt zum Kapitel) und oben das Sprachmenü; die Links im Text funktionieren,
+und die Bilder sind die dieser Seiten. Das Handbuch wechselt die Sprache
+zusammen mit der Oberfläche.
 
 ## 4. Seite Konfiguration
 
@@ -124,7 +145,8 @@ Sie öffnen sie über die Leiste links. Sie enthält:
   JPG), der Text (Name, Organisation, Website), die Logobreite, die Texthöhe,
   der Randabstand, die Ecke, die Anordnung, die Farben und ein Hintergrund mit
   Deckkraft und abgerundeten Ecken. Sie werden einmal vorbereitet; danach
-  setzt die Schaltfläche **Logo** sie ins Video.
+  setzt die Schaltfläche **Logo** sie ins Video (und auf das Blatt der
+  Bilder).
 
 ![Konfiguration: abgerundete Ecken, Sprache und Credits](images/de/03_settings_more.webp)
 
@@ -142,7 +164,9 @@ belebten Fußgängerzone (siehe den Hinweis oben: Die Passanten tun nichts
 Unrechtes). In wenigen Schritten ergänzen wir es: Logo und Website des
 Bedieners unten, ein Zoom auf die Hände eines Mannes, der seinen Bewegungen
 folgt, ein Pfeil, der 12 Sekunden lang auf eine Person zeigt, zwei Rahmen um
-andere Personen und die Verpixelung eines Gesichts am Ende.
+andere Personen, die Verpixelung eines Gesichts am Ende, ein nummerierter
+Punkt, der einer Person folgt, und ein Pfeil mit festem Ende, der das ganze
+Video über auf ein Telefon zeigt.
 
 ### 5.1 Das Video importieren
 
@@ -203,6 +227,11 @@ und hält die Spitze darauf.
 In der Timeline zeigt der Balken des Pfeils *(folgt)* und die Rauten der
 Keyframes, mit denen wir den Pfad korrigiert haben (siehe Kapitel 6).
 
+Im Bereich des Pfeils wählen Sie auch die **Enden** (an der Spitze, am Ende,
+an beiden Seiten, keine: nur die Linie) und die **Art des Endes**: gefüllte
+Pfeilspitze, offene Pfeilspitze, Punkt, kleines Quadrat oder Querstrich. Mit
+zwei Enden zeigt der Pfeil eine Verbindung zwischen zwei Dingen an.
+
 ### 5.5 Rahmen um Personen
 
 ![Rahmen: Dem Motiv folgen](images/de/11_box.webp)
@@ -227,6 +256,40 @@ Die Verpixelung folgt dem Gesicht und **wächst, wenn es sich der Kamera
 nähert**, sodass sie es immer verdeckt. Verlässt das Motiv das Bild,
 begleitet die Verpixelung es, bis es ganz draußen ist: Kein Frame bleibt
 unverdeckt.
+
+### 5.7 Ein nummerierter Punkt, der einer Person folgt
+
+![Nummerierter Punkt (Buchstabe A), der einer Person folgt](images/de/31_marker_video.webp)
+
+**Zahlen** (N) und **Buchstaben** (Umschalt+N) setzen einen **nummerierten
+Punkt**: einen kleinen Kreis mit einer Zahl (1, 2, 3...) oder einem
+Großbuchstaben (A, B, C...) darin. Sie drücken die Schaltfläche und klicken
+dorthin, wo der Punkt hin soll; **jeder Punkt braucht einen neuen Klick auf
+die Schaltfläche** und erhält immer die Zahl oder den Buchstaben nach dem
+zuletzt gesetzten (nach Z kommt AA). Im Bereich rechts ändern Sie Zahl oder
+Buchstabe, Durchmesser, Farbe von Kreis und Text, den weißen Ring und die
+Deckkraft.
+
+Wie die anderen Figuren **folgt der Punkt dem Motiv**: *Dem Motiv folgen* und
+ein Rechteck um die Person. Im Video haben die Punkte keine Notizen; sie
+dienen dazu, im gesprochenen Kommentar oder auf einer Folie „die Person A“,
+„das Objekt 2“ zu benennen.
+
+### 5.8 Ein Pfeil mit festem Ende
+
+![Pfeil mit festem Ende: Die Spitze folgt dem Telefon, das Ende bleibt neben dem Text](images/de/32_arrow_tail.webp)
+
+Ein Pfeil, der einem Motiv folgt, bewegt sich normalerweise als Ganzes. Die
+Auswahl **Ende** im Bereich rechts hat die Alternative **Bleibt fest, wo Sie
+es gezeichnet haben**: Das Ende bleibt an der Stelle des ersten Frames, und
+nur die **Spitze folgt dem Motiv**. Das ist nützlich, wenn das Ende von einem
+Text oder einem Bezugspunkt ausgeht: Hier bleibt der Schriftzug „Telefon“
+unten, und der Pfeil wird länger und kürzer, um das ganze Video über auf dem
+Telefon zu bleiben.
+
+Ziehen Sie den Griff des Endes, verschieben Sie es tatsächlich dorthin;
+ziehen Sie die Spitze oder die Linie, entsteht ein Keyframe wie bei den
+anderen Figuren.
 
 ## 6. Die Verfolgung mit Keyframes korrigieren
 
@@ -255,20 +318,25 @@ Cursor entfernen*.
 
 ## 7. Die Timeline
 
+![Jeder Effekt hat seine eigene Zeile, in der Reihenfolge, in der er hinzugefügt wurde](images/de/33_timeline_rows.webp)
+
+- **Effektbalken**: **Jeder Effekt hat seine eigene Zeile**, in der
+  Reihenfolge, in der er hinzugefügt wurde, sodass kein Balken einen anderen
+  verdeckt. Sie werden durch Ziehen verschoben; der rechte Rand ändert die
+  Dauer. Bei vielen Effekten **scrollt** der Bereich mit Audio und Effekten
+  **vertikal** (Bildlaufleiste rechts, Mausrad über den Zeilennamen oder
+  Umschalt+Mausrad), während Lineal und Video oben stehen bleiben.
+
 ![Auge: ein Effekt, der während der Arbeit ausgeblendet ist](images/de/14_hide.webp)
 
-- **Effektbalken**: Sie werden durch Ziehen verschoben; der rechte Rand
-  ändert die Dauer. Die Effekte verteilen sich auf mehrere Bahnen; bei vielen
-  Effekten **scrollt** der Bereich mit Audio und Effekten **vertikal**
-  (Bildlaufleiste rechts, Mausrad über den Zeilennamen oder
-  Umschalt+Mausrad), während Lineal und Video oben stehen bleiben.
 - **Auge**: Das Symbol links an jedem Balken **blendet** den Effekt **aus
   oder ein**, in der Vorschau und im exportierten Video. Nützlich, wenn sich
   während der Arbeit viele Effekte überlagern.
 - **Rechtsklick auf einen Balken**: *Bis zum Cursor verlängern* (wenn der
   Cursor hinter dem Ende steht; folgt der Effekt einem Motiv, wird die
-  Verfolgung fortgesetzt) und *Am Cursor beenden* (wenn der Cursor im Effekt
-  steht).
+  Verfolgung bis zum Cursor fortgesetzt, und geht das Motiv vorher verloren,
+  bleibt die Figur dort stehen, wo es zuletzt gesehen wurde) und *Am Cursor
+  beenden* (wenn der Cursor im Effekt steht).
 - **Zoom der Timeline**: Strg+Mausrad oder die Schaltflächen − + und
   *Timeline einpassen*. Aus der Nähe zeigt der Filmstreifen jeden einzelnen
   Frame.
@@ -412,7 +480,115 @@ sich abbrechen; am Ende bietet das Programm an, den Ordner zu öffnen.
 
 ![Export abgeschlossen](images/de/29_export_done.webp)
 
-## 16. Tipps für ein gutes Ergebnis
+## 16. Die Seite Bilder
+
+Die Seite **Bilder** (Leiste links) dient dazu, aus einer oder mehreren
+Fotografien eine **Abbildung für einen Bericht oder eine Präsentation**
+vorzubereiten: die Fotos auf dem Blatt, die Anmerkungen darauf, die
+nummerierten Punkte mit ihren Notizen und die Beschriftung, mit einem Klick
+in Word einzufügen oder als Bild zu exportieren. Das Beispiel dieses Kapitels
+verwendet zwei Fotos eines Motorrads.
+
+### 16.1 Layout und Fotografien
+
+![Die Wahl des Layouts: wie viele Bilder und wie sie angeordnet werden](images/de/40_images_layout.webp)
+
+Beim ersten Öffnen fragt die Seite nach dem **Layout**: ein Bild; zwei
+nebeneinander oder übereinander; drei in einer Reihe, in einer Spalte, ein
+großes links oder ein großes oben; vier im Raster, in einer Reihe, ein großes
+links oder ein großes oben. Darunter wählen Sie das **Blattformat**: 16:9
+(1920×1080), 4:3, quadratisch, 9:16 hoch oder A4 hoch. Layout und Format
+lassen sich jederzeit ändern (**Layout** in der Leiste oder *Layout
+ändern...* im Bereich des Blatts): Die bereits gesetzten Bilder bleiben.
+
+![Zwei Fotos geladen; im Bereich rechts Vergrößerung und Position](images/de/41_images_loaded.webp)
+
+Die Fotografien setzen Sie mit **Laden** ein (eines oder mehrere, in den
+gewählten Rahmen und die nächsten leeren), mit einem **Klick auf einen leeren
+Rahmen**, durch Ziehen einer Datei vom Computer auf den Rahmen oder mit
+**Strg+V** aus der Zwischenablage (zum Beispiel ein Screenshot). Jedes Foto
+füllt seinen Rahmen: Das **Mausrad** über dem Foto vergrößert es, durch
+**Ziehen** verschieben Sie es im Rahmen, um das wichtige Detail ins Bild zu
+bringen. Im Bereich des Fotos stehen Dateiname, Größe, der Schieberegler der
+Vergrößerung und die Schaltflächen zum Ersetzen oder Entfernen. Im Bereich
+des **Blatts** (wenn nichts ausgewählt ist): Format, Abstand zwischen den
+Bildern und Farbe des Blatts.
+
+### 16.2 Anmerkungen
+
+![Die Anmerkungen auf dem Blatt: Verbindung, Pfeil zwischen zwei Fotos, Zoom, Pixel, Text, Logo und nummerierte Punkte](images/de/42_images_annotations.webp)
+
+Die Werkzeuge sind dieselben wie im Video (**Text**, **Bild**, **Logo**,
+**Rahmen**, **Oval**, **Pfeil**, **Zahlen**, **Buchstaben**, rechteckiger und
+ovaler **Zoom**, rechteckige und ovale **Pixel**), ohne Zeiten und ohne
+Verfolgung, plus ein neues:
+
+- **Verbinden** (C Rechtecke, Umschalt+C Ovale): ein Klick auf den ersten
+  Punkt und einer auf den zweiten; um jeden erscheint eine Form (Rechteck
+  oder Oval, an den Ecken skalierbar), und eine Linie verbindet sie von Rand
+  zu Rand. Im Bereich rechts: Form, Ecken, Farbe, Stärke, gestrichelte Linie,
+  Deckkraft. Es dient dazu, „das hier ist das da“ zu sagen: das Detail eines
+  Fotos, das im anderen wiedergefunden wurde.
+
+Jede Anmerkung **gehört zu dem Foto, auf dem sie liegt**: Wird das Foto
+verschoben oder vergrößert, folgt ihm die Anmerkung. Ein Pfeil oder eine
+Verbindung zwischen zwei Fotos hat auf jedem ein Ende, und jedes Ende folgt
+seinem Foto. Eine Anmerkung, die über zwei Fotos reicht (ein Text, ein Kreis,
+ein Rahmen), bleibt als Ganzes auf dem Blatt.
+
+### 16.3 Nummerierte Punkte und Notizen
+
+![Ein ausgewählter nummerierter Punkt: im Bereich rechts seine Notiz](images/de/43_images_marker_note.webp)
+
+**Zahlen** (N) und **Buchstaben** (Umschalt+N) funktionieren wie im Video:
+ein Klick auf die Schaltfläche, ein Klick auf das Foto, und der Punkt erhält
+die Zahl oder den Buchstaben nach dem letzten. Hier hat jeder Punkt
+zusätzlich eine **Notiz** im Bereich rechts: was er bezeichnet. Die Notizen
+kommen in die Beschriftung, in der Reihenfolge der Punkte (zuerst die Zahlen,
+dann die Buchstaben). Im Bereich des Blatts zeigt die Liste **Nummerierte
+Punkte** alle Punkte mit ihrer Notiz: Ein Klick wählt den Punkt aus.
+
+### 16.4 Beschriftung und Word
+
+![Die Beschriftung: der Text, der nach „Abbildung N :“ kommt](images/de/44_images_caption.webp)
+
+Die Schaltfläche **Beschriftung** (oder das Feld *Beschriftung für Word* im
+Bereich des Blatts) öffnet den Text der Beschriftung: Er steht direkt nach
+„Abbildung N :“, und nach ihm kommen die Notizen der nummerierten Punkte. Mit
+dem Text „Motorrad“ und vier Punkten wird die Beschriftung zu:
+
+`Abbildung 1 : Motorrad. 1) Tank, 2) Bremse, A) Scheinwerfer, B) Auspuff`
+
+![Die in Word eingefügte Abbildung mit der Beschriftung](images/de/45_images_word.webp)
+
+Die Schaltfläche **Word** fügt die Abbildung **in das geöffnete Word-Dokument
+ein, an der Stelle des Cursors**: das Bild, so breit wie die Seite, und
+darunter die Beschriftung in der Word-Formatvorlage *Beschriftung*, mit
+automatischer Nummer („Abbildung 1“, „Abbildung 2“...). Die Nummer ist ein
+Word-Feld: Die **Querverweise** und das **Abbildungsverzeichnis** von Word
+funktionieren wie bei von Hand erstellten Abbildungen. Ist Word nicht
+geöffnet, wird es mit einem neuen Dokument gestartet; antwortet Word nicht,
+werden Bild und Beschriftung in die Zwischenablage kopiert, zum Einfügen.
+
+### 16.5 Speichern, exportieren, kopieren
+
+![Projekt gespeichert; Exportieren, Kopieren und Word in der Gruppe Ausgabe](images/de/46_images_output.webp)
+
+- **Speichern** (Strg+S, Strg+Umschalt+S mit Namen) schreibt das
+  **Projekt**: eine JSON-Datei mit Layout, Format, Fotos (Ausschnitt und
+  Vergrößerung), Anmerkungen und Beschriftung, und daneben einen Ordner
+  `<name>_file` mit den Kopien der verwendeten Fotos und Bilder. Die
+  JSON-Datei ist lesbar und lässt sich von Hand bearbeiten. **Öffnen**
+  (Strg+O) öffnet es wieder; gibt es beim Schließen etwas Ungespeichertes,
+  fragt das Programm nach.
+- **Exportieren** speichert das Blatt als **PNG oder JPG** in der Größe des
+  Formats.
+- **Kopieren** legt das Blatt in die **Zwischenablage**, zum Einfügen in eine
+  E-Mail, eine Präsentation oder anderswo.
+- Rückgängig und Wiederholen (Strg+Z, Strg+Y) gelten für alles: Fotos,
+  Anmerkungen, Layout und Beschriftung.
+
+## 17. Tipps für ein gutes Ergebnis
 
 - **Der Zoom-Rahmen gehört in einen neutralen Bereich**: Der vergrößerte
   Rahmen verdeckt den Teil des Videos, auf dem er liegt, solange er zu sehen
@@ -421,18 +597,22 @@ sich abbrechen; am Ende bietet das Programm an, den Ordner zu öffnen.
 - **Zeichnen Sie das Motiv eng ein** bei Rahmen, Ovalen und Verpixelungen:
   Der Inhalt der Figur ist die Vorlage, nach der in den nächsten Frames
   gesucht wird.
-- **Beim Pfeil ein etwas größeres Rechteck** (Kopf und Schultern statt nur
-  des Kopfes) hält besser, wenn andere Personen vorbeigehen.
+- **Beim Pfeil und beim nummerierten Punkt ein etwas größeres Rechteck**
+  (Kopf und Schultern statt nur des Kopfes) hält besser, wenn andere Personen
+  vorbeigehen.
 - **Nach der Verfolgung das Video durchgehen**: Wo die Figur danebenliegt,
   ziehen Sie sie auf das Motiv. Wenige Keyframes genügen auch für lange
   Pfade.
 - **Bei vielen Effekten** blenden Sie mit dem Auge aus, was Sie gerade nicht
   brauchen, und nutzen Sie die gelöste Vorschau für mehr Platz in der
   Timeline.
+- **Bei den Bildern bringen Sie zuerst die Fotos in Ordnung** (Ausschnitt und
+  Vergrößerung) und dann die Anmerkungen: Die Anmerkungen folgen dem Foto,
+  aber es ist bequemer, sie auf dem endgültigen Ausschnitt zu zeichnen.
 - **Speichern Sie oft** (Strg+S): Das Projekt ist eine kleine JSON-Datei, die
   Sie jederzeit wieder öffnen und bearbeiten können.
 
-## 17. Tastenkürzel und Maus
+## 18. Tastenkürzel und Maus
 
 | Taste | Aktion |
 | --- | --- |
@@ -446,14 +626,17 @@ sich abbrechen; am Ende bietet das Programm an, den Ordner zu öffnen.
 | F | Standbild |
 | V | Tempo des Bereichs IN-OUT |
 | T / R / E / A | Text / Rahmen / Oval / Pfeil |
+| N / Umschalt+N | Nummerierter Punkt mit Zahlen / mit Buchstaben |
+| C / Umschalt+C | Verbindung mit Rechtecken / mit Ovalen (Seite Bilder) |
 | Z / Umschalt+Z | Rechteckiger / ovaler Zoom |
 | P / K | Rechteckige / ovale Verpixelung |
 | L | Logo und Bediener |
 | Entf | Auswahl löschen (oder den Bereich IN-OUT) |
 | Esc | Laufendes Zeichnen abbrechen |
 | Strg+Z / Strg+Y | Rückgängig / wiederholen |
-| Strg+N / Strg+O / Strg+S / Strg+Umschalt+S | Neu / öffnen / speichern / speichern unter |
+| Strg+N / Strg+O / Strg+S / Strg+Umschalt+S | Neu / öffnen / speichern / speichern unter (auf der Seite Bilder: das Bildprojekt) |
 | Strg+I | Video importieren |
+| Strg+V | Ein Bild aus der Zwischenablage einfügen (Seite Bilder) |
 | Strg+E | MP4 exportieren |
 
 | Maus | Wo | Aktion |
@@ -467,14 +650,24 @@ sich abbrechen; am Ende bietet das Programm an, den Ordner zu öffnen.
 | Umschalt+Mausrad, Mausrad über den Namen | Timeline | Scrollt Audio und Effekte vertikal |
 | Rechte Maustaste | Balken eines Effekts | Bis zum Cursor verlängern / am Cursor beenden |
 | Rechte Maustaste | Keyframe oder Punkt | Löschen |
+| Mausrad / Ziehen | Foto auf der Seite Bilder | Vergrößert / verschiebt das Foto im Rahmen |
+| Klick auf einen leeren Rahmen, abgelegte Datei | Seite Bilder | Lädt ein Foto |
 
-## 18. Die Projektdatei
+## 19. Die Projektdateien
 
-Das Projekt ist eine JSON-Datei mit den Clips, den Audiospuren, den Effekten
-(mit den Pfaden der Verfolgung und den Keyframes) und den Pfaden der
+Das **Videoprojekt** ist eine JSON-Datei mit den Clips, den Audiospuren, den
+Effekten (mit den Pfaden der Verfolgung und den Keyframes) und den Pfaden der
 verwendeten Dateien. Videos, Audiodateien und Bilder werden nicht in das
 Projekt kopiert: Lassen Sie sie, wo sie sind, bis die Arbeit fertig ist. Das
 exportierte Video dagegen ist ein eigenständiges MP4.
+
+Das **Bildprojekt** ist eine JSON-Datei (`kind: editsimple-images`) mit
+Layout, Format, Beschriftung, den Rahmen mit ihrem Foto und den Anmerkungen,
+dazu daneben der Ordner `<name>_file` mit den Kopien der Fotos, der
+eingeblendeten Bilder und des Logos: Das Projekt ist eigenständig und lässt
+sich zusammen mit seinem Ordner verschieben. Die Werte der JSON-Datei
+(Koordinaten, Farben, Notizen, Bezeichnungen der Punkte) lassen sich mit
+einem Texteditor bearbeiten.
 
 ---
 

@@ -1,4 +1,4 @@
-# EditSimple — Manual de usuario
+# EditSimple — Manual de uso
 
 [English](manual.en.md) · [Italiano](manual.it.md) · [Deutsch](manual.de.md) · [Français](manual.fr.md) · **Español** · [Nederlands](manual.nl.md) · [Polski](manual.pl.md) · [Ελληνικά](manual.el.md) · [Shqip](manual.sq.md)
 
@@ -6,21 +6,29 @@ EditSimple es un programa de edición de vídeo pensado para quien necesita
 **explicar un hecho o mostrar una evidencia** en un vídeo: una entrega de mano
 en medio de la multitud, un vehículo que llega, una persona a la que seguir o
 que hacer irreconocible. Se importa la grabación, se indica lo que importa y
-el programa hace el resto: las flechas, los recuadros, los zooms y los
-pixelados **siguen solos al sujeto** en los fotogramas siguientes, y donde el
-seguimiento se equivoca basta con arrastrar la figura al lugar correcto para
-corregirlo. En pocos minutos se obtiene un MP4 listo para proyectar o adjuntar,
-con diapositivas de apertura y de cierre, textos, logo y firma del operador.
+el programa hace el resto: las flechas, los recuadros, los puntos numerados,
+los zooms y los pixelados **siguen solos al sujeto** en los fotogramas
+siguientes, y donde el seguimiento se equivoca basta con arrastrar la figura
+al lugar correcto para corregirlo. En pocos minutos se obtiene un MP4 listo
+para proyectar o adjuntar, con diapositivas de apertura y de cierre, textos,
+logo y firma del operador.
+
+La página **Imágenes** hace el mismo trabajo con las fotografías: una o
+varias fotos en una hoja, las mismas anotaciones, los puntos numerados con
+sus notas y un botón que **inserta la ilustración con su leyenda directamente
+en Word**.
 
 *Andrea Cumini — www.osintinfo.net — andrea@osintinfo.net*
 *EditSimple forma parte de las herramientas de [Seity](https://www.seity.com).*
 
-> **Nota sobre el vídeo de ejemplo.** Las imágenes de este manual usan un
+> **Nota sobre el material de ejemplo.** Las imágenes de este manual usan un
 > vídeo de archivo publicado en Pexels: una calle peatonal con transeúntes
 > corrientes. **Las personas que aparecen no están haciendo nada malo**: las
 > flechas, los recuadros, los zooms y los pixelados colocados sobre ellas solo
 > sirven para mostrar cómo funciona el programa, y los sujetos se han elegido
-> al azar.
+> al azar. Las dos fotografías de la página Imágenes son de
+> [Andrea Dalle Piatte](https://www.pexels.com/it-it/@andreadallepiatte/),
+> publicadas en Pexels.
 
 ## Índice
 
@@ -39,16 +47,19 @@ con diapositivas de apertura y de cierre, textos, logo y firma del operador.
 13. [Transiciones](#13-transiciones)
 14. [Audio](#14-audio)
 15. [Exportar el vídeo](#15-exportar-el-vídeo)
-16. [Consejos para un buen resultado](#16-consejos-para-un-buen-resultado)
-17. [Atajos de teclado y ratón](#17-atajos-de-teclado-y-ratón)
-18. [El archivo de proyecto](#18-el-archivo-de-proyecto)
+16. [La página Imágenes](#16-la-página-imágenes)
+17. [Consejos para un buen resultado](#17-consejos-para-un-buen-resultado)
+18. [Atajos de teclado y ratón](#18-atajos-de-teclado-y-ratón)
+19. [Los archivos de proyecto](#19-los-archivos-de-proyecto)
 
 ## 1. Qué se puede hacer
 
 | Función | En resumen |
 | --- | --- |
-| **Seguimiento del sujeto** | Recuadros, óvalos, flechas, zooms y pixelados siguen a una persona, un rostro, un objeto o un vehículo; crecen y se reducen con él si se acerca o se aleja de la cámara; terminan solos cuando sale del encuadre. |
+| **Seguimiento del sujeto** | Recuadros, óvalos, flechas, puntos numerados, zooms y pixelados siguen a una persona, un rostro, un objeto o un vehículo; crecen y se reducen con él si se acerca o se aleja de la cámara; terminan solos cuando sale del encuadre. |
 | **Keyframes de corrección** | Donde el seguimiento se equivoca (un poste, una persona que pasa por delante) se arrastra la figura sobre el sujeto: el programa corrige el recorrido antes y después de ese punto. |
+| **Flechas** | Extremos en la punta, en la cola, en ambos extremos o ninguno; punta rellena o abierta, punto, cuadradito, barra. En el vídeo la cola puede **quedar fija** mientras la punta sigue al sujeto. |
+| **Puntos numerados** | Círculos con un número (1, 2, 3) o una letra (A, B, C), siempre el siguiente al último puesto; siguen al sujeto en el vídeo; en las imágenes tienen una nota que acaba en la leyenda. |
 | **Zoom** | Un detalle pequeño (las manos, una matrícula) ampliado de 2x a 16x en un recuadro, con un contorno y una línea que lo unen al objeto. Rectangular u ovalado. |
 | **Pixelado** | Rectangular u ovalado, para rostros y matrículas; sigue al sujeto y crece con él. |
 | **Textos e imágenes** | Textos de varias líneas con fondo y esquinas redondeadas; imágenes superpuestas (un fotograma, un mapa, un documento). |
@@ -61,7 +72,8 @@ con diapositivas de apertura y de cierre, textos, logo y firma del operador.
 | **Audio** | Pistas añadidas (comentario, música) con volumen y fundidos; audio original con volumen, fundidos y eliminación de tramos sueltos. |
 | **Vista previa** | Reproducción con audio, hacia atrás, fotograma a fotograma; vista previa ampliable y **separable** en una ventana aparte. |
 | **Exportación** | MP4 (H.264 + AAC) idéntico a la vista previa. |
-| **Idiomas** | Interfaz en 9 idiomas, que se cambia sin reiniciar. |
+| **Imágenes** | Una o varias fotos en una hoja (hasta cuatro, once disposiciones, cinco formatos), las mismas anotaciones del vídeo más la **conexión** entre dos puntos, los puntos numerados con sus notas, la leyenda y el botón **Word**; proyecto guardado en un JSON editable; hoja exportada en PNG o JPG o copiada al portapapeles. |
+| **Idiomas y manual** | Interfaz en 9 idiomas, que se cambia sin reiniciar; este manual se abre dentro del programa, en el idioma elegido. |
 
 ## 2. Instalación y primer inicio
 
@@ -90,12 +102,15 @@ tras un obstáculo. Sin él, el seguimiento funciona igualmente.
 
 ![La ventana de EditSimple](images/es/01_start.webp)
 
+- **Barra de la izquierda**, con las páginas: **Vídeo** (la edición),
+  **Imágenes** (las fotografías, capítulo 16), **Configurar** y **Manual**,
+  que abre este manual en una ventana aparte, en el idioma de la interfaz.
 - **Barra de herramientas**, en cuatro grupos: *Proyecto* (nuevo, abrir,
   guardar, deshacer, rehacer), *Clip* (importar vídeo, audio, cortar,
   eliminar, imagen congelada, diapositiva, velocidad), *Superposiciones*
-  (texto, imagen, logo, tiempo, fotogramas, recuadro, óvalo, flecha, zoom
-  rectangular y ovalado, píxel rectangular y ovalado) y *Salida* (exportar
-  MP4). Cada botón tiene una sugerencia con su atajo.
+  (texto, imagen, logo, tiempo, fotogramas, recuadro, óvalo, flecha, números,
+  letras, zoom rectangular y ovalado, píxel rectangular y ovalado) y *Salida*
+  (exportar MP4). Cada botón tiene una sugerencia con su atajo.
 - **Vista previa**, en el centro: muestra el fotograma del cursor con todos los
   efectos, exactamente como en el vídeo exportado. Sobre ella se dibujan y se
   mueven los efectos.
@@ -106,7 +121,14 @@ tras un obstáculo. Sin él, el seguimiento funciona igualmente.
   tiempo del cursor (se puede escribir); IN, OUT y el borrado de las marcas; a
   la derecha, el zoom de la línea de tiempo.
 - **Línea de tiempo**, abajo: regla, pista **Vídeo** en forma de película,
-  **Audio original**, pistas de audio añadidas y **Efectos**.
+  **Audio original**, pistas de audio añadidas y **Efectos**, uno por fila.
+
+![El manual se abre dentro del programa, con el índice a la izquierda y la elección del idioma](images/es/34_manual.webp)
+
+La ventana del **Manual** tiene el índice de los capítulos a la izquierda (un
+clic lleva al capítulo) y arriba el menú del idioma; los enlaces del texto
+funcionan, y las imágenes son las de estas páginas. El manual cambia de idioma
+junto con la interfaz.
 
 ## 4. Página Configurar
 
@@ -123,7 +145,8 @@ Se abre desde la barra de la izquierda. Contiene:
   JPG), el texto (nombre, organismo, sitio web), el ancho del logo, la altura
   del texto, la distancia a los bordes, la esquina, la disposición, los
   colores y un fondo con opacidad y esquinas redondeadas. Se preparan una sola
-  vez; luego el botón **Logo** los pone en el vídeo.
+  vez; luego el botón **Logo** los pone en el vídeo (y en la hoja de las
+  imágenes).
 
 ![Configurar: esquinas redondeadas, idioma y créditos](images/es/03_settings_more.webp)
 
@@ -141,7 +164,9 @@ peatonal concurrida (véase la nota inicial: los transeúntes no hacen nada
 malo). En pocos pasos lo enriquecemos: el logo y el sitio web del operador
 abajo, un zoom sobre las manos de un hombre que sigue sus movimientos, una
 flecha que señala a una persona durante 12 segundos, dos recuadros sobre otras
-personas y el pixelado de un rostro al final.
+personas, el pixelado de un rostro al final, un punto numerado que sigue a una
+persona y una flecha con la cola fija que señala un teléfono durante todo el
+vídeo.
 
 ### 5.1 Importar el vídeo
 
@@ -202,6 +227,11 @@ flecha lo sigue manteniendo la punta sobre él.
 En la línea de tiempo, la barra de la flecha muestra *(sigue)* y los rombos de
 los keyframes con los que hemos corregido el recorrido (véase el capítulo 6).
 
+En el panel de la flecha se eligen también los **Extremos** (en la punta, en
+la cola, en ambos extremos, ninguno: solo la línea) y el **Tipo de extremo**:
+punta rellena, punta abierta, punto, cuadradito o barra. Con dos extremos la
+flecha indica una conexión entre dos cosas.
+
 ### 5.5 Recuadros sobre las personas
 
 ![Recuadro: Seguir al sujeto](images/es/11_box.webp)
@@ -224,6 +254,38 @@ El pixelado sigue el rostro y **crece cuando se acerca** a la cámara, así que
 siempre lo cubre. Si el sujeto sale del encuadre, el pixelado lo acompaña
 hasta que ha salido del todo: ningún fotograma queda al descubierto.
 
+### 5.7 Un punto numerado que sigue a una persona
+
+![Punto numerado (letra A) que sigue a una persona](images/es/31_marker_video.webp)
+
+**Números** (N) y **Letras** (Mayús+N) ponen un **punto numerado**: un
+círculo con un número dentro (1, 2, 3...) o una letra mayúscula (A, B, C...).
+Se pulsa el botón y se hace un clic donde va el punto; **cada punto requiere
+un nuevo clic en el botón**, y toma siempre el número o la letra siguiente al
+último puesto (después de Z viene AA). En el panel se cambian el número o la
+letra, el diámetro, el color del círculo y del texto, el anillo blanco y la
+opacidad.
+
+Como las demás figuras, el punto **sigue al sujeto**: *Seguir al sujeto* y un
+rectángulo alrededor de la persona. En el vídeo los puntos no tienen notas;
+sirven para referirse, en la locución o en una diapositiva, a "la persona A"
+o "el objeto 2".
+
+### 5.8 Una flecha con la cola fija
+
+![Flecha con la cola fija: la punta sigue el teléfono, la cola se queda junto al texto](images/es/32_arrow_tail.webp)
+
+Una flecha que sigue a un sujeto, normalmente, se mueve entera. La opción
+**Cola** del panel tiene la alternativa **Queda fija donde la dibujó**: la
+cola permanece en el punto del primer fotograma y solo la **punta sigue al
+sujeto**. Es útil cuando la cola parte de un texto o de un punto de
+referencia: aquí el rótulo "Teléfono" se queda abajo y la flecha se alarga y
+se acorta para seguir sobre el teléfono durante todo el vídeo.
+
+Al arrastrar el tirador de la cola, esta se mueve de verdad hasta ahí; al
+arrastrar la punta o la línea se crea un keyframe, como con las demás
+figuras.
+
 ## 6. Corregir el seguimiento con los keyframes
 
 ![Keyframes en la barra del zoom](images/es/08_keyframes.webp)
@@ -245,24 +307,30 @@ En la barra del efecto seleccionado se ven también los puntos encontrados por
 el seguimiento (círculos). Un clic selecciona un punto y lleva allí el cursor,
 Mayús+clic selecciona un intervalo, Ctrl+clic añade o quita; **Supr** o el
 botón derecho borran los puntos seleccionados. En el panel, la sección
-**Keyframe** tiene los botones *< Ant.* y *Sig. >*, *Keyframe aquí (fija la
-posición)* y *Quitar keyframe del cursor*.
+**Keyframe** tiene los botones *< Ant.* y *Sig. >*, *Keyframe aquí* (fija la
+posición actual) y *Quitar keyframe del cursor*.
 
 ## 7. La línea de tiempo
 
+![Cada efecto está en su fila, en el orden en que se añadió](images/es/33_timeline_rows.webp)
+
+- **Barras de los efectos**: **cada efecto tiene su propia fila**, en el orden
+  en que se añadió, así ninguna barra tapa a otra. Se mueven arrastrándolas;
+  el borde derecho cambia la duración. Con muchos efectos, la parte de audio y
+  efectos **se desplaza en vertical** (barra de la derecha, rueda sobre los
+  nombres de las filas o Mayús+rueda), mientras la regla y el vídeo se quedan
+  fijos arriba.
+
 ![Ojo: un efecto oculto mientras se trabaja](images/es/14_hide.webp)
 
-- **Barras de los efectos**: se mueven arrastrándolas; el borde derecho cambia
-  la duración. Los efectos se reparten en varias filas; con muchos efectos, la
-  parte de audio y efectos **se desplaza en vertical** (barra de la derecha,
-  rueda sobre los nombres de las filas o Mayús+rueda), mientras la regla y el
-  vídeo se quedan fijos arriba.
 - **Ojo**: el icono a la izquierda de cada barra **oculta o muestra** el
   efecto, en la vista previa y en el vídeo exportado. Útil cuando muchos
   efectos se superponen mientras se trabaja.
 - **Botón derecho sobre una barra**: *Alargar hasta el cursor* (si el cursor
   está más allá del final; si el efecto sigue a un sujeto, el seguimiento
-  continúa) y *Cortar en el cursor* (si el cursor está dentro del efecto).
+  continúa hasta el cursor y, si el sujeto se pierde antes, la figura se queda
+  quieta donde lo vio por última vez) y *Cortar en el cursor* (si el cursor
+  está dentro del efecto).
 - **Zoom de la línea de tiempo**: Ctrl+rueda, o los botones − + y *Ajustar*.
   De cerca, la película muestra cada fotograma.
 - **Desplazamiento**: rueda, Alt+arrastrar o arrastre con el botón central.
@@ -402,25 +470,136 @@ final el programa propone abrir la carpeta.
 
 ![Exportación completada](images/es/29_export_done.webp)
 
-## 16. Consejos para un buen resultado
+## 16. La página Imágenes
+
+La página **Imágenes** (barra de la izquierda) sirve para preparar una
+**ilustración para un informe o una presentación** a partir de una o varias
+fotografías: las fotos en la hoja, las anotaciones encima, los puntos
+numerados con sus notas y la leyenda, para insertarla en Word con un clic o
+exportarla como imagen. El ejemplo de este capítulo usa dos fotos de una
+motocicleta.
+
+### 16.1 Disposición y fotografías
+
+![La elección de la disposición: cuántas imágenes y cómo colocarlas](images/es/40_images_layout.webp)
+
+Al abrirla por primera vez, la página pide la **disposición**: una imagen;
+dos lado a lado o una sobre otra; tres en fila, en columna, una grande a la
+izquierda o una grande arriba; cuatro en cuadrícula, en fila, una grande a
+la izquierda o una grande arriba. Debajo se elige el **formato de la hoja**:
+16:9 (1920×1080), 4:3, cuadrado, 9:16 vertical o A4 vertical. La disposición
+y el formato se cambian en cualquier momento (**Disposición** en la barra, o
+*Cambiar disposición...* en el panel de la hoja): las imágenes ya colocadas
+se mantienen.
+
+![Dos fotos cargadas; en el panel, la ampliación y la posición](images/es/41_images_loaded.webp)
+
+Las fotografías se ponen con **Cargar** (una o varias, en el recuadro elegido
+y en los siguientes vacíos), con un **clic en un recuadro vacío**, arrastrando
+un archivo desde el ordenador sobre el recuadro o con **Ctrl+V** desde el
+portapapeles (por ejemplo, una captura de pantalla). Cada foto llena su
+recuadro: la **rueda** sobre la foto la amplía, **arrastrándola** se mueve
+dentro del recuadro para encuadrar el detalle que importa. En el panel de la
+foto están el nombre del archivo, el tamaño, el control deslizante de la
+ampliación y los botones para sustituirla o quitarla. En el panel de la
+**hoja** (cuando no hay nada seleccionado): formato, espacio entre las
+imágenes y color de la hoja.
+
+### 16.2 Anotaciones
+
+![Las anotaciones en la hoja: conexión, flecha entre dos fotos, zoom, píxel, texto, logo y puntos numerados](images/es/42_images_annotations.webp)
+
+Las herramientas son las mismas del vídeo (**Texto**, **Imagen**, **Logo**,
+**Recuadro**, **Óvalo**, **Flecha**, **Números**, **Letras**, **Zoom**
+rectangular y ovalado, **Píxel** rectangular y ovalado), sin tiempos ni
+seguimiento, más una nueva:
+
+- **Conectar** (C rectángulos, Mayús+C óvalos): un clic en el primer punto y
+  otro en el segundo; alrededor de cada uno aparece una forma (rectángulo u
+  óvalo, redimensionable desde las esquinas) y una línea las une de borde a
+  borde. En el panel: forma, esquinas, color, grosor, línea discontinua,
+  opacidad. Sirve para decir "esto es aquello": el detalle de una foto
+  localizado en la otra.
+
+Cada anotación **pertenece a la foto sobre la que está**: si la foto se mueve
+o se amplía, la anotación la sigue. Una flecha o una conexión entre dos fotos
+tienen un extremo en cada una, y cada extremo sigue a su foto. Una anotación
+a caballo de dos fotos (un texto, un círculo, un recuadro) se queda entera
+sobre la hoja.
+
+### 16.3 Puntos numerados y notas
+
+![Un punto numerado seleccionado: en el panel, su nota](images/es/43_images_marker_note.webp)
+
+**Números** (N) y **Letras** (Mayús+N) funcionan como en el vídeo: un clic en
+el botón, un clic en la foto, y el punto toma el número o la letra siguiente
+al último. Aquí, además, cada punto tiene una **Nota** en el panel: qué
+señala. Las notas acaban en la leyenda, en el orden de los puntos (primero
+los números, luego las letras). En el panel de la hoja, la lista **Puntos
+numerados** muestra todos los puntos con su nota: un clic selecciona el
+punto.
+
+### 16.4 Leyenda y Word
+
+![La leyenda: el texto que va después de "Ilustración N :"](images/es/44_images_caption.webp)
+
+El botón **Leyenda** (o la casilla *Leyenda para Word* en el panel de la
+hoja) abre el texto de la leyenda: va justo después de "Ilustración N :", y
+tras él vienen las notas de los puntos numerados. Con el texto "Motocicleta"
+y cuatro puntos, la leyenda queda así:
+
+`Ilustración 1 : Motocicleta. 1) depósito, 2) freno, A) faro, B) escape`
+
+![La ilustración insertada en Word con la leyenda](images/es/45_images_word.webp)
+
+El botón **Word** inserta la ilustración **en el documento Word abierto,
+donde está el cursor**: la imagen, tan ancha como la página, y debajo la
+leyenda con el estilo *Descripción* de Word, con el número automático
+("Ilustración 1", "Ilustración 2"...). El número es un campo de Word: las
+**referencias cruzadas** y la **tabla de ilustraciones** de Word funcionan
+igual que con las ilustraciones hechas a mano. Si Word no está abierto, se
+inicia con un documento nuevo; si Word no responde, la imagen y la leyenda se
+copian al portapapeles, para pegarlas.
+
+### 16.5 Guardar, exportar, copiar
+
+![Proyecto guardado; Exportar, Copiar y Word en el grupo Salida](images/es/46_images_output.webp)
+
+- **Guardar** (Ctrl+S, Ctrl+Mayús+S con nombre) escribe el **proyecto**: un
+  archivo JSON con la disposición, el formato, las fotos (encuadre y
+  ampliación), las anotaciones y la leyenda, y al lado una carpeta
+  `<nombre>_file` con las copias de las fotos y de las imágenes usadas. El
+  JSON es legible y se puede modificar a mano. **Abrir** (Ctrl+O) lo vuelve a
+  abrir; al cerrar, si hay algo sin guardar, el programa lo pregunta.
+- **Exportar** guarda la hoja en **PNG o JPG** al tamaño del formato.
+- **Copiar** pone la hoja en el **portapapeles**, para pegarla en un correo,
+  en una presentación o en otro sitio.
+- Deshacer y rehacer (Ctrl+Z, Ctrl+Y) valen para todo: fotos, anotaciones,
+  disposición y leyenda.
+
+## 17. Consejos para un buen resultado
 
 - **El recuadro del zoom va en una zona neutra**: el recuadro ampliado tapa la
   parte del vídeo sobre la que está colocado, durante todo el tiempo en que
   aparece. Póngalo donde no pase nada interesante (cielo, pared, suelo).
 - **Dibuje ajustado al sujeto** en recuadros, óvalos y pixelados: el contenido
   de la figura es la plantilla que se busca en los fotogramas siguientes.
-- **Para la flecha, un rectángulo algo más grande** (cabeza y hombros en lugar
-  de solo la cabeza) aguanta mejor cuando otras personas pasan por delante.
+- **Para la flecha y para el punto numerado, un rectángulo algo más grande**
+  (cabeza y hombros en lugar de solo la cabeza) aguanta mejor cuando otras
+  personas pasan por delante.
 - **Después del seguimiento, recorra el vídeo**: donde la figura se equivoque,
   arrástrela sobre el sujeto. Pocos keyframes bastan incluso para recorridos
   largos.
 - **Con muchos efectos**, use el ojo para ocultar los que no necesite en ese
   momento, y la vista previa separada para tener más espacio en la línea de
   tiempo.
+- **En las imágenes, coloque primero bien las fotos** (encuadre y ampliación)
+  y luego las anotaciones: las anotaciones siguen a la foto, pero es más
+  cómodo dibujarlas sobre el encuadre definitivo.
 - **Guarde a menudo** (Ctrl+S): el proyecto es un pequeño archivo JSON que se
   vuelve a abrir y se modifica cuando se quiera.
 
-## 17. Atajos de teclado y ratón
+## 18. Atajos de teclado y ratón
 
 | Tecla | Acción |
 | --- | --- |
@@ -434,14 +613,17 @@ final el programa propone abrir la carpeta.
 | F | Imagen congelada |
 | V | Velocidad de la porción IN-OUT |
 | T / R / E / A | Texto / recuadro / óvalo / flecha |
+| N / Mayús+N | Punto numerado con números / con letras |
+| C / Mayús+C | Conexión con rectángulos / con óvalos (página Imágenes) |
 | Z / Mayús+Z | Zoom rectangular / ovalado |
 | P / K | Pixelado rectangular / ovalado |
 | L | Logo y operador |
 | Supr | Eliminar la selección (o la porción IN-OUT) |
 | Esc | Cancelar el dibujo en curso |
 | Ctrl+Z / Ctrl+Y | Deshacer / rehacer |
-| Ctrl+N / Ctrl+O / Ctrl+S / Ctrl+Mayús+S | Nuevo / abrir / guardar / guardar como |
+| Ctrl+N / Ctrl+O / Ctrl+S / Ctrl+Mayús+S | Nuevo / abrir / guardar / guardar como (en la página Imágenes: el proyecto de imágenes) |
 | Ctrl+I | Importar vídeo |
+| Ctrl+V | Pegar una imagen del portapapeles (página Imágenes) |
 | Ctrl+E | Exportar MP4 |
 
 | Ratón | Dónde | Acción |
@@ -455,14 +637,24 @@ final el programa propone abrir la carpeta.
 | Mayús+rueda, rueda sobre los nombres | Línea de tiempo | Desplaza audio y efectos en vertical |
 | Botón derecho | Barra de un efecto | Alargar hasta el cursor / cortar en el cursor |
 | Botón derecho | Keyframe o punto | Borrar |
+| Rueda / arrastrar | Foto en la página Imágenes | Amplía / mueve la foto dentro del recuadro |
+| Clic en un recuadro vacío, archivo arrastrado | Página Imágenes | Carga una foto |
 
-## 18. El archivo de proyecto
+## 19. Los archivos de proyecto
 
-El proyecto es un archivo JSON con los clips, las pistas de audio, los efectos
-(con los recorridos del seguimiento y los keyframes) y las rutas de los
-archivos usados. Los vídeos, los audios y las imágenes no se copian en el
-proyecto: déjelos donde están hasta terminar el trabajo. El vídeo exportado,
-en cambio, es un MP4 independiente.
+El proyecto de **vídeo** es un archivo JSON con los clips, las pistas de
+audio, los efectos (con los recorridos del seguimiento y los keyframes) y las
+rutas de los archivos usados. Los vídeos, los audios y las imágenes no se
+copian en el proyecto: déjelos donde están hasta terminar el trabajo. El vídeo
+exportado, en cambio, es un MP4 independiente.
+
+El proyecto de **imágenes** es un archivo JSON (`kind: editsimple-images`) con
+la disposición, el formato, la leyenda, los recuadros con su foto y las
+anotaciones, más la carpeta `<nombre>_file` al lado con las copias de las
+fotos, de las imágenes superpuestas y del logo: el proyecto es independiente
+y se puede mover junto con su carpeta. Los valores del JSON (coordenadas,
+colores, notas, etiquetas de los puntos) se pueden modificar con un editor de
+texto.
 
 ---
 

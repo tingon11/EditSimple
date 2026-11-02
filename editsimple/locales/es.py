@@ -119,7 +119,6 @@ CATALOG: dict[str, str] = {
     "PROGETTO": "PROYECTO",
     "nuovo": "nuevo",
     "Nessun video": "Ningún vídeo",
-    "Montaggio": "Edición",
     "Configura": "Configurar",
     "Riproduci / pausa (Spazio)": "Reproducir / pausa (Espacio)",
     "larghezza logo % del video": "ancho del logo % del vídeo",
@@ -694,4 +693,217 @@ CATALOG: dict[str, str] = {
     "Impossibile leggere l'impronta SHA-256 di ffmpeg: {error}": 'No se puede leer la huella SHA-256 de ffmpeg: {error}',
     'Impronta SHA-256 di ffmpeg non valida.': 'Huella SHA-256 de ffmpeg no válida.',
     "L'archivio di ffmpeg scaricato non corrisponde all'impronta SHA-256 pubblicata: non viene installato.": 'El archivo de ffmpeg descargado no coincide con la huella SHA-256 publicada: no se instala.',
+    "Testo (T): clic dove metterlo": "Texto (T): clic donde ponerlo",
+    "Immagine sopra il foglio, da spostare e ridimensionare": "Imagen sobre la hoja, para mover y redimensionar",
+    "Logo e testo dell'operatore della Configurazione (L)": "Logo y texto del operador de la Configuración (L)",
+    "Riquadro (R)": "Recuadro (R)",
+    "Ovale (E)": "Óvalo (E)",
+    "Freccia (A): dalla coda alla punta": "Flecha (A): de la cola a la punta",
+    "Zoom rettangolare (Z): l'area scelta in un riquadro ingrandito": "Zoom rectangular (Z): el área elegida en un recuadro ampliado",
+    "Zoom ovale (Maiusc+Z)": "Zoom ovalado (Mayús+Z)",
+    "Pixelatura rettangolare (P)": "Pixelado rectangular (P)",
+    "Pixelatura ovale (K)": "Pixelado ovalado (K)",
+    "Scegli un layout per cominciare": "Elija una disposición para empezar",
+    "Layout": "Disposición",
+    "Scegli quante immagini e come disporle": "Elige cuántas imágenes y cómo colocarlas",
+    "Carica": "Cargar",
+    "Carica una o piu' immagini nel riquadro scelto e nei successivi vuoti": "Carga una o varias imágenes en el recuadro elegido y en los siguientes vacíos",
+    "Annotazioni": "Anotaciones",
+    "Esporta immagine": "Exportar imagen",
+    "Salva il foglio in PNG o JPG": "Guarda la hoja en PNG o JPG",
+    "Copia": "Copiar",
+    "Copia il foglio negli appunti, da incollare altrove": "Copia la hoja al portapapeles, para pegarla en otro sitio",
+    "Foglio": "Hoja",
+    "Spazio fra le immagini (px)": "Espacio entre las imágenes (px)",
+    "Colore del foglio": "Color de la hoja",
+    "Cambia layout...": "Cambiar disposición...",
+    "Carica da file...": "Cargar desde archivo...",
+    "Incolla dagli appunti (Ctrl+V)": "Pegar del portapapeles (Ctrl+V)",
+    "Scegli il layout": "Elija la disposición",
+    "Carica immagini": "Cargar imágenes",
+    "Negli appunti non c'e' un'immagine: copia uno screenshot o un file immagine.": "No hay ninguna imagen en el portapapeles: copie una captura de pantalla o un archivo de imagen.",
+    "appunti": "portapapeles",
+    "Misura": "Tamaño",
+    "Togli l'immagine": "Quitar la imagen",
+    "Il foglio e' vuoto: carica almeno un'immagine.": "La hoja está vacía: cargue al menos una imagen.",
+    "Impossibile copiare negli appunti.": "No se puede copiar al portapapeles.",
+    "Quante immagini e come disporle: si puo' cambiare in ogni momento, le immagini gia' messe restano.": "Cuántas imágenes y cómo colocarlas: se puede cambiar en cualquier momento, las imágenes ya colocadas se mantienen.",
+    "Layout: {name}. Clicca un riquadro, trascinaci un file o usa Ctrl+V.": "Disposición: {name}. Haga clic en un recuadro, arrastre un archivo sobre él o use Ctrl+V.",
+    "Immagine incollata nel riquadro {n}.": "Imagen pegada en el recuadro {n}.",
+    "Clicca un riquadro vuoto per caricare un'immagine, oppure trascinaci un file o incollala con Ctrl+V. Rotellina sull'immagine: ingrandisce; trascinandola: si sposta nel suo riquadro. Le annotazioni si aggiungono con gli strumenti in alto, come nel montaggio video. Esporta immagine salva il foglio in PNG o JPG.": "Haga clic en un recuadro vacío para cargar una imagen, o arrastre un archivo sobre él o péguela con Ctrl+V. Rueda sobre la imagen: amplía; arrastrándola: se mueve dentro de su recuadro. Las anotaciones se añaden con las herramientas de arriba, como en la edición de vídeo. Exportar imagen guarda la hoja en PNG o JPG.",
+    "Rotellina sull'immagine: ingrandisce attorno al mouse. Trascinandola: si sposta nel suo riquadro. Adatta: tutta visibile; Riempi: copre tutto il riquadro.": "Rueda sobre la imagen: amplía alrededor del ratón. Arrastrándola: se mueve dentro de su recuadro. Ajustar: toda visible; Rellenar: cubre todo el recuadro.",
+    "Immagine salvata: {path} ({width} x {height} px)": "Imagen guardada: {path} ({width} x {height} px)",
+    "Riquadro {n}": "Recuadro {n}",
+    "Formato del foglio": "Formato de la hoja",
+    "Clicca per caricare un'immagine\noppure trascina qui un file\no incolla con Ctrl+V": "Haga clic para cargar una imagen\no arrastre aquí un archivo\no pegue con Ctrl+V",
+    "Questi file non si aprono come immagini:\n{files}": "Estos archivos no se pueden abrir como imágenes:\n{files}",
+    "Adatta": "Ajustar",
+    "Riempi": "Rellenar",
+    "Immagine PNG": "Imagen PNG",
+    "Immagine JPG": "Imagen JPG",
+    "Foglio copiato negli appunti ({width} x {height} px).": "Hoja copiada al portapapeles ({width} x {height} px).",
+    "{count} immagini caricate.": "{count} imágenes cargadas.",
+    "Immagine caricata: {name}": "Imagen cargada: {name}",
+    "Una immagine": "Una imagen",
+    "Affiancate": "Lado a lado",
+    "Una sopra l'altra": "Una sobre otra",
+    "Tre in fila": "Tres en fila",
+    "Tre in colonna": "Tres en columna",
+    "Una grande a sinistra": "Una grande a la izquierda",
+    "Una grande sopra": "Una grande arriba",
+    "Griglia 2 x 2": "Cuadrícula 2 x 2",
+    "Quattro in fila": "Cuatro en fila",
+    "16:9 orizzontale": "16:9 horizontal",
+    "4:3": "4:3",
+    "Quadrato": "Cuadrado",
+    "9:16 verticale": "9:16 vertical",
+    "A4 verticale": "A4 vertical",
+    'Collega':
+        'Conectar',
+    'Collega due punti con riquadri e una linea (C)':
+        'Conectar dos puntos con recuadros y una línea (C)',
+    'Collega due punti con ovali e una linea (Maiusc+C)':
+        'Conectar dos puntos con óvalos y una línea (Mayús+C)',
+    'Alla punta':
+        'En la punta',
+    'Alla coda':
+        'En la cola',
+    'Su entrambi i lati':
+        'En ambos extremos',
+    'Nessuno (solo linea)':
+        'Ninguno (solo línea)',
+    'Freccia piena':
+        'Punta rellena',
+    'Freccia aperta':
+        'Punta abierta',
+    'Pallino':
+        'Punto',
+    'Quadratino':
+        'Cuadradito',
+    'Barra':
+        'Barra',
+    'Terminali':
+        'Extremos',
+    'Tipo di terminale':
+        'Tipo de extremo',
+    'Collegamento':
+        'Conexión',
+    'Rettangoli':
+        'Rectángulos',
+    'Ovali':
+        'Óvalos',
+    'Angoli (rettangoli)':
+        'Esquinas (rectángulos)',
+    'Linea tratteggiata':
+        'Línea discontinua',
+    "Due punti uniti da una linea, anche su due immagini diverse: ognuno segue la sua. Sull'anteprima: trascina una forma per spostarla, dagli angoli per ridimensionarla, la linea per spostare tutto.":
+        'Dos puntos unidos por una línea, incluso en dos imágenes distintas: cada uno sigue la suya. En la vista previa: arrastre una forma para moverla, sus esquinas para cambiar su tamaño, la línea para moverlo todo.',
+    'Clicca (o trascina) sul primo punto da collegare':
+        'Haga clic (o arrastre) en el primer punto que desea conectar',
+    "Clicca (o trascina) sul secondo punto: verra' unito al primo da una linea":
+        'Haga clic (o arrastre) en el segundo punto: se unirá al primero con una línea',
+    'Numeri':
+        'Números',
+    'Lettere':
+        'Letras',
+    'Apri un progetto di immagini salvato (Ctrl+O)':
+        'Abrir un proyecto de imágenes guardado (Ctrl+O)',
+    'Salva il progetto: un file JSON e una cartella con le immagini, modificabili (Ctrl+S; Ctrl+Maiusc+S: salva con nome)':
+        'Guardar el proyecto: un archivo JSON y una carpeta con las imágenes, editables (Ctrl+S; Ctrl+Mayús+S: guardar como)',
+    'Word':
+        'Word',
+    'Immagini non salvate':
+        'Imágenes sin guardar',
+    'Salvare le modifiche al progetto di immagini?':
+        '¿Desea guardar los cambios del proyecto de imágenes?',
+    'Punti numerati':
+        'Puntos numerados',
+    'Figura':
+        'Ilustración',
+    'Apri progetto di immagini':
+        'Abrir proyecto de imágenes',
+    '(nessuna nota)':
+        '(sin nota)',
+    'Salva progetto di immagini':
+        'Guardar proyecto de imágenes',
+    'Progetto salvato: {path} (con la cartella {folder})':
+        'Proyecto guardado: {path} (con la carpeta {folder})',
+    'Progetto aperto: {path}':
+        'Proyecto abierto: {path}',
+    'Progetto immagini EditSimple (JSON)':
+        'Proyecto de imágenes de EditSimple (JSON)',
+    'Numeri (1, 2, 3)':
+        'Números (1, 2, 3)',
+    'Lettere (A, B, C)':
+        'Letras (A, B, C)',
+    'Numero o lettera':
+        'Número o letra',
+    'Numerazione':
+        'Numeración',
+    'Diametro (px)':
+        'Diámetro (px)',
+    'Bordo del colore del testo':
+        'Borde del color del texto',
+    'Punto {label}':
+        'Punto {label}',
+    "Ogni nuovo punto prende il numero (o la lettera) dopo l'ultimo inserito. Le note vanno nella didascalia dell'immagine con il pulsante Word.":
+        'Cada punto nuevo toma el número (o la letra) siguiente al último añadido. Las notas van a la leyenda de la imagen con el botón Word.',
+    'Nota':
+        'Nota',
+    'Punto numerato':
+        'Punto numerado',
+    'Esporta':
+        'Exportar',
+    "Inserisce l'immagine con la didascalia (i punti numerati e le loro note) nel documento Word aperto, dove c'e' il cursore":
+        'Inserta la imagen con su leyenda (los puntos numerados y sus notas) en el documento de Word abierto, donde está el cursor',
+    'Inserimento in Word...':
+        'Insertando en Word...',
+    'Inserita in Word ({document}): {caption}':
+        'Insertada en Word ({document}): {caption}',
+    'Word non risponde ({error}): immagine e didascalia copiate negli appunti, da incollare in Word.':
+        'Word no responde ({error}): imagen y leyenda copiadas al portapapeles, para pegarlas en Word.',
+    'Punto numerato 1, 2, 3 (N): clic dove metterlo, il prossimo prende il numero dopo':
+        'Punto numerado 1, 2, 3 (N): haga clic donde colocarlo, el siguiente toma el número posterior',
+    'Punto con lettera A, B, C (Maiusc+N): clic dove metterlo, il prossimo prende la lettera dopo':
+        'Punto con letra A, B, C (Mayús+N): haga clic donde colocarlo, el siguiente toma la letra posterior',
+    "Trascina un rettangolo attorno al soggetto: il punto lo seguira' restandogli accanto.":
+        'Arrastre un rectángulo alrededor del sujeto: el punto lo seguirá quedándose a su lado.',
+    'soggetto del punto':
+        'sujeto del punto',
+    "Si disegna un rettangolo attorno al soggetto: il punto lo segue nei fotogrammi successivi restandogli accanto; quando esce dall'inquadratura l'effetto finisce.":
+        'Se dibuja un rectángulo alrededor del sujeto: el punto lo sigue en los fotogramas siguientes quedándose a su lado; cuando sale del encuadre, el efecto termina.',
+    "Ogni nuovo punto prende il numero (o la lettera) dopo l'ultimo inserito.":
+        'Cada punto nuevo toma el número (o la letra) siguiente al último añadido.',
+    'Clicca dove mettere il punto':
+        'Haga clic donde colocar el punto',
+    'Trascina un rettangolo attorno al soggetto che il punto deve seguire':
+        'Arrastre un rectángulo alrededor del sujeto que el punto debe seguir',
+    "; soggetto perso da {time}: la figura resta ferma li' fino alla fine":
+        '; sujeto perdido desde {time}: la figura se queda quieta ahí hasta el final',
+    'Didascalia per Word':
+        'Leyenda para Word',
+    'Va subito dopo "Figura N :" nella didascalia che il pulsante Word inserisce; dopo vengono le note dei punti numerati.':
+        'Va justo después de "Ilustración N :" en la leyenda que inserta el botón Word; después vienen las notas de los puntos numerados.',
+    'Coda':
+        'Cola',
+    'Si sposta con la punta':
+        'Se mueve con la punta',
+    "Resta fissa dove l'hai disegnata":
+        'Queda fija donde la dibujó',
+    'coda fissa':
+        'cola fija',
+    'Didascalia':
+        'Leyenda',
+    'Scrive o cambia il testo della didascalia per Word (quello dopo "Figura N :")':
+        'Escribe o cambia el texto de la leyenda para Word (el que va después de "Ilustración N :")',
+    'Manuale':
+        'Manual',
+    "Manuale d'uso":
+        'Manual de uso',
+    'Indice':
+        'Índice',
+    "Il manuale non e' incluso in questa copia del programma.":
+        'El manual no está incluido en esta copia del programa.',
+    'Si legge in linea su GitHub:':
+        'Se puede leer en línea en GitHub:',
 }

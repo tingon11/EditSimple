@@ -187,8 +187,6 @@ CATALOG: dict[str, str] = {
         "νέο",
     "Nessun video":
         "Χωρίς βίντεο",
-    "Montaggio":
-        "Μοντάζ",
     "Configura":
         "Διαμόρφωση",
     "Riproduci / pausa (Spazio)":
@@ -1017,4 +1015,217 @@ CATALOG: dict[str, str] = {
     "Impossibile leggere l'impronta SHA-256 di ffmpeg: {error}": 'Δεν είναι δυνατή η ανάγνωση του αποτυπώματος SHA-256 του ffmpeg: {error}',
     'Impronta SHA-256 di ffmpeg non valida.': 'Μη έγκυρο αποτύπωμα SHA-256 για το ffmpeg.',
     "L'archivio di ffmpeg scaricato non corrisponde all'impronta SHA-256 pubblicata: non viene installato.": 'Το αρχείο ffmpeg που λήφθηκε δεν ταιριάζει με το δημοσιευμένο αποτύπωμα SHA-256: δεν εγκαθίσταται.',
+    "Testo (T): clic dove metterlo": "Κείμενο (T): κλικ εκεί όπου θα μπει",
+    "Immagine sopra il foglio, da spostare e ridimensionare": "Εικόνα πάνω στο φύλλο, για μετακίνηση και αλλαγή μεγέθους",
+    "Logo e testo dell'operatore della Configurazione (L)": "Λογότυπο και κείμενο χειριστή από τη Διαμόρφωση (L)",
+    "Riquadro (R)": "Πλαίσιο (R)",
+    "Ovale (E)": "Οβάλ (E)",
+    "Freccia (A): dalla coda alla punta": "Βέλος (A): από την ουρά προς την αιχμή",
+    "Zoom rettangolare (Z): l'area scelta in un riquadro ingrandito": "Ορθογώνιο ζουμ (Z): η επιλεγμένη περιοχή μεγεθυμένη σε πλαίσιο",
+    "Zoom ovale (Maiusc+Z)": "Οβάλ ζουμ (Shift+Z)",
+    "Pixelatura rettangolare (P)": "Ορθογώνιο ψηφιδωτό (P)",
+    "Pixelatura ovale (K)": "Οβάλ ψηφιδωτό (K)",
+    "Scegli un layout per cominciare": "Επιλέξτε μια διάταξη για να ξεκινήσετε",
+    "Layout": "Διάταξη",
+    "Scegli quante immagini e come disporle": "Επιλογή πλήθους εικόνων και διάταξής τους",
+    "Carica": "Φόρτωση",
+    "Carica una o piu' immagini nel riquadro scelto e nei successivi vuoti": "Φόρτωση μίας ή περισσότερων εικόνων στο επιλεγμένο πλαίσιο και στα επόμενα κενά",
+    "Annotazioni": "Επισημάνσεις",
+    "Esporta immagine": "Εξαγωγή εικόνας",
+    "Salva il foglio in PNG o JPG": "Αποθήκευση του φύλλου σε PNG ή JPG",
+    "Copia": "Αντιγραφή",
+    "Copia il foglio negli appunti, da incollare altrove": "Αντιγραφή του φύλλου στο πρόχειρο, για επικόλληση αλλού",
+    "Foglio": "Φύλλο",
+    "Spazio fra le immagini (px)": "Απόσταση μεταξύ εικόνων (px)",
+    "Colore del foglio": "Χρώμα φύλλου",
+    "Cambia layout...": "Αλλαγή διάταξης...",
+    "Carica da file...": "Φόρτωση από αρχείο...",
+    "Incolla dagli appunti (Ctrl+V)": "Επικόλληση από το πρόχειρο (Ctrl+V)",
+    "Scegli il layout": "Επιλογή διάταξης",
+    "Carica immagini": "Φόρτωση εικόνων",
+    "Negli appunti non c'e' un'immagine: copia uno screenshot o un file immagine.": "Δεν υπάρχει εικόνα στο πρόχειρο: αντιγράψτε ένα στιγμιότυπο οθόνης ή ένα αρχείο εικόνας.",
+    "appunti": "πρόχειρο",
+    "Misura": "Μέγεθος",
+    "Togli l'immagine": "Αφαίρεση εικόνας",
+    "Il foglio e' vuoto: carica almeno un'immagine.": "Το φύλλο είναι κενό: φορτώστε τουλάχιστον μία εικόνα.",
+    "Impossibile copiare negli appunti.": "Αδύνατη η αντιγραφή στο πρόχειρο.",
+    "Quante immagini e come disporle: si puo' cambiare in ogni momento, le immagini gia' messe restano.": "Πόσες εικόνες και πώς θα διαταχθούν: αλλάζει οποιαδήποτε στιγμή, οι εικόνες που έχουν ήδη μπει παραμένουν.",
+    "Layout: {name}. Clicca un riquadro, trascinaci un file o usa Ctrl+V.": "Διάταξη: {name}. Κάντε κλικ σε ένα πλαίσιο, σύρετε μέσα ένα αρχείο ή χρησιμοποιήστε Ctrl+V.",
+    "Immagine incollata nel riquadro {n}.": "Η εικόνα επικολλήθηκε στο πλαίσιο {n}.",
+    "Clicca un riquadro vuoto per caricare un'immagine, oppure trascinaci un file o incollala con Ctrl+V. Rotellina sull'immagine: ingrandisce; trascinandola: si sposta nel suo riquadro. Le annotazioni si aggiungono con gli strumenti in alto, come nel montaggio video. Esporta immagine salva il foglio in PNG o JPG.": "Κάντε κλικ σε ένα κενό πλαίσιο για να φορτώσετε μια εικόνα, ή σύρετε μέσα ένα αρχείο ή επικολλήστε την με Ctrl+V. Ροδέλα πάνω στην εικόνα: μεγέθυνση· σύρσιμο: μετακίνηση μέσα στο πλαίσιό της. Οι επισημάνσεις προστίθενται με τα εργαλεία επάνω, όπως στο μοντάζ βίντεο. Η Εξαγωγή εικόνας αποθηκεύει το φύλλο σε PNG ή JPG.",
+    "Rotellina sull'immagine: ingrandisce attorno al mouse. Trascinandola: si sposta nel suo riquadro. Adatta: tutta visibile; Riempi: copre tutto il riquadro.": "Ροδέλα πάνω στην εικόνα: μεγέθυνση γύρω από το ποντίκι. Σύρσιμο: μετακίνηση μέσα στο πλαίσιό της. Προσαρμογή: ολόκληρη ορατή· Γέμισμα: καλύπτει όλο το πλαίσιο.",
+    "Immagine salvata: {path} ({width} x {height} px)": "Η εικόνα αποθηκεύτηκε: {path} ({width} x {height} px)",
+    "Riquadro {n}": "Πλαίσιο {n}",
+    "Formato del foglio": "Μορφή φύλλου",
+    "Clicca per caricare un'immagine\noppure trascina qui un file\no incolla con Ctrl+V": "Κάντε κλικ για φόρτωση εικόνας\nή σύρετε εδώ ένα αρχείο\nή επικολλήστε με Ctrl+V",
+    "Questi file non si aprono come immagini:\n{files}": "Αυτά τα αρχεία δεν ανοίγουν ως εικόνες:\n{files}",
+    "Adatta": "Προσαρμογή",
+    "Riempi": "Γέμισμα",
+    "Immagine PNG": "Εικόνα PNG",
+    "Immagine JPG": "Εικόνα JPG",
+    "Foglio copiato negli appunti ({width} x {height} px).": "Το φύλλο αντιγράφηκε στο πρόχειρο ({width} x {height} px).",
+    "{count} immagini caricate.": "Φορτώθηκαν {count} εικόνες.",
+    "Immagine caricata: {name}": "Η εικόνα φορτώθηκε: {name}",
+    "Una immagine": "Μία εικόνα",
+    "Affiancate": "Δίπλα-δίπλα",
+    "Una sopra l'altra": "Η μία πάνω από την άλλη",
+    "Tre in fila": "Τρεις σε σειρά",
+    "Tre in colonna": "Τρεις σε στήλη",
+    "Una grande a sinistra": "Μία μεγάλη αριστερά",
+    "Una grande sopra": "Μία μεγάλη επάνω",
+    "Griglia 2 x 2": "Πλέγμα 2 x 2",
+    "Quattro in fila": "Τέσσερις σε σειρά",
+    "16:9 orizzontale": "16:9 οριζόντιο",
+    "4:3": "4:3",
+    "Quadrato": "Τετράγωνο",
+    "9:16 verticale": "9:16 κάθετο",
+    "A4 verticale": "A4 κάθετο",
+    'Collega':
+        'Σύνδεση',
+    'Collega due punti con riquadri e una linea (C)':
+        'Σύνδεση δύο σημείων με πλαίσια και μια γραμμή (C)',
+    'Collega due punti con ovali e una linea (Maiusc+C)':
+        'Σύνδεση δύο σημείων με οβάλ και μια γραμμή (Shift+C)',
+    'Alla punta':
+        'Στην αιχμή',
+    'Alla coda':
+        'Στην ουρά',
+    'Su entrambi i lati':
+        'Και στις δύο πλευρές',
+    'Nessuno (solo linea)':
+        'Κανένα (μόνο γραμμή)',
+    'Freccia piena':
+        'Γεμάτη αιχμή',
+    'Freccia aperta':
+        'Ανοιχτή αιχμή',
+    'Pallino':
+        'Κουκκίδα',
+    'Quadratino':
+        'Τετραγωνάκι',
+    'Barra':
+        'Μπάρα',
+    'Terminali':
+        'Άκρα',
+    'Tipo di terminale':
+        'Είδος άκρου',
+    'Collegamento':
+        'Σύνδεση',
+    'Rettangoli':
+        'Ορθογώνια',
+    'Ovali':
+        'Οβάλ',
+    'Angoli (rettangoli)':
+        'Γωνίες (ορθογώνια)',
+    'Linea tratteggiata':
+        'Διακεκομμένη γραμμή',
+    "Due punti uniti da una linea, anche su due immagini diverse: ognuno segue la sua. Sull'anteprima: trascina una forma per spostarla, dagli angoli per ridimensionarla, la linea per spostare tutto.":
+        'Δύο σημεία ενωμένα με μια γραμμή, ακόμη και σε δύο διαφορετικές εικόνες: το καθένα ακολουθεί τη δική του. Στην προεπισκόπηση: σύρετε ένα σχήμα για μετακίνηση, από τις γωνίες για αλλαγή μεγέθους, τη γραμμή για μετακίνηση όλου.',
+    'Clicca (o trascina) sul primo punto da collegare':
+        'Κάντε κλικ (ή σύρετε) στο πρώτο σημείο προς σύνδεση',
+    "Clicca (o trascina) sul secondo punto: verra' unito al primo da una linea":
+        'Κάντε κλικ (ή σύρετε) στο δεύτερο σημείο: θα ενωθεί με το πρώτο με μια γραμμή',
+    'Numeri':
+        'Αριθμοί',
+    'Lettere':
+        'Γράμματα',
+    'Apri un progetto di immagini salvato (Ctrl+O)':
+        'Άνοιγμα αποθηκευμένου έργου εικόνων (Ctrl+O)',
+    'Salva il progetto: un file JSON e una cartella con le immagini, modificabili (Ctrl+S; Ctrl+Maiusc+S: salva con nome)':
+        'Αποθήκευση έργου: ένα αρχείο JSON και ένας φάκελος με τις εικόνες, επεξεργάσιμα (Ctrl+S; Ctrl+Shift+S: αποθήκευση ως)',
+    'Word':
+        'Word',
+    'Immagini non salvate':
+        'Μη αποθηκευμένες εικόνες',
+    'Salvare le modifiche al progetto di immagini?':
+        'Αποθήκευση των αλλαγών στο έργο εικόνων;',
+    'Punti numerati':
+        'Αριθμημένα σημεία',
+    'Figura':
+        'Εικόνα',
+    'Apri progetto di immagini':
+        'Άνοιγμα έργου εικόνων',
+    '(nessuna nota)':
+        '(χωρίς σημείωση)',
+    'Salva progetto di immagini':
+        'Αποθήκευση έργου εικόνων',
+    'Progetto salvato: {path} (con la cartella {folder})':
+        'Το έργο αποθηκεύτηκε: {path} (με τον φάκελο {folder})',
+    'Progetto aperto: {path}':
+        'Το έργο άνοιξε: {path}',
+    'Progetto immagini EditSimple (JSON)':
+        'Έργο εικόνων EditSimple (JSON)',
+    'Numeri (1, 2, 3)':
+        'Αριθμοί (1, 2, 3)',
+    'Lettere (A, B, C)':
+        'Γράμματα (A, B, C)',
+    'Numero o lettera':
+        'Αριθμός ή γράμμα',
+    'Numerazione':
+        'Αρίθμηση',
+    'Diametro (px)':
+        'Διάμετρος (px)',
+    'Bordo del colore del testo':
+        'Περίγραμμα στο χρώμα του κειμένου',
+    'Punto {label}':
+        'Σημείο {label}',
+    "Ogni nuovo punto prende il numero (o la lettera) dopo l'ultimo inserito. Le note vanno nella didascalia dell'immagine con il pulsante Word.":
+        'Κάθε νέο σημείο παίρνει τον αριθμό (ή το γράμμα) μετά το τελευταίο που προστέθηκε. Οι σημειώσεις μπαίνουν στη λεζάντα της εικόνας με το κουμπί Word.',
+    'Nota':
+        'Σημείωση',
+    'Punto numerato':
+        'Αριθμημένο σημείο',
+    'Esporta':
+        'Εξαγωγή',
+    "Inserisce l'immagine con la didascalia (i punti numerati e le loro note) nel documento Word aperto, dove c'e' il cursore":
+        'Εισάγει την εικόνα με τη λεζάντα (τα αριθμημένα σημεία και οι σημειώσεις τους) στο ανοιχτό έγγραφο Word, στη θέση του δρομέα',
+    'Inserimento in Word...':
+        'Εισαγωγή στο Word...',
+    'Inserita in Word ({document}): {caption}':
+        'Εισήχθη στο Word ({document}): {caption}',
+    'Word non risponde ({error}): immagine e didascalia copiate negli appunti, da incollare in Word.':
+        'Το Word δεν αποκρίνεται ({error}): η εικόνα και η λεζάντα αντιγράφηκαν στο πρόχειρο, για επικόλληση στο Word.',
+    'Punto numerato 1, 2, 3 (N): clic dove metterlo, il prossimo prende il numero dopo':
+        'Αριθμημένο σημείο 1, 2, 3 (N): κάντε κλικ εκεί όπου θα μπει, το επόμενο παίρνει τον επόμενο αριθμό',
+    'Punto con lettera A, B, C (Maiusc+N): clic dove metterlo, il prossimo prende la lettera dopo':
+        'Σημείο με γράμμα A, B, C (Shift+N): κάντε κλικ εκεί όπου θα μπει, το επόμενο παίρνει το επόμενο γράμμα',
+    "Trascina un rettangolo attorno al soggetto: il punto lo seguira' restandogli accanto.":
+        'Σύρετε ένα ορθογώνιο γύρω από το θέμα: το σημείο θα το ακολουθεί μένοντας δίπλα του.',
+    'soggetto del punto':
+        'θέμα του σημείου',
+    "Si disegna un rettangolo attorno al soggetto: il punto lo segue nei fotogrammi successivi restandogli accanto; quando esce dall'inquadratura l'effetto finisce.":
+        'Σχεδιάζεται ένα ορθογώνιο γύρω από το θέμα: το σημείο το ακολουθεί στα επόμενα καρέ μένοντας δίπλα του· όταν βγει από το κάδρο, το εφέ τελειώνει.',
+    "Ogni nuovo punto prende il numero (o la lettera) dopo l'ultimo inserito.":
+        'Κάθε νέο σημείο παίρνει τον αριθμό (ή το γράμμα) μετά το τελευταίο που προστέθηκε.',
+    'Clicca dove mettere il punto':
+        'Κάντε κλικ εκεί όπου θα μπει το σημείο',
+    'Trascina un rettangolo attorno al soggetto che il punto deve seguire':
+        'Σύρετε ένα ορθογώνιο γύρω από το θέμα που πρέπει να ακολουθεί το σημείο',
+    "; soggetto perso da {time}: la figura resta ferma li' fino alla fine":
+        '; το θέμα χάθηκε από {time}: το σχήμα μένει ακίνητο εκεί μέχρι το τέλος',
+    'Didascalia per Word':
+        'Λεζάντα για το Word',
+    'Va subito dopo "Figura N :" nella didascalia che il pulsante Word inserisce; dopo vengono le note dei punti numerati.':
+        'Μπαίνει αμέσως μετά το "Εικόνα N :" στη λεζάντα που εισάγει το κουμπί Word· ακολουθούν οι σημειώσεις των αριθμημένων σημείων.',
+    'Coda':
+        'Ουρά',
+    'Si sposta con la punta':
+        'Κινείται με την αιχμή',
+    "Resta fissa dove l'hai disegnata":
+        'Μένει σταθερή εκεί που τη σχεδιάσατε',
+    'coda fissa':
+        'σταθερή ουρά',
+    'Didascalia':
+        'Λεζάντα',
+    'Scrive o cambia il testo della didascalia per Word (quello dopo "Figura N :")':
+        'Γράφει ή αλλάζει το κείμενο της λεζάντας για το Word (αυτό μετά το "Εικόνα N :")',
+    'Manuale':
+        'Εγχειρίδιο',
+    "Manuale d'uso":
+        'Εγχειρίδιο χρήσης',
+    'Indice':
+        'Περιεχόμενα',
+    "Il manuale non e' incluso in questa copia del programma.":
+        'Το εγχειρίδιο δεν περιλαμβάνεται σε αυτό το αντίγραφο του προγράμματος.',
+    'Si legge in linea su GitHub:':
+        'Διαβάζεται online στο GitHub:',
 }

@@ -1,4 +1,4 @@
-# EditSimple — Instrukcja obsługi
+# EditSimple — Podręcznik użytkownika
 
 [English](manual.en.md) · [Italiano](manual.it.md) · [Deutsch](manual.de.md) · [Français](manual.fr.md) · [Español](manual.es.md) · [Nederlands](manual.nl.md) · **Polski** · [Ελληνικά](manual.el.md) · [Shqip](manual.sq.md)
 
@@ -6,20 +6,27 @@ EditSimple to program do montażu wideo dla osób, które muszą **wyjaśnić
 zdarzenie lub pokazać dowód** na nagraniu: przekazanie czegoś z ręki do ręki
 w tłumie, nadjeżdżający pojazd, osobę, którą trzeba śledzić lub uczynić
 nierozpoznawalną. Importujesz nagranie, wskazujesz to, co ważne, a program
-robi resztę: strzałki, ramki, zoomy i pikselizacje **same śledzą obiekt**
-w kolejnych klatkach, a tam, gdzie śledzenie się pomyli, wystarczy przeciągnąć
-figurę we właściwe miejsce, aby to poprawić. W kilka minut powstaje plik MP4
-gotowy do wyświetlenia lub załączenia, ze slajdem otwierającym i zamykającym,
-tekstami, logo i podpisem operatora.
+robi resztę: strzałki, ramki, punkty numerowane, zoomy i pikselizacje **same
+śledzą obiekt** w kolejnych klatkach, a tam, gdzie śledzenie się pomyli,
+wystarczy przeciągnąć figurę we właściwe miejsce, aby to poprawić. W kilka
+minut powstaje plik MP4 gotowy do wyświetlenia lub załączenia, ze slajdem
+otwierającym i zamykającym, tekstami, logo i podpisem operatora.
+
+Strona **Obrazy** robi to samo ze zdjęciami: jedno lub kilka zdjęć na
+arkuszu, te same adnotacje, punkty numerowane z notatkami i przycisk, który
+**wstawia rysunek z podpisem bezpośrednio do Worda**.
 
 *Andrea Cumini — www.osintinfo.net — andrea@osintinfo.net*
 *EditSimple należy do narzędzi [Seity](https://www.seity.com).*
 
-> **Uwaga o przykładowym wideo.** Ilustracje w tej instrukcji wykorzystują
-> archiwalne wideo opublikowane w serwisie Pexels: deptak ze zwykłymi
-> przechodniami. **Widoczne osoby nie robią niczego złego**: strzałki, ramki,
-> zoomy i pikselizacje nałożone na nie służą wyłącznie pokazaniu, jak działa
-> program, a obiekty zostały wybrane przypadkowo.
+> **Uwaga o materiale przykładowym.** Ilustracje w tej instrukcji
+> wykorzystują archiwalne wideo opublikowane w serwisie Pexels: deptak ze
+> zwykłymi przechodniami. **Widoczne osoby nie robią niczego złego**:
+> strzałki, ramki, zoomy i pikselizacje nałożone na nie służą wyłącznie
+> pokazaniu, jak działa program, a obiekty zostały wybrane przypadkowo. Dwa
+> zdjęcia na stronie Obrazy są autorstwa
+> [Andrea Dalle Piatte](https://www.pexels.com/it-it/@andreadallepiatte/)
+> i zostały opublikowane w serwisie Pexels.
 
 ## Spis treści
 
@@ -38,16 +45,19 @@ tekstami, logo i podpisem operatora.
 13. [Przejścia](#13-przejścia)
 14. [Audio](#14-audio)
 15. [Eksport wideo](#15-eksport-wideo)
-16. [Wskazówki dla dobrego rezultatu](#16-wskazówki-dla-dobrego-rezultatu)
-17. [Skróty klawiatury i myszy](#17-skróty-klawiatury-i-myszy)
-18. [Plik projektu](#18-plik-projektu)
+16. [Strona Obrazy](#16-strona-obrazy)
+17. [Wskazówki dla dobrego rezultatu](#17-wskazówki-dla-dobrego-rezultatu)
+18. [Skróty klawiatury i myszy](#18-skróty-klawiatury-i-myszy)
+19. [Pliki projektu](#19-pliki-projektu)
 
 ## 1. Co można zrobić
 
 | Funkcja | W skrócie |
 | --- | --- |
-| **Śledzenie obiektu** | Ramki, owale, strzałki, zoomy i pikselizacje podążają za osobą, twarzą, przedmiotem lub pojazdem; rosną i maleją razem z nim, gdy zbliża się do kamery lub od niej oddala; same się kończą, gdy obiekt wychodzi z kadru. |
+| **Śledzenie obiektu** | Ramki, owale, strzałki, punkty numerowane, zoomy i pikselizacje podążają za osobą, twarzą, przedmiotem lub pojazdem; rosną i maleją razem z nim, gdy zbliża się do kamery lub od niej oddala; same się kończą, gdy obiekt wychodzi z kadru. |
 | **Korygujące klatki kluczowe** | Tam, gdzie śledzenie się myli (słup, osoba przechodząca przed obiektem), przeciągasz figurę na obiekt: program poprawia ścieżkę przed tym punktem i po nim. |
+| **Strzałki** | Zakończenia przy grocie, przy ogonie, z obu stron lub żadne; pełny lub otwarty grot, kropka, kwadracik, kreska. W wideo ogon może **pozostać nieruchomy**, gdy grot podąża za obiektem. |
+| **Punkty numerowane** | Kółeczka z liczbą (1, 2, 3) lub literą (A, B, C), zawsze następną po ostatnio dodanej; w wideo podążają za obiektem; w obrazach mają notatkę, która trafia do podpisu. |
 | **Zoom** | Mały szczegół (dłonie, tablica rejestracyjna) powiększony od 2x do 16x w ramce, z konturem i linią łączącą go z przedmiotem. Prostokątny lub owalny. |
 | **Pikselizacja** | Prostokątna lub owalna, do twarzy i tablic rejestracyjnych; śledzi obiekt i rośnie razem z nim. |
 | **Teksty i obrazy** | Teksty wielowierszowe z tłem i zaokrąglonymi rogami; nałożone obrazy (klatka, mapa, dokument). |
@@ -60,7 +70,8 @@ tekstami, logo i podpisem operatora.
 | **Audio** | Dodane ścieżki (komentarz, muzyka) z głośnością i wyciszeniami; oryginalne audio z głośnością, wyciszeniami i usuwaniem pojedynczych odcinków. |
 | **Podgląd** | Odtwarzanie z dźwiękiem, wstecz, klatka po klatce; podgląd z możliwością powiększenia i **odłączenia** do osobnego okna. |
 | **Eksport** | MP4 (H.264 + AAC) identyczny z podglądem. |
-| **Języki** | Interfejs w 9 językach, zmiana bez ponownego uruchamiania. |
+| **Obrazy** | Jedno lub kilka zdjęć na arkuszu (do czterech, jedenaście układów, pięć formatów), te same adnotacje co w wideo plus **połączenie** dwóch punktów, punkty numerowane z notatkami, podpis i przycisk **Word**; projekt zapisywany w edytowalnym pliku JSON; arkusz eksportowany do PNG lub JPG albo kopiowany do schowka. |
+| **Języki i podręcznik** | Interfejs w 9 językach, zmiana bez ponownego uruchamiania; ten podręcznik otwiera się wewnątrz programu, w wybranym języku. |
 
 ## 2. Instalacja i pierwsze uruchomienie
 
@@ -89,11 +100,15 @@ przeszkodzie. Bez niego śledzenie też działa.
 
 ![Okno programu EditSimple](images/pl/01_start.webp)
 
+- **Pasek po lewej**, ze stronami: **Wideo** (montaż), **Obrazy** (zdjęcia,
+  rozdział 16), **Konfiguruj** i **Podręcznik**, który otwiera ten podręcznik
+  w osobnym oknie, w języku interfejsu.
 - **Pasek narzędzi**, w czterech grupach: *Projekt* (nowy, otwórz, zapisz,
   cofnij, ponów), *Klip* (importuj wideo, audio, tnij, usuń, stopklatka,
   slajd, prędkość), *Nakładki* (tekst, obraz, logo, czas, klatki, ramka, owal,
-  strzałka, zoom prostokątny i owalny, piksele prostokątne i owalne) oraz
-  *Wyjście* (eksportuj MP4). Każdy przycisk ma podpowiedź ze swoim skrótem.
+  strzałka, liczby, litery, zoom prostokątny i owalny, piksele prostokątne
+  i owalne) oraz *Wyjście* (eksportuj MP4). Każdy przycisk ma podpowiedź ze
+  swoim skrótem.
 - **Podgląd**, pośrodku: pokazuje klatkę na kursorze ze wszystkimi efektami,
   dokładnie tak jak w wyeksportowanym wideo. Na nim rysuje się i przesuwa
   efekty.
@@ -103,7 +118,15 @@ przeszkodzie. Bez niego śledzenie też działa.
   wstecz, odtwarzanie, następna klatka, +10 klatek, koniec; czas kursora
   (można go wpisać); IN, OUT i kasowanie znaczników; po prawej zoom osi czasu.
 - **Oś czasu**, na dole: linijka, ścieżka **Wideo** w postaci taśmy filmowej,
-  **Oryginalne audio**, dodane ścieżki audio i **Efekty**.
+  **Oryginalne audio**, dodane ścieżki audio i **Efekty**, po jednym
+  w wierszu.
+
+![Podręcznik otwiera się wewnątrz programu, ze spisem treści po lewej i wyborem języka](images/pl/34_manual.webp)
+
+Okno **Podręcznika** ma po lewej spis treści z rozdziałami (kliknięcie
+przenosi do rozdziału), a u góry menu języka; linki w tekście działają,
+a ilustracje są te same co na tych stronach. Podręcznik zmienia język razem
+z interfejsem.
 
 ## 4. Strona Konfiguruj
 
@@ -120,7 +143,7 @@ Otwiera się ją z paska po lewej. Zawiera:
   tekst (imię i nazwisko, instytucja, strona www), szerokość logo, wysokość
   tekstu, odstęp od krawędzi, róg, układ, kolory oraz tło z kryciem
   i zaokrąglonymi rogami. Przygotowujesz je raz; potem przycisk **Logo**
-  umieszcza je w wideo.
+  umieszcza je w wideo (i na arkuszu obrazów).
 
 ![Konfiguruj: zaokrąglone rogi, język i autorzy](images/pl/03_settings_more.webp)
 
@@ -137,7 +160,9 @@ Przykład w tym rozdziale to 19-sekundowe wideo nagrane na zatłoczonym
 deptaku (zob. uwagę na początku: przechodnie nie robią niczego złego).
 W kilku krokach je wzbogacamy: logo i strona www operatora na dole, zoom na
 dłonie mężczyzny, który śledzi ich ruchy, strzałka wskazująca osobę przez
-12 sekund, dwie ramki na innych osobach i pikselizacja twarzy na końcu.
+12 sekund, dwie ramki na innych osobach, pikselizacja twarzy na końcu, punkt
+numerowany podążający za osobą oraz strzałka ze stałym ogonem wskazująca
+telefon przez całe wideo.
 
 ### 5.1 Import wideo
 
@@ -197,6 +222,11 @@ nim grot.
 Na osi czasu pasek strzałki pokazuje *(śledzi)* oraz romby klatek kluczowych,
 którymi poprawiliśmy ścieżkę (zob. rozdział 6).
 
+W panelu strzałki wybiera się też **Zakończenia** (przy grocie, przy ogonie,
+z obu stron, brak: sama linia) oraz **Rodzaj zakończenia**: pełny grot,
+otwarty grot, kropka, kwadracik lub kreska. Z dwoma zakończeniami strzałka
+oznacza połączenie między dwiema rzeczami.
+
 ### 5.5 Ramki na osobach
 
 ![Ramka: Śledź obiekt](images/pl/11_box.webp)
@@ -218,6 +248,36 @@ do kiedy ją śledzić i jaka ma być wielkość pikseli.
 Pikselizacja śledzi twarz i **rośnie, gdy ta zbliża się** do kamery, więc
 zawsze ją zakrywa. Jeśli obiekt wychodzi z kadru, pikselizacja towarzyszy mu,
 aż całkowicie wyjdzie: żadna klatka nie zostaje odsłonięta.
+
+### 5.7 Punkt numerowany podążający za osobą
+
+![Punkt numerowany (litera A) podążający za osobą](images/pl/31_marker_video.webp)
+
+**Liczby** (N) i **Litery** (Shift+N) umieszczają **punkt numerowany**:
+kółeczko z liczbą (1, 2, 3...) lub wielką literą (A, B, C...) w środku.
+Naciskasz przycisk i klikasz tam, gdzie ma być punkt; **każdy punkt wymaga
+nowego kliknięcia przycisku** i zawsze dostaje liczbę lub literę następną po
+ostatnio dodanej (po Z przychodzi AA). W panelu zmienia się liczbę lub
+literę, średnicę, kolor kółka i tekstu, biały pierścień i krycie.
+
+Jak inne figury, punkt **podąża za obiektem**: *Śledź obiekt* i prostokąt
+wokół osoby. W wideo punkty nie mają notatek; służą do tego, by w komentarzu
+lub na slajdzie odwołać się do „osoby A” czy „przedmiotu 2”.
+
+### 5.8 Strzałka ze stałym ogonem
+
+![Strzałka ze stałym ogonem: grot podąża za telefonem, ogon zostaje obok tekstu](images/pl/32_arrow_tail.webp)
+
+Strzałka podążająca za obiektem zwykle przesuwa się w całości. Opcja
+**Ogon** w panelu (domyślnie *Porusza się z grotem*) ma alternatywę
+**Pozostaje w miejscu, gdzie go narysowano**: ogon zostaje w punkcie
+z pierwszej klatki, a tylko **grot podąża za obiektem**. Przydaje się to,
+gdy ogon wychodzi od tekstu lub punktu odniesienia: tutaj napis „Telefon”
+zostaje na dole, a strzałka wydłuża się i skraca, aby przez całe wideo
+pozostawać na telefonie.
+
+Przeciągnięcie uchwytu ogona naprawdę przenosi go w to miejsce;
+przeciągnięcie grotu lub linii tworzy klatkę kluczową, jak w innych figurach.
 
 ## 6. Poprawianie śledzenia klatkami kluczowymi
 
@@ -245,19 +305,24 @@ pozycję) oraz *Usuń klatkę kluczową na kursorze*.
 
 ## 7. Oś czasu
 
+![Każdy efekt ma swój wiersz, w kolejności dodania](images/pl/33_timeline_rows.webp)
+
+- **Paski efektów**: **każdy efekt ma własny wiersz**, w kolejności dodania,
+  więc żaden pasek nie zasłania innego. Przesuwa się je przeciąganiem; prawa
+  krawędź zmienia czas trwania. Przy wielu efektach część z audio i efektami
+  **przewija się w pionie** (pasek po prawej, kółko na nazwach wierszy lub
+  Shift+kółko), a linijka i wideo pozostają nieruchomo u góry.
+
 ![Oko: efekt ukryty podczas pracy](images/pl/14_hide.webp)
 
-- **Paski efektów**: przesuwa się je przeciąganiem; prawa krawędź zmienia
-  czas trwania. Efekty układają się na kilku torach; przy wielu efektach
-  część z audio i efektami **przewija się w pionie** (pasek po prawej, kółko
-  na nazwach wierszy lub Shift+kółko), a linijka i wideo pozostają nieruchomo
-  u góry.
 - **Oko**: ikona po lewej stronie każdego paska **ukrywa lub pokazuje** efekt,
   na podglądzie i w wyeksportowanym wideo. Przydatne, gdy podczas pracy wiele
   efektów na siebie nachodzi.
 - **Prawy przycisk na pasku**: *Wydłuż do kursora* (jeśli kursor jest za
-  końcem; jeśli efekt śledzi obiekt, śledzenie jest kontynuowane) oraz
-  *Zakończ na kursorze* (jeśli kursor jest wewnątrz efektu).
+  końcem; jeśli efekt śledzi obiekt, śledzenie trwa do kursora, a jeśli
+  obiekt zostanie wcześniej utracony, figura pozostaje nieruchomo tam, gdzie
+  widziano go po raz ostatni) oraz *Zakończ na kursorze* (jeśli kursor jest
+  wewnątrz efektu).
 - **Zoom osi czasu**: Ctrl+kółko albo przyciski − + i *Dopasuj*. Z bliska
   taśma pokazuje każdą pojedynczą klatkę.
 - **Przewijanie**: kółko, Alt+przeciąganie lub przeciąganie środkowym
@@ -393,24 +458,129 @@ folderu.
 
 ![Eksport zakończony](images/pl/29_export_done.webp)
 
-## 16. Wskazówki dla dobrego rezultatu
+## 16. Strona Obrazy
+
+Strona **Obrazy** (pasek po lewej) służy do przygotowania **rysunku do
+raportu lub prezentacji** z jednego lub kilku zdjęć: zdjęcia na arkuszu,
+adnotacje na nich, punkty numerowane z notatkami i podpis, do wstawienia do
+Worda jednym kliknięciem lub do wyeksportowania jako obraz. Przykład w tym
+rozdziale wykorzystuje dwa zdjęcia motocykla.
+
+### 16.1 Układ i zdjęcia
+
+![Wybór układu: ile obrazów i jak je rozmieścić](images/pl/40_images_layout.webp)
+
+Przy pierwszym otwarciu strona pyta o **układ**: jeden obraz; dwa obok siebie
+lub jeden nad drugim; trzy w rzędzie, w kolumnie, jeden duży po lewej lub
+jeden duży u góry; cztery w siatce, w rzędzie, jeden duży po lewej lub jeden
+duży u góry. Poniżej wybiera się **format arkusza**: 16:9 (1920×1080), 4:3,
+kwadrat, 9:16 pionowo lub A4 pionowo. Układ i format można zmienić w każdej
+chwili (**Układ** na pasku lub *Zmień układ...* w panelu arkusza): obrazy
+już umieszczone zostają.
+
+![Dwa wczytane zdjęcia; w panelu powiększenie i pozycja](images/pl/41_images_loaded.webp)
+
+Zdjęcia umieszcza się przyciskiem **Wczytaj** (jedno lub kilka, w wybranej
+ramce i w kolejnych pustych), **kliknięciem pustej ramki**, przeciągnięciem
+pliku z komputera na ramkę lub przez **Ctrl+V** ze schowka (na przykład
+zrzut ekranu). Każde zdjęcie wypełnia swoją ramkę: **kółko** na zdjęciu je
+powiększa, a **przeciąganie** przesuwa je w ramce, aby wykadrować ważny
+szczegół. W panelu zdjęcia są nazwa pliku, rozmiar, suwak powiększenia oraz
+przyciski do zastąpienia lub usunięcia go. W panelu **arkusza** (gdy nic nie
+jest zaznaczone): format, odstęp między obrazami i kolor arkusza.
+
+### 16.2 Adnotacje
+
+![Adnotacje na arkuszu: połączenie, strzałka między dwoma zdjęciami, zoom, piksele, tekst, logo i punkty numerowane](images/pl/42_images_annotations.webp)
+
+Narzędzia są te same co w wideo (**Tekst**, **Obraz**, **Logo**, **Ramka**,
+**Owal**, **Strzałka**, **Liczby**, **Litery**, **Zoom** prostokątny
+i owalny, **Piksele** prostokątne i owalne), bez czasów i bez śledzenia, oraz
+jedno nowe:
+
+- **Połącz** (C prostokąty, Shift+C owale): kliknięcie pierwszego punktu
+  i kliknięcie drugiego; wokół każdego pojawia się kształt (prostokąt lub
+  owal, z rozmiarem zmienianym za rogi), a linia łączy je od krawędzi do
+  krawędzi. W panelu: kształt, rogi, kolor, grubość, linia przerywana,
+  krycie. Służy do powiedzenia „to jest to”: szczegół z jednego zdjęcia
+  odnaleziony na drugim.
+
+Każda adnotacja **należy do zdjęcia, na którym leży**: jeśli zdjęcie się
+przesuwa lub powiększa, adnotacja podąża za nim. Strzałka lub połączenie
+między dwoma zdjęciami mają po jednym końcu na każdym z nich, a każdy koniec
+podąża za swoim zdjęciem. Adnotacja leżąca na styku dwóch zdjęć (tekst,
+okrąg, ramka) pozostaje w całości na arkuszu.
+
+### 16.3 Punkty numerowane i notatki
+
+![Zaznaczony punkt numerowany: w panelu jego notatka](images/pl/43_images_marker_note.webp)
+
+**Liczby** (N) i **Litery** (Shift+N) działają jak w wideo: kliknięcie
+przycisku, kliknięcie na zdjęciu, a punkt dostaje liczbę lub literę następną
+po ostatniej. Tutaj dodatkowo każdy punkt ma w panelu pole **Notatka**: co
+wskazuje. Notatki trafiają do podpisu, w kolejności punktów (najpierw liczby,
+potem litery). W panelu arkusza lista **Punkty numerowane** pokazuje
+wszystkie punkty z ich notatkami: kliknięcie zaznacza punkt.
+
+### 16.4 Podpis i Word
+
+![Podpis: tekst, który trafia po „Rysunek N :”](images/pl/44_images_caption.webp)
+
+Przycisk **Podpis** (lub pole *Podpis dla Worda* w panelu arkusza) otwiera
+tekst podpisu: trafia on zaraz po „Rysunek N :”, a po nim następują notatki
+punktów numerowanych. Z tekstem „Motocykl” i czterema punktami podpis
+wygląda tak:
+
+`Rysunek 1 : Motocykl. 1) zbiornik, 2) hamulec, A) reflektor, B) wydech`
+
+![Rysunek wstawiony do Worda z podpisem](images/pl/45_images_word.webp)
+
+Przycisk **Word** wstawia rysunek **do otwartego dokumentu Word, w miejscu
+kursora**: obraz o szerokości strony, a pod nim podpis w stylu *Legenda*
+Worda, z automatycznym numerem („Rysunek 1”, „Rysunek 2”...). Numer jest
+polem Worda: **odsyłacze** i **spis ilustracji** Worda działają tak jak dla
+rysunków zrobionych ręcznie. Jeśli Word nie jest otwarty, zostaje uruchomiony
+z nowym dokumentem; jeśli Word nie odpowiada, obraz i podpis są kopiowane do
+schowka, do wklejenia.
+
+### 16.5 Zapisywanie, eksport, kopiowanie
+
+![Zapisany projekt; Eksportuj, Kopiuj i Word w grupie Wyjście](images/pl/46_images_output.webp)
+
+- **Zapisz** (Ctrl+S, Ctrl+Shift+S zapisz jako) zapisuje **projekt**: plik
+  JSON z układem, formatem, zdjęciami (kadrowanie i powiększenie),
+  adnotacjami i podpisem, a obok folder `<nazwa>_file` z kopiami użytych
+  zdjęć i obrazów. JSON jest czytelny i można go edytować ręcznie.
+  **Otwórz** (Ctrl+O) otwiera go ponownie; przy zamykaniu, jeśli coś nie
+  zostało zapisane, program o to pyta.
+- **Eksportuj** zapisuje arkusz jako **PNG lub JPG** w rozmiarze formatu.
+- **Kopiuj** umieszcza arkusz w **schowku**, do wklejenia do wiadomości
+  e-mail, prezentacji lub gdzie indziej.
+- Cofnij i ponów (Ctrl+Z, Ctrl+Y) działają na wszystko: zdjęcia, adnotacje,
+  układ i podpis.
+
+## 17. Wskazówki dla dobrego rezultatu
 
 - **Ramkę zoomu umieść w neutralnym obszarze**: powiększona ramka zakrywa
   część wideo, na której leży, przez cały czas, gdy jest widoczna. Umieść ją
   tam, gdzie nie dzieje się nic ciekawego (niebo, ściana, podłoże).
 - **Rysuj ciasno wokół obiektu** w przypadku ramek, owali i pikselizacji:
   zawartość figury jest wzorcem wyszukiwanym w kolejnych klatkach.
-- **Dla strzałki nieco większy prostokąt** (głowa i ramiona zamiast samej
-  głowy) lepiej się sprawdza, gdy przed obiektem przechodzą inne osoby.
+- **Dla strzałki i punktu numerowanego nieco większy prostokąt** (głowa
+  i ramiona zamiast samej głowy) lepiej się sprawdza, gdy przed obiektem
+  przechodzą inne osoby.
 - **Po śledzeniu przewiń wideo**: tam, gdzie figura się myli, przeciągnij ją
   na obiekt. Kilka klatek kluczowych wystarcza nawet przy długich ścieżkach.
 - **Przy wielu efektach** użyj oka, aby ukryć te, których w danej chwili nie
   potrzebujesz, oraz odłączonego podglądu, aby mieć więcej miejsca na osi
   czasu.
+- **W obrazach najpierw ustaw zdjęcia** (kadrowanie i powiększenie), a potem
+  adnotacje: adnotacje podążają za zdjęciem, ale wygodniej jest rysować je na
+  ostatecznym kadrze.
 - **Zapisuj często** (Ctrl+S): projekt to mały plik JSON, który można
   ponownie otworzyć i edytować w dowolnym momencie.
 
-## 17. Skróty klawiatury i myszy
+## 18. Skróty klawiatury i myszy
 
 | Klawisz | Działanie |
 | --- | --- |
@@ -424,14 +594,17 @@ folderu.
 | F | Stopklatka |
 | V | Prędkość fragmentu IN-OUT |
 | T / R / E / A | Tekst / ramka / owal / strzałka |
+| N / Shift+N | Punkt numerowany z liczbami / z literami |
+| C / Shift+C | Połączenie prostokątami / owalami (strona Obrazy) |
 | Z / Shift+Z | Zoom prostokątny / owalny |
 | P / K | Pikselizacja prostokątna / owalna |
 | L | Logo i operator |
 | Delete | Usuń zaznaczenie (lub fragment IN-OUT) |
 | Esc | Przerwij bieżące rysowanie |
 | Ctrl+Z / Ctrl+Y | Cofnij / ponów |
-| Ctrl+N / Ctrl+O / Ctrl+S / Ctrl+Shift+S | Nowy / otwórz / zapisz / zapisz jako |
+| Ctrl+N / Ctrl+O / Ctrl+S / Ctrl+Shift+S | Nowy / otwórz / zapisz / zapisz jako (na stronie Obrazy: projekt obrazów) |
 | Ctrl+I | Importuj wideo |
+| Ctrl+V | Wklej obraz ze schowka (strona Obrazy) |
 | Ctrl+E | Eksportuj MP4 |
 
 | Mysz | Gdzie | Działanie |
@@ -445,14 +618,23 @@ folderu.
 | Shift+kółko, kółko na nazwach | Oś czasu | Przewija audio i efekty w pionie |
 | Prawy przycisk | Pasek efektu | Wydłuż do kursora / zakończ na kursorze |
 | Prawy przycisk | Klatka kluczowa lub punkt | Usuwa |
+| Kółko / przeciąganie | Zdjęcie na stronie Obrazy | Powiększa / przesuwa zdjęcie w ramce |
+| Kliknięcie pustej ramki, przeciągnięty plik | Strona Obrazy | Wczytuje zdjęcie |
 
-## 18. Plik projektu
+## 19. Pliki projektu
 
-Projekt to plik JSON z klipami, ścieżkami audio, efektami (ze ścieżkami
-śledzenia i klatkami kluczowymi) oraz ścieżkami do użytych plików. Wideo,
-audio i obrazy nie są kopiowane do projektu: zostaw je tam, gdzie są, aż
-praca zostanie zakończona. Wyeksportowane wideo jest natomiast samodzielnym
-plikiem MP4.
+Projekt **wideo** to plik JSON z klipami, ścieżkami audio, efektami (ze
+ścieżkami śledzenia i klatkami kluczowymi) oraz ścieżkami do użytych plików.
+Wideo, audio i obrazy nie są kopiowane do projektu: zostaw je tam, gdzie są,
+aż praca zostanie zakończona. Wyeksportowane wideo jest natomiast
+samodzielnym plikiem MP4.
+
+Projekt **obrazów** to plik JSON (`kind: editsimple-images`) z układem,
+formatem, podpisem, ramkami z ich zdjęciami i adnotacjami, a obok niego
+folder `<nazwa>_file` z kopiami zdjęć, nałożonych obrazów i logo: projekt
+jest samodzielny i można go przenosić razem z jego folderem. Wartości
+w pliku JSON (współrzędne, kolory, notatki, etykiety punktów) można edytować
+edytorem tekstu.
 
 ---
 

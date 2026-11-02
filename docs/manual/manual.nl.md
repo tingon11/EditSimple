@@ -6,21 +6,29 @@ EditSimple is een videomontageprogramma voor wie in een video **een feit moet
 uitleggen of een bewijs moet tonen**: een overdracht van hand tot hand in een
 menigte, een voertuig dat aankomt, een persoon die je wilt volgen of
 onherkenbaar wilt maken. Je importeert de beelden, je wijst aan wat telt en
-het programma doet de rest: pijlen, kaders, zooms en pixeleringen **volgen
-vanzelf het onderwerp** in de volgende frames, en waar het volgen fout gaat,
-sleep je de figuur gewoon naar de juiste plek om het te corrigeren. In een
-paar minuten heb je een MP4 die klaar is om te vertonen of mee te sturen, met
-een openings- en slotdia, teksten, logo en de naam van de operator.
+het programma doet de rest: pijlen, kaders, genummerde punten, zooms en
+pixeleringen **volgen vanzelf het onderwerp** in de volgende frames, en waar
+het volgen fout gaat, sleep je de figuur gewoon naar de juiste plek om het te
+corrigeren. In een paar minuten heb je een MP4 die klaar is om te vertonen of
+mee te sturen, met een openings- en slotdia, teksten, logo en de naam van de
+operator.
+
+De pagina **Afbeeldingen** doet hetzelfde met foto's: een of meer foto's op
+een blad, dezelfde annotaties, de genummerde punten met hun notities en een
+knop die **de figuur met het bijschrift rechtstreeks in Word invoegt**.
 
 *Andrea Cumini — www.osintinfo.net — andrea@osintinfo.net*
 *EditSimple maakt deel uit van de tools van [Seity](https://www.seity.com).*
 
-> **Over de voorbeeldvideo.** De afbeeldingen in deze handleiding gebruiken
-> een archiefvideo die op Pexels is gepubliceerd: een voetgangersstraat met
-> gewone voorbijgangers. **De mensen die je ziet, doen niets verkeerds**: de
-> pijlen, kaders, zooms en pixeleringen die op hen zijn gezet, dienen alleen
-> om te laten zien hoe het programma werkt, en de onderwerpen zijn willekeurig
-> gekozen.
+> **Over het voorbeeldmateriaal.** De afbeeldingen in deze handleiding
+> gebruiken een archiefvideo die op Pexels is gepubliceerd: een
+> voetgangersstraat met gewone voorbijgangers. **De mensen die je ziet, doen
+> niets verkeerds**: de pijlen, kaders, zooms en pixeleringen die op hen zijn
+> gezet, dienen alleen om te laten zien hoe het programma werkt, en de
+> onderwerpen zijn willekeurig gekozen. De twee foto's van de pagina
+> Afbeeldingen zijn van
+> [Andrea Dalle Piatte](https://www.pexels.com/it-it/@andreadallepiatte/),
+> gepubliceerd op Pexels.
 
 ## Inhoud
 
@@ -39,16 +47,19 @@ een openings- en slotdia, teksten, logo en de naam van de operator.
 13. [Overgangen](#13-overgangen)
 14. [Audio](#14-audio)
 15. [De video exporteren](#15-de-video-exporteren)
-16. [Tips voor een goed resultaat](#16-tips-voor-een-goed-resultaat)
-17. [Sneltoetsen voor toetsenbord en muis](#17-sneltoetsen-voor-toetsenbord-en-muis)
-18. [Het projectbestand](#18-het-projectbestand)
+16. [De pagina Afbeeldingen](#16-de-pagina-afbeeldingen)
+17. [Tips voor een goed resultaat](#17-tips-voor-een-goed-resultaat)
+18. [Sneltoetsen voor toetsenbord en muis](#18-sneltoetsen-voor-toetsenbord-en-muis)
+19. [De projectbestanden](#19-de-projectbestanden)
 
 ## 1. Wat je ermee kunt doen
 
 | Functie | In het kort |
 | --- | --- |
-| **Onderwerp volgen** | Kaders, ovalen, pijlen, zooms en pixeleringen volgen een persoon, een gezicht, een object of een voertuig; ze worden groter en kleiner als het onderwerp dichter bij de camera komt of verder weg gaat; ze stoppen vanzelf als het onderwerp uit beeld gaat. |
+| **Onderwerp volgen** | Kaders, ovalen, pijlen, genummerde punten, zooms en pixeleringen volgen een persoon, een gezicht, een object of een voertuig; ze worden groter en kleiner als het onderwerp dichter bij de camera komt of verder weg gaat; ze stoppen vanzelf als het onderwerp uit beeld gaat. |
 | **Correctiekeyframes** | Waar het volgen fout gaat (een paal, iemand die ervoor langs loopt), sleep je de figuur op het onderwerp: het programma corrigeert het pad voor en na dat punt. |
+| **Pijlen** | Uiteinden bij de punt, bij de staart, aan beide kanten of geen; gevulde of open pijlpunt, stip, vierkantje, streep. In de video kan de staart **vast blijven** terwijl de punt het onderwerp volgt. |
+| **Genummerde punten** | Cirkeltjes met een cijfer (1, 2, 3) of een letter (A, B, C), altijd het volgende na het laatst geplaatste; ze volgen het onderwerp in de video; in de afbeeldingen hebben ze een notitie die in het bijschrift terechtkomt. |
 | **Zoom** | Een klein detail (de handen, een kenteken) 2x tot 16x vergroot in een kader, met een omtrek en een lijn die het met het object verbinden. Rechthoekig of ovaal. |
 | **Pixelering** | Rechthoekig of ovaal, voor gezichten en kentekens; volgt het onderwerp en groeit mee. |
 | **Teksten en afbeeldingen** | Teksten op meerdere regels met achtergrond en afgeronde hoeken; afbeeldingen erbovenop (een frame, een kaart, een document). |
@@ -61,7 +72,8 @@ een openings- en slotdia, teksten, logo en de naam van de operator.
 | **Audio** | Toegevoegde sporen (commentaar, muziek) met volume en faden; originele audio met volume, faden en het verwijderen van losse stukken. |
 | **Voorvertoning** | Afspelen met geluid, achteruit, frame voor frame; voorvertoning die je kunt vergroten en **losmaken** in een apart venster. |
 | **Export** | MP4 (H.264 + AAC), identiek aan de voorvertoning. |
-| **Talen** | Interface in 9 talen, te wisselen zonder herstart. |
+| **Afbeeldingen** | Een of meer foto's op een blad (tot vier, elf indelingen, vijf formaten), dezelfde annotaties als in de video plus de **verbinding** tussen twee punten, de genummerde punten met hun notities, het bijschrift en de knop **Word**; project opgeslagen in een bewerkbaar JSON-bestand; blad geëxporteerd als PNG of JPG of naar het klembord gekopieerd. |
+| **Talen en handleiding** | Interface in 9 talen, te wisselen zonder herstart; deze handleiding opent in het programma, in de gekozen taal. |
 
 ## 2. Installatie en eerste start
 
@@ -90,12 +102,15 @@ een obstakel. Zonder VitTrack werkt het volgen ook.
 
 ![Het venster van EditSimple](images/nl/01_start.webp)
 
+- **Balk links**, met de pagina's: **Video** (de montage), **Afbeeldingen**
+  (de foto's, hoofdstuk 16), **Configuratie** en **Handleiding**, die deze
+  handleiding opent in een apart venster, in de taal van de interface.
 - **Werkbalk**, in vier groepen: *Project* (nieuw, openen, opslaan, ongedaan
   maken, opnieuw), *Clip* (video importeren, audio, knippen, verwijderen,
   stilstaand beeld, dia, snelheid), *Overlays* (tekst, afbeelding, logo, tijd,
-  frames, kader, ovaal, pijl, rechthoekige en ovale zoom, rechthoekige en
-  ovale pixel) en *Uitvoer* (MP4 exporteren). Elke knop heeft een tooltip met
-  zijn sneltoets.
+  frames, kader, ovaal, pijl, cijfers, letters, rechthoekige en ovale zoom,
+  rechthoekige en ovale pixel) en *Uitvoer* (MP4 exporteren). Elke knop heeft
+  een tooltip met zijn sneltoets.
 - **Voorvertoning**, in het midden: toont het frame op de cursor met alle
   effecten, precies zoals in de geëxporteerde video. Hierop teken en
   verplaats je de effecten.
@@ -106,7 +121,14 @@ een obstakel. Zonder VitTrack werkt het volgen ook.
   hem intypen); IN, OUT en het wissen van de markeringen; rechts de zoom van
   de tijdlijn.
 - **Tijdlijn**, onderaan: liniaal, spoor **Video** als filmstrook, **Originele
-  audio**, toegevoegde audiosporen en **Effecten**.
+  audio**, toegevoegde audiosporen en **Effecten**, één per rij.
+
+![De handleiding opent in het programma, met de inhoud links en de taalkeuze](images/nl/34_manual.webp)
+
+Het venster **Handleiding** heeft links de inhoud met de hoofdstukken (een
+klik brengt je naar het hoofdstuk) en bovenaan het taalmenu; de links in de
+tekst werken, en de afbeeldingen zijn die van deze pagina's. De handleiding
+wisselt van taal samen met de interface.
 
 ## 4. Pagina Configuratie
 
@@ -123,7 +145,8 @@ Je opent deze pagina via de balk links. Ze bevat:
   of JPG), de tekst (naam, organisatie, website), de logobreedte, de
   teksthoogte, de afstand tot de randen, de hoek, de indeling, de kleuren en
   een achtergrond met dekking en afgeronde hoeken. Je stelt ze één keer in;
-  daarna zet de knop **Logo** ze in de video.
+  daarna zet de knop **Logo** ze in de video (en op het blad van de
+  afbeeldingen).
 
 ![Configuratie: afgeronde hoeken, taal en colofon](images/nl/03_settings_more.webp)
 
@@ -141,7 +164,9 @@ drukke voetgangersstraat (zie de inleiding: de voorbijgangers doen niets
 verkeerds). In een paar stappen verrijken we hem: het logo en de website van
 de operator onderaan, een zoom op de handen van een man die zijn bewegingen
 volgt, een pijl die 12 seconden lang een persoon aanwijst, twee kaders op
-andere personen en de pixelering van een gezicht aan het einde.
+andere personen, de pixelering van een gezicht aan het einde, een genummerd
+punt dat een persoon volgt en een pijl met een vaste staart die de hele video
+lang een telefoon aanwijst.
 
 ### 5.1 De video importeren
 
@@ -202,6 +227,11 @@ volgt het en houdt de punt erop.
 In de tijdlijn toont de balk van de pijl *(volgt)* en de ruitjes van de
 keyframes waarmee we het pad hebben gecorrigeerd (zie hoofdstuk 6).
 
+In het paneel van de pijl kies je ook de **Uiteinden** (bij de punt, bij de
+staart, aan beide kanten, geen: alleen de lijn) en het **Soort uiteinde**:
+gevulde pijlpunt, open pijlpunt, stip, vierkantje of streep. Met twee
+uiteinden geeft de pijl een verbinding tussen twee dingen aan.
+
 ### 5.5 Kaders op de personen
 
 ![Kader: Onderwerp volgen](images/nl/11_box.webp)
@@ -225,6 +255,39 @@ De pixelering volgt het gezicht en **groeit als het dichter bij** de camera
 komt, zodat het altijd bedekt blijft. Als het onderwerp uit beeld gaat,
 begeleidt de pixelering het tot het helemaal weg is: geen enkel frame blijft
 onbedekt.
+
+### 5.7 Een genummerd punt dat een persoon volgt
+
+![Genummerd punt (letter A) dat een persoon volgt](images/nl/31_marker_video.webp)
+
+**Cijfers** (N) en **Letters** (Shift+N) zetten een **genummerd punt**: een
+cirkeltje met daarin een cijfer (1, 2, 3...) of een hoofdletter (A, B, C...).
+Je drukt op de knop en klikt waar het punt moet komen; **elk punt vraagt een
+nieuwe klik op de knop**, en krijgt altijd het cijfer of de letter na het
+laatst geplaatste (na Z komt AA). In het paneel wijzig je het cijfer of de
+letter, de diameter, de kleur van de cirkel en van de tekst, de witte ring en
+de dekking.
+
+Net als de andere figuren **volgt het punt het onderwerp**: *Onderwerp
+volgen* en een rechthoek rond de persoon. In de video hebben de punten geen
+notities; ze dienen om in het commentaar of op een dia te verwijzen naar
+"persoon A", "object 2".
+
+### 5.8 Een pijl met een vaste staart
+
+![Pijl met een vaste staart: de punt volgt de telefoon, de staart blijft naast de tekst](images/nl/32_arrow_tail.webp)
+
+Een pijl die een onderwerp volgt, verplaatst zich normaal in zijn geheel. De
+keuze **Staart** in het paneel heeft als alternatief **Blijft vast waar u hem
+tekende**: de staart blijft op de plek van het eerste frame en alleen de
+**punt volgt het onderwerp**. Dat is handig als de staart vertrekt vanaf een
+tekst of een referentiepunt: hier blijft de tekst "Telefoon" onderaan staan
+en wordt de pijl langer en korter om de hele video lang op de telefoon te
+blijven.
+
+Als je de greep van de staart sleept, verplaats je hem echt daarheen; als je
+de punt of de lijn sleept, maak je een keyframe, net als bij de andere
+figuren.
 
 ## 6. Het volgen corrigeren met keyframes
 
@@ -252,19 +315,25 @@ hier* (legt de huidige positie vast) en *Keyframe op de cursor verwijderen*.
 
 ## 7. De tijdlijn
 
-![Oog: een effect verborgen tijdens het werken](images/nl/14_hide.webp)
+![Elk effect staat op zijn eigen rij, in de volgorde waarin het is toegevoegd](images/nl/33_timeline_rows.webp)
 
-- **Effectbalken**: verplaats ze door te slepen; de rechterrand wijzigt de
-  duur. De effecten worden over meerdere banen verdeeld; met veel effecten
+- **Effectbalken**: **elk effect heeft zijn eigen rij**, in de volgorde waarin
+  het is toegevoegd, zodat geen enkele balk een andere bedekt. Je verplaatst
+  ze door te slepen; de rechterrand wijzigt de duur. Met veel effecten
   **schuift** het deel met audio en effecten **verticaal** (balk rechts,
   scrollwiel op de rijnamen of Shift+scrollwiel), terwijl liniaal en video
   bovenaan blijven staan.
+
+![Oog: een effect verborgen tijdens het werken](images/nl/14_hide.webp)
+
 - **Oog**: het pictogram links van elke balk **verbergt of toont** het effect,
   in de voorvertoning en in de geëxporteerde video. Handig als veel effecten
   elkaar overlappen terwijl je werkt.
 - **Rechtermuisknop op een balk**: *Verlengen tot de cursor* (als de cursor
   voorbij het einde staat; als het effect een onderwerp volgt, gaat het volgen
-  verder) en *Stoppen bij de cursor* (als de cursor binnen het effect staat).
+  verder tot de cursor en, als het onderwerp eerder kwijtraakt, blijft de
+  figuur stilstaan waar het volgen het voor het laatst heeft gezien) en
+  *Stoppen bij de cursor* (als de cursor binnen het effect staat).
 - **Zoom van de tijdlijn**: Ctrl+scrollwiel, of de knoppen − + en *Tijdlijn
   passend maken*. Van dichtbij toont de filmstrook elk afzonderlijk frame.
 - **Schuiven**: scrollwiel, Alt+slepen of slepen met de middelste muisknop.
@@ -405,7 +474,114 @@ biedt het programma aan de map te openen.
 
 ![Export voltooid](images/nl/29_export_done.webp)
 
-## 16. Tips voor een goed resultaat
+## 16. De pagina Afbeeldingen
+
+De pagina **Afbeeldingen** (balk links) dient om een **figuur voor een
+rapport of een presentatie** te maken op basis van een of meer foto's: de
+foto's op het blad, de annotaties erop, de genummerde punten met hun notities
+en het bijschrift, om met één klik in Word in te voegen of als afbeelding te
+exporteren. Het voorbeeld in dit hoofdstuk gebruikt twee foto's van een
+motorfiets.
+
+### 16.1 Indeling en foto's
+
+![De keuze van de indeling: hoeveel afbeeldingen en hoe ze geschikt worden](images/nl/40_images_layout.webp)
+
+Bij de eerste keer openen vraagt de pagina om de **indeling**: één
+afbeelding; twee naast elkaar of boven elkaar; drie op een rij, in een kolom,
+een grote links of een grote boven; vier in een raster, op een rij, een grote
+links of een grote boven. Daaronder kies je het **formaat van het blad**: 16:9
+(1920×1080), 4:3, vierkant, 9:16 staand of A4 staand. Indeling en formaat kun
+je op elk moment wijzigen (**Indeling** in de werkbalk, of *Indeling
+wijzigen...* in het paneel van het blad): de afbeeldingen die er al staan,
+blijven.
+
+![Twee foto's geladen; in het paneel de vergroting en de positie](images/nl/41_images_loaded.webp)
+
+De foto's zet je neer met **Laden** (een of meer, in het gekozen kader en de
+volgende lege), met een **klik op een leeg kader**, door een bestand vanaf de
+computer op het kader te slepen of met **Ctrl+V** vanaf het klembord
+(bijvoorbeeld een screenshot). Elke foto vult haar kader: met het
+**scrollwiel** op de foto vergroot je haar, door haar te **slepen** verschuif
+je haar binnen het kader om het detail dat telt in beeld te brengen. In het
+paneel van de foto staan de bestandsnaam, de afmetingen, de schuifregelaar
+voor de vergroting en de knoppen om haar te vervangen of weg te halen. In het
+paneel van het **blad** (als niets is geselecteerd): formaat, ruimte tussen de
+afbeeldingen en kleur van het blad.
+
+### 16.2 Annotaties
+
+![De annotaties op het blad: verbinding, pijl tussen twee foto's, zoom, pixel, tekst, logo en genummerde punten](images/nl/42_images_annotations.webp)
+
+De gereedschappen zijn dezelfde als in de video (**Tekst**, **Afbeelding**,
+**Logo**, **Kader**, **Ovaal**, **Pijl**, **Cijfers**, **Letters**, **Zoom**
+rechthoekig en ovaal, **Pixel** rechthoekig en ovaal), zonder tijden of
+volgen, plus een nieuw gereedschap:
+
+- **Verbinden** (C rechthoeken, Shift+C ovalen): een klik op het eerste punt
+  en een op het tweede; rond elk verschijnt een vorm (rechthoek of ovaal, via
+  de hoeken te schalen) en een lijn verbindt ze van rand tot rand. In het
+  paneel: vorm, hoeken, kleur, dikte, stippellijn, dekking. Het dient om te
+  zeggen "dit is dat": het detail van de ene foto teruggevonden in de andere.
+
+Elke annotatie **hoort bij de foto waarop ze staat**: als de foto verschuift
+of wordt vergroot, gaat de annotatie mee. Een pijl of een verbinding tussen
+twee foto's heeft op elke foto een uiteinde, en elk uiteinde volgt zijn eigen
+foto. Een annotatie die over twee foto's heen ligt (een tekst, een cirkel, een
+kader) blijft in zijn geheel op het blad.
+
+### 16.3 Genummerde punten en notities
+
+![Een geselecteerd genummerd punt: in het paneel zijn notitie](images/nl/43_images_marker_note.webp)
+
+**Cijfers** (N) en **Letters** (Shift+N) werken zoals in de video: een klik op
+de knop, een klik op de foto, en het punt krijgt het cijfer of de letter na
+het laatste. Hier heeft elk punt bovendien een **Notitie** in het paneel: wat
+het aanwijst. De notities komen in het bijschrift, in de volgorde van de
+punten (eerst de cijfers, dan de letters). In het paneel van het blad toont de
+lijst **Genummerde punten** alle punten met hun notitie: een klik selecteert
+het punt.
+
+### 16.4 Bijschrift en Word
+
+![Het bijschrift: de tekst die na "Figuur N :" komt](images/nl/44_images_caption.webp)
+
+De knop **Bijschrift** (of het vak *Bijschrift voor Word* in het paneel van
+het blad) opent de tekst van het bijschrift: die komt direct na "Figuur N :",
+en daarna volgen de notities van de genummerde punten. Met de tekst
+"Motorfiets" en vier punten wordt het bijschrift:
+
+`Figuur 1 : Motorfiets. 1) tank, 2) rem, A) koplamp, B) uitlaat`
+
+![De figuur ingevoegd in Word met het bijschrift](images/nl/45_images_word.webp)
+
+De knop **Word** voegt de figuur in **in het geopende Word-document, op de
+plaats van de cursor**: de afbeelding, zo breed als de pagina, en eronder het
+bijschrift in de Word-stijl *Bijschrift*, met het automatische nummer
+("Figuur 1", "Figuur 2"...). Het nummer is een Word-veld: de
+**kruisverwijzingen** en de **lijst met afbeeldingen** van Word werken net als
+bij handmatig gemaakte figuren. Als Word niet open is, wordt het gestart met
+een nieuw document; als Word niet reageert, worden afbeelding en bijschrift
+naar het klembord gekopieerd, om te plakken.
+
+### 16.5 Opslaan, exporteren, kopiëren
+
+![Project opgeslagen; Exporteren, Kopiëren en Word in de groep Uitvoer](images/nl/46_images_output.webp)
+
+- **Opslaan** (Ctrl+S, Ctrl+Shift+S met naam) schrijft het **project**: een
+  JSON-bestand met indeling, formaat, foto's (uitsnede en vergroting),
+  annotaties en bijschrift, en ernaast een map `<naam>_file` met de kopieën
+  van de gebruikte foto's en afbeeldingen. De JSON is leesbaar en kun je met
+  de hand bewerken. **Openen** (Ctrl+O) opent het opnieuw; bij het afsluiten
+  vraagt het programma het als er iets niet is opgeslagen.
+- **Exporteren** slaat het blad op als **PNG of JPG** in de afmetingen van
+  het formaat.
+- **Kopiëren** zet het blad op het **klembord**, om te plakken in een e-mail,
+  een presentatie of elders.
+- Ongedaan maken en opnieuw (Ctrl+Z, Ctrl+Y) gelden voor alles: foto's,
+  annotaties, indeling en bijschrift.
+
+## 17. Tips voor een goed resultaat
 
 - **Zet het kader van de zoom op een neutrale plek**: het vergrote kader
   bedekt het deel van de video waarop het staat, zolang het in beeld is. Zet
@@ -413,18 +589,21 @@ biedt het programma aan de map te openen.
 - **Teken nauw rond het onderwerp** bij kaders, ovalen en pixeleringen: de
   inhoud van de figuur is het sjabloon dat in de volgende frames wordt
   gezocht.
-- **Voor de pijl houdt een iets grotere rechthoek** (hoofd en schouders in
-  plaats van alleen het hoofd) beter stand als er andere mensen voor langs
-  lopen.
+- **Voor de pijl en het genummerde punt houdt een iets grotere rechthoek**
+  (hoofd en schouders in plaats van alleen het hoofd) beter stand als er
+  andere mensen voor langs lopen.
 - **Loop na het volgen de video door**: waar de figuur fout gaat, sleep je
   haar op het onderwerp. Een paar keyframes volstaan, ook voor lange paden.
 - **Met veel effecten** gebruik je het oog om de effecten te verbergen die je
   op dat moment niet nodig hebt, en de losgemaakte voorvertoning voor meer
   ruimte in de tijdlijn.
+- **Zet bij de afbeeldingen eerst de foto's goed** (uitsnede en vergroting)
+  en dan pas de annotaties: de annotaties gaan met de foto mee, maar het is
+  handiger om ze op de definitieve uitsnede te tekenen.
 - **Sla vaak op** (Ctrl+S): het project is een klein JSON-bestand dat je
   opnieuw kunt openen en bewerken wanneer je wilt.
 
-## 17. Sneltoetsen voor toetsenbord en muis
+## 18. Sneltoetsen voor toetsenbord en muis
 
 | Toets | Actie |
 | --- | --- |
@@ -438,14 +617,17 @@ biedt het programma aan de map te openen.
 | F | Stilstaand beeld |
 | V | Snelheid van het deel IN-OUT |
 | T / R / E / A | Tekst / kader / ovaal / pijl |
+| N / Shift+N | Genummerd punt met cijfers / met letters |
+| C / Shift+C | Verbinding met rechthoeken / met ovalen (pagina Afbeeldingen) |
 | Z / Shift+Z | Rechthoekige / ovale zoom |
 | P / K | Rechthoekige / ovale pixelering |
 | L | Logo en operator |
 | Del | Selectie verwijderen (of het deel IN-OUT) |
 | Esc | Het tekenen annuleren |
 | Ctrl+Z / Ctrl+Y | Ongedaan maken / opnieuw |
-| Ctrl+N / Ctrl+O / Ctrl+S / Ctrl+Shift+S | Nieuw / openen / opslaan / opslaan als |
+| Ctrl+N / Ctrl+O / Ctrl+S / Ctrl+Shift+S | Nieuw / openen / opslaan / opslaan als (op de pagina Afbeeldingen: het afbeeldingsproject) |
 | Ctrl+I | Video importeren |
+| Ctrl+V | Een afbeelding plakken vanaf het klembord (pagina Afbeeldingen) |
 | Ctrl+E | MP4 exporteren |
 
 | Muis | Waar | Actie |
@@ -459,14 +641,23 @@ biedt het programma aan de map te openen.
 | Shift+scrollwiel, scrollwiel op de namen | Tijdlijn | Schuift audio en effecten verticaal |
 | Rechtermuisknop | Balk van een effect | Verlengen tot de cursor / stoppen bij de cursor |
 | Rechtermuisknop | Keyframe of punt | Wissen |
+| Scrollwiel / slepen | Foto op de pagina Afbeeldingen | Vergroot / verschuift de foto in het kader |
+| Klik op een leeg kader, bestand erop gesleept | Pagina Afbeeldingen | Laadt een foto |
 
-## 18. Het projectbestand
+## 19. De projectbestanden
 
-Het project is een JSON-bestand met de clips, de audiosporen, de effecten (met
-de paden van het volgen en de keyframes) en de paden van de gebruikte
-bestanden. De video's, audiobestanden en afbeeldingen worden niet naar het
-project gekopieerd: laat ze staan waar ze zijn tot het werk klaar is. De
-geëxporteerde video daarentegen is een zelfstandige MP4.
+Het **videoproject** is een JSON-bestand met de clips, de audiosporen, de
+effecten (met de paden van het volgen en de keyframes) en de paden van de
+gebruikte bestanden. De video's, audiobestanden en afbeeldingen worden niet
+naar het project gekopieerd: laat ze staan waar ze zijn tot het werk klaar is.
+De geëxporteerde video daarentegen is een zelfstandige MP4.
+
+Het **afbeeldingsproject** is een JSON-bestand (`kind: editsimple-images`)
+met indeling, formaat, bijschrift, de kaders met hun foto en de annotaties,
+plus de map `<naam>_file` ernaast met de kopieën van de foto's, de
+toegevoegde afbeeldingen en het logo: het project is zelfstandig en kun je
+samen met zijn map verplaatsen. De waarden in de JSON (coördinaten, kleuren,
+notities, labels van de punten) kun je met een teksteditor bewerken.
 
 ---
 

@@ -187,8 +187,6 @@ CATALOG: dict[str, str] = {
         "neu",
     "Nessun video":
         "Kein Video",
-    "Montaggio":
-        "Schnitt",
     "Configura":
         "Konfiguration",
     "Riproduci / pausa (Spazio)":
@@ -1017,4 +1015,217 @@ CATALOG: dict[str, str] = {
     "Impossibile leggere l'impronta SHA-256 di ffmpeg: {error}": 'Der SHA-256-Fingerabdruck von ffmpeg kann nicht gelesen werden: {error}',
     'Impronta SHA-256 di ffmpeg non valida.': 'Ungültiger SHA-256-Fingerabdruck für ffmpeg.',
     "L'archivio di ffmpeg scaricato non corrisponde all'impronta SHA-256 pubblicata: non viene installato.": 'Das heruntergeladene ffmpeg-Archiv stimmt nicht mit dem veröffentlichten SHA-256-Fingerabdruck überein: es wird nicht installiert.',
+    "Testo (T): clic dove metterlo": "Text (T): klicken, wo er hin soll",
+    "Immagine sopra il foglio, da spostare e ridimensionare": "Bild über dem Blatt, verschieb- und skalierbar",
+    "Logo e testo dell'operatore della Configurazione (L)": "Logo und Text des Bedieners aus der Konfiguration (L)",
+    "Riquadro (R)": "Rahmen (R)",
+    "Ovale (E)": "Oval (E)",
+    "Freccia (A): dalla coda alla punta": "Pfeil (A): vom Ende zur Spitze",
+    "Zoom rettangolare (Z): l'area scelta in un riquadro ingrandito": "Rechteckiger Zoom (Z): der gewählte Bereich vergrößert in einem Rahmen",
+    "Zoom ovale (Maiusc+Z)": "Ovaler Zoom (Umschalt+Z)",
+    "Pixelatura rettangolare (P)": "Rechteckige Verpixelung (P)",
+    "Pixelatura ovale (K)": "Ovale Verpixelung (K)",
+    "Scegli un layout per cominciare": "Wählen Sie ein Layout, um zu beginnen",
+    "Layout": "Layout",
+    "Scegli quante immagini e come disporle": "Anzahl und Anordnung der Bilder wählen",
+    "Carica": "Laden",
+    "Carica una o piu' immagini nel riquadro scelto e nei successivi vuoti": "Ein oder mehrere Bilder in den gewählten Rahmen und die nächsten leeren laden",
+    "Annotazioni": "Anmerkungen",
+    "Esporta immagine": "Bild exportieren",
+    "Salva il foglio in PNG o JPG": "Das Blatt als PNG oder JPG speichern",
+    "Copia": "Kopieren",
+    "Copia il foglio negli appunti, da incollare altrove": "Das Blatt in die Zwischenablage kopieren, um es anderswo einzufügen",
+    "Foglio": "Blatt",
+    "Spazio fra le immagini (px)": "Abstand zwischen den Bildern (px)",
+    "Colore del foglio": "Farbe des Blatts",
+    "Cambia layout...": "Layout ändern...",
+    "Carica da file...": "Aus Datei laden...",
+    "Incolla dagli appunti (Ctrl+V)": "Aus der Zwischenablage einfügen (Strg+V)",
+    "Scegli il layout": "Layout wählen",
+    "Carica immagini": "Bilder laden",
+    "Negli appunti non c'e' un'immagine: copia uno screenshot o un file immagine.": "In der Zwischenablage ist kein Bild: Kopieren Sie einen Screenshot oder eine Bilddatei.",
+    "appunti": "Zwischenablage",
+    "Misura": "Größe",
+    "Togli l'immagine": "Bild entfernen",
+    "Il foglio e' vuoto: carica almeno un'immagine.": "Das Blatt ist leer: Laden Sie mindestens ein Bild.",
+    "Impossibile copiare negli appunti.": "Kopieren in die Zwischenablage nicht möglich.",
+    "Quante immagini e come disporle: si puo' cambiare in ogni momento, le immagini gia' messe restano.": "Anzahl und Anordnung der Bilder: lässt sich jederzeit ändern, bereits gesetzte Bilder bleiben erhalten.",
+    "Layout: {name}. Clicca un riquadro, trascinaci un file o usa Ctrl+V.": "Layout: {name}. Klicken Sie auf einen Rahmen, ziehen Sie eine Datei hinein oder nutzen Sie Strg+V.",
+    "Immagine incollata nel riquadro {n}.": "Bild in Rahmen {n} eingefügt.",
+    "Clicca un riquadro vuoto per caricare un'immagine, oppure trascinaci un file o incollala con Ctrl+V. Rotellina sull'immagine: ingrandisce; trascinandola: si sposta nel suo riquadro. Le annotazioni si aggiungono con gli strumenti in alto, come nel montaggio video. Esporta immagine salva il foglio in PNG o JPG.": "Klicken Sie auf einen leeren Rahmen, um ein Bild zu laden, oder ziehen Sie eine Datei hinein oder fügen Sie es mit Strg+V ein. Mausrad auf dem Bild: vergrößert; Ziehen: verschiebt es in seinem Rahmen. Anmerkungen fügen Sie mit den Werkzeugen oben hinzu, wie im Videoschnitt. Bild exportieren speichert das Blatt als PNG oder JPG.",
+    "Rotellina sull'immagine: ingrandisce attorno al mouse. Trascinandola: si sposta nel suo riquadro. Adatta: tutta visibile; Riempi: copre tutto il riquadro.": "Mausrad auf dem Bild: vergrößert um den Mauszeiger. Ziehen: verschiebt es in seinem Rahmen. Einpassen: ganz sichtbar; Füllen: bedeckt den ganzen Rahmen.",
+    "Immagine salvata: {path} ({width} x {height} px)": "Bild gespeichert: {path} ({width} x {height} px)",
+    "Riquadro {n}": "Rahmen {n}",
+    "Formato del foglio": "Blattformat",
+    "Clicca per caricare un'immagine\noppure trascina qui un file\no incolla con Ctrl+V": "Klicken, um ein Bild zu laden\noder hier eine Datei ablegen\noder mit Strg+V einfügen",
+    "Questi file non si aprono come immagini:\n{files}": "Diese Dateien lassen sich nicht als Bilder öffnen:\n{files}",
+    "Adatta": "Einpassen",
+    "Riempi": "Füllen",
+    "Immagine PNG": "PNG-Bild",
+    "Immagine JPG": "JPG-Bild",
+    "Foglio copiato negli appunti ({width} x {height} px).": "Blatt in die Zwischenablage kopiert ({width} x {height} px).",
+    "{count} immagini caricate.": "{count} Bilder geladen.",
+    "Immagine caricata: {name}": "Bild geladen: {name}",
+    "Una immagine": "Ein Bild",
+    "Affiancate": "Nebeneinander",
+    "Una sopra l'altra": "Übereinander",
+    "Tre in fila": "Drei in einer Reihe",
+    "Tre in colonna": "Drei in einer Spalte",
+    "Una grande a sinistra": "Ein großes links",
+    "Una grande sopra": "Ein großes oben",
+    "Griglia 2 x 2": "Raster 2 x 2",
+    "Quattro in fila": "Vier in einer Reihe",
+    "16:9 orizzontale": "16:9 quer",
+    "4:3": "4:3",
+    "Quadrato": "Quadratisch",
+    "9:16 verticale": "9:16 hoch",
+    "A4 verticale": "A4 hoch",
+    'Collega':
+        'Verbinden',
+    'Collega due punti con riquadri e una linea (C)':
+        'Zwei Punkte mit Rahmen und einer Linie verbinden (C)',
+    'Collega due punti con ovali e una linea (Maiusc+C)':
+        'Zwei Punkte mit Ovalen und einer Linie verbinden (Umschalt+C)',
+    'Alla punta':
+        'An der Spitze',
+    'Alla coda':
+        'Am Ende',
+    'Su entrambi i lati':
+        'An beiden Seiten',
+    'Nessuno (solo linea)':
+        'Keine (nur Linie)',
+    'Freccia piena':
+        'Gefüllte Pfeilspitze',
+    'Freccia aperta':
+        'Offene Pfeilspitze',
+    'Pallino':
+        'Punkt',
+    'Quadratino':
+        'Kleines Quadrat',
+    'Barra':
+        'Querstrich',
+    'Terminali':
+        'Enden',
+    'Tipo di terminale':
+        'Art des Endes',
+    'Collegamento':
+        'Verbindung',
+    'Rettangoli':
+        'Rechtecke',
+    'Ovali':
+        'Ovale',
+    'Angoli (rettangoli)':
+        'Ecken (Rechtecke)',
+    'Linea tratteggiata':
+        'Gestrichelte Linie',
+    "Due punti uniti da una linea, anche su due immagini diverse: ognuno segue la sua. Sull'anteprima: trascina una forma per spostarla, dagli angoli per ridimensionarla, la linea per spostare tutto.":
+        'Zwei Punkte, durch eine Linie verbunden, auch auf zwei verschiedenen Bildern: jeder folgt seinem Bild. In der Vorschau: eine Form ziehen zum Verschieben, an den Ecken zum Skalieren, die Linie zum Verschieben des Ganzen.',
+    'Clicca (o trascina) sul primo punto da collegare':
+        'Klicken (oder ziehen) Sie auf den ersten zu verbindenden Punkt',
+    "Clicca (o trascina) sul secondo punto: verra' unito al primo da una linea":
+        'Klicken (oder ziehen) Sie auf den zweiten Punkt: er wird durch eine Linie mit dem ersten verbunden',
+    'Numeri':
+        'Zahlen',
+    'Lettere':
+        'Buchstaben',
+    'Apri un progetto di immagini salvato (Ctrl+O)':
+        'Ein gespeichertes Bildprojekt öffnen (Strg+O)',
+    'Salva il progetto: un file JSON e una cartella con le immagini, modificabili (Ctrl+S; Ctrl+Maiusc+S: salva con nome)':
+        'Projekt speichern: eine JSON-Datei und ein Ordner mit den Bildern, beide bearbeitbar (Strg+S; Strg+Umschalt+S: speichern unter)',
+    'Word':
+        'Word',
+    'Immagini non salvate':
+        'Bilder nicht gespeichert',
+    'Salvare le modifiche al progetto di immagini?':
+        'Änderungen am Bildprojekt speichern?',
+    'Punti numerati':
+        'Nummerierte Punkte',
+    'Figura':
+        'Abbildung',
+    'Apri progetto di immagini':
+        'Bildprojekt öffnen',
+    '(nessuna nota)':
+        '(keine Notiz)',
+    'Salva progetto di immagini':
+        'Bildprojekt speichern',
+    'Progetto salvato: {path} (con la cartella {folder})':
+        'Projekt gespeichert: {path} (mit dem Ordner {folder})',
+    'Progetto aperto: {path}':
+        'Projekt geöffnet: {path}',
+    'Progetto immagini EditSimple (JSON)':
+        'EditSimple-Bildprojekt (JSON)',
+    'Numeri (1, 2, 3)':
+        'Zahlen (1, 2, 3)',
+    'Lettere (A, B, C)':
+        'Buchstaben (A, B, C)',
+    'Numero o lettera':
+        'Zahl oder Buchstabe',
+    'Numerazione':
+        'Nummerierung',
+    'Diametro (px)':
+        'Durchmesser (px)',
+    'Bordo del colore del testo':
+        'Rand in der Textfarbe',
+    'Punto {label}':
+        'Punkt {label}',
+    "Ogni nuovo punto prende il numero (o la lettera) dopo l'ultimo inserito. Le note vanno nella didascalia dell'immagine con il pulsante Word.":
+        'Jeder neue Punkt erhält die Zahl (oder den Buchstaben) nach dem zuletzt hinzugefügten. Die Notizen kommen mit der Schaltfläche Word in die Bildbeschriftung.',
+    'Nota':
+        'Notiz',
+    'Punto numerato':
+        'Nummerierter Punkt',
+    'Esporta':
+        'Exportieren',
+    "Inserisce l'immagine con la didascalia (i punti numerati e le loro note) nel documento Word aperto, dove c'e' il cursore":
+        'Fügt das Bild mit Beschriftung (nummerierte Punkte und ihre Notizen) an der Cursorposition in das geöffnete Word-Dokument ein',
+    'Inserimento in Word...':
+        'Einfügen in Word...',
+    'Inserita in Word ({document}): {caption}':
+        'In Word eingefügt ({document}): {caption}',
+    'Word non risponde ({error}): immagine e didascalia copiate negli appunti, da incollare in Word.':
+        'Word antwortet nicht ({error}): Bild und Beschriftung in die Zwischenablage kopiert, zum Einfügen in Word.',
+    'Punto numerato 1, 2, 3 (N): clic dove metterlo, il prossimo prende il numero dopo':
+        'Nummerierter Punkt 1, 2, 3 (N): dort klicken, wo er hin soll; der nächste erhält die folgende Zahl',
+    'Punto con lettera A, B, C (Maiusc+N): clic dove metterlo, il prossimo prende la lettera dopo':
+        'Punkt mit Buchstabe A, B, C (Umschalt+N): dort klicken, wo er hin soll; der nächste erhält den folgenden Buchstaben',
+    "Trascina un rettangolo attorno al soggetto: il punto lo seguira' restandogli accanto.":
+        'Ziehen Sie ein Rechteck um das Motiv: der Punkt folgt ihm und bleibt daneben.',
+    'soggetto del punto':
+        'Motiv des Punkts',
+    "Si disegna un rettangolo attorno al soggetto: il punto lo segue nei fotogrammi successivi restandogli accanto; quando esce dall'inquadratura l'effetto finisce.":
+        'Man zeichnet ein Rechteck um das Motiv: der Punkt folgt ihm in den nächsten Bildern und bleibt daneben; verlässt es das Bild, endet der Effekt.',
+    "Ogni nuovo punto prende il numero (o la lettera) dopo l'ultimo inserito.":
+        'Jeder neue Punkt erhält die Zahl (oder den Buchstaben) nach dem zuletzt hinzugefügten.',
+    'Clicca dove mettere il punto':
+        'Klicken Sie dort, wo der Punkt hin soll',
+    'Trascina un rettangolo attorno al soggetto che il punto deve seguire':
+        'Ziehen Sie ein Rechteck um das Motiv, dem der Punkt folgen soll',
+    "; soggetto perso da {time}: la figura resta ferma li' fino alla fine":
+        '; Motiv ab {time} verloren: die Figur bleibt bis zum Ende dort stehen',
+    'Didascalia per Word':
+        'Beschriftung für Word',
+    'Va subito dopo "Figura N :" nella didascalia che il pulsante Word inserisce; dopo vengono le note dei punti numerati.':
+        'Steht direkt nach "Abbildung N :" in der Beschriftung, die die Schaltfläche Word einfügt; danach folgen die Notizen der nummerierten Punkte.',
+    'Coda':
+        'Ende',
+    'Si sposta con la punta':
+        'Bewegt sich mit der Spitze',
+    "Resta fissa dove l'hai disegnata":
+        'Bleibt fest, wo Sie es gezeichnet haben',
+    'coda fissa':
+        'festes Ende',
+    'Didascalia':
+        'Beschriftung',
+    'Scrive o cambia il testo della didascalia per Word (quello dopo "Figura N :")':
+        'Schreibt oder ändert den Beschriftungstext für Word (den Teil nach "Abbildung N :")',
+    'Manuale':
+        'Handbuch',
+    "Manuale d'uso":
+        'Benutzerhandbuch',
+    'Indice':
+        'Inhalt',
+    "Il manuale non e' incluso in questa copia del programma.":
+        'Das Handbuch ist in dieser Kopie des Programms nicht enthalten.',
+    'Si legge in linea su GitHub:':
+        'Es ist online auf GitHub zu lesen:',
 }

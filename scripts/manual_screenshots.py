@@ -9,7 +9,9 @@ con gli strumenti del programma, uno alla volta, e alla fine lo rende identico
 al riferimento (percorsi e keyframe compresi). Poi, sullo stesso video, mostra
 le altre funzioni: slide, testo, immagine, tempo e fotogrammi, velocita',
 tagli, fermo immagine, transizioni, tracce audio, anteprima ingrandita e
-staccata, esportazione.
+staccata, esportazione. Poi i punti numerati e la freccia con la coda fissa
+nel video, e la pagina Immagini: layout, foto, annotazioni, punti numerati con
+le note, didascalia, salvataggio e inserimento in Word.
 
 Le immagini vanno in <out>/<lingua>/NN_nome.webp (1600 px). Si lancia una volta per
 lingua (la lingua dell'interfaccia e' quella della configurazione). La
@@ -18,6 +20,7 @@ modificato (lingua, logo) e va salvato prima e rimesso dopo.
 
     .venv\\Scripts\\python.exe -X utf8 scripts\\manual_screenshots.py --lang it --video V.mp4 --logo logo.png
         --reference progetto.json --audio musica.wav --image fotogramma.png --out docs\\manual\\images
+        --images-project immagini.json --word-image word_result.png
 """
 
 from __future__ import annotations
@@ -61,6 +64,28 @@ DEMO = {
 }
 
 
+PHOTO = {
+    "it": {"phone": "Telefono", "img_caption": "Motocicletta", "img_title": "MOTOCICLETTA",
+           "img_notes": {"1": "serbatoio", "2": "freno", "A": "faro", "B": "scarico"}},
+    "en": {"phone": "Phone", "img_caption": "Motorbike", "img_title": "MOTORBIKE",
+           "img_notes": {"1": "tank", "2": "brake", "A": "headlight", "B": "exhaust"}},
+    "de": {"phone": "Telefon", "img_caption": "Motorrad", "img_title": "MOTORRAD",
+           "img_notes": {"1": "Tank", "2": "Bremse", "A": "Scheinwerfer", "B": "Auspuff"}},
+    "fr": {"phone": "Téléphone", "img_caption": "Moto", "img_title": "MOTO",
+           "img_notes": {"1": "réservoir", "2": "frein", "A": "phare", "B": "échappement"}},
+    "es": {"phone": "Teléfono", "img_caption": "Motocicleta", "img_title": "MOTOCICLETA",
+           "img_notes": {"1": "depósito", "2": "freno", "A": "faro", "B": "escape"}},
+    "nl": {"phone": "Telefoon", "img_caption": "Motorfiets", "img_title": "MOTORFIETS",
+           "img_notes": {"1": "tank", "2": "rem", "A": "koplamp", "B": "uitlaat"}},
+    "pl": {"phone": "Telefon", "img_caption": "Motocykl", "img_title": "MOTOCYKL",
+           "img_notes": {"1": "zbiornik", "2": "hamulec", "A": "reflektor", "B": "wydech"}},
+    "el": {"phone": "Τηλέφωνο", "img_caption": "Μοτοσικλέτα", "img_title": "ΜΟΤΟΣΙΚΛΕΤΑ",
+           "img_notes": {"1": "ρεζερβουάρ", "2": "φρένο", "A": "προβολέας", "B": "εξάτμιση"}},
+    "sq": {"phone": "Telefoni", "img_caption": "Motoçikleta", "img_title": "MOTOÇIKLETA",
+           "img_notes": {"1": "rezervuari", "2": "freni", "A": "fari", "B": "shkarkimi"}},
+}
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--lang", required=True)
@@ -70,6 +95,8 @@ def main() -> int:
     ap.add_argument("--audio", required=True)
     ap.add_argument("--image", required=True)
     ap.add_argument("--out", required=True)
+    ap.add_argument("--images-project", required=True, help="progetto di immagini (JSON) con le foto accanto")
+    ap.add_argument("--word-image", required=True, help="fotografia del risultato in Word (PNG)")
     ap.add_argument("--work", default=None, help="cartella per progetto e video esportati")
     args = ap.parse_args()
 
@@ -97,7 +124,9 @@ def main() -> int:
     ref_fx = {fx["type"] + (f"{i}" if fx["type"] == "box" else ""): fx
               for i, fx in enumerate(ref["effects"])}
     boxes = [fx for fx in ref["effects"] if fx["type"] == "box"]
+    arrows = [fx for fx in ref["effects"] if fx["type"] == "arrow"]      # la prima segue, la seconda ha la coda fissa
     demo = DEMO.get(args.lang, DEMO["en"])
+    photo = PHOTO.get(args.lang, PHOTO["en"])
 
     app = appmod.App(None)
     app.geometry("1900x1020+8+4")
@@ -166,8 +195,8 @@ def main() -> int:
         oy = canvas.winfo_rooty() - int(canvas.canvasy(0))
         return int(x0 + ox), int(y0 + oy), int(x1 + ox), int(y1 + oy)
 
-    def preview_box(x, y, w, h) -> tuple[int, int, int, int]:
-        p = app.preview
+    def preview_box(x, y, w, h, preview=None) -> tuple[int, int, int, int]:
+        p = preview or app.preview
         a = p._to_canvas(x, y)
         b = p._to_canvas(x + w, y + h)
         return canvas_box(p.canvas, a[0], a[1], b[0], b[1])
@@ -178,11 +207,12 @@ def main() -> int:
         bb = c.bbox(*items)
         return canvas_box(c, *bb)
 
-    def reveal(widget):
+    def reveal(widget, panel=None):
         """Fa scorrere il pannello delle proprieta' finche' `widget` e' in vista; restituisce il widget."""
+        panel = panel or app.panel
         if widget is None:
-            return app.panel
-        body = app.panel.body
+            return panel
+        body = panel.body
         canvas = body._parent_canvas
         app.update_idletasks()
         inner_h = max(1, body.winfo_height())
@@ -330,7 +360,7 @@ def main() -> int:
     grab("08_keyframes", (fx_bar(zoom), reveal(find_button(app.panel, tr("Keyframe")))))
 
     # freccia che segue una persona
-    aref = ref_fx["arrow"]
+    aref = arrows[0]
     app.seek(aref["start"])
     app._on_drawn("arrow", {"x1": aref["x1"], "y1": aref["y1"], "x2": aref["x2"], "y2": aref["y2"]})
     pump(0.3)
@@ -379,6 +409,66 @@ def main() -> int:
     app.seek(18.9)
     pump(0.6)
     grab("13_pixelate", (fx_bar(pixel), app.tool_buttons["pixelo"]))
+
+    # punto numerato (lettera) che segue una persona
+    mref = ref_fx["marker"]
+    app.seek(mref["start"])
+    pump(0.3)
+    app.start_draw("marker_letter")
+    app._on_drawn("marker", {"x": mref["x"] + mref["size"] // 2, "y": mref["y"] + mref["size"] // 2})
+    pump(0.4)
+    marker = app.project.effects[-1]
+    app.retrack(marker)
+    pump(0.3)
+    dx, dy, tw, th = mref["target"]
+    app._on_drawn("marker_target", {"x": mref["x"] + dx, "y": mref["y"] + dy, "w": tw, "h": th})
+    wait_tracking()
+    adopt(marker, mref)
+    app.select("effect", marker["id"])
+    app.seek(5.0)
+    pump(0.6)
+    g = overlays.displaced(marker, 5.0)
+    grab("31_marker_video", (app.tool_buttons["num"], app.tool_buttons["abc"], fx_bar(marker),
+                             preview_box(g["x"], g["y"], marker["size"], marker["size"])))
+
+    # freccia con la coda fissa: la punta segue il telefono, la coda resta accanto al testo
+    tref = arrows[1]
+    app.seek(tref["start"])
+    pump(0.3)
+    app._on_drawn("arrow", {"x1": tref["x1"], "y1": tref["y1"], "x2": tref["x2"], "y2": tref["y2"]})
+    pump(0.3)
+    tail_arrow = app.project.effects[-1]
+    tail_arrow["tail"] = "fixed"
+    app.retrack(tail_arrow)
+    pump(0.3)
+    dx, dy, tw, th = tref["target"]
+    app._on_drawn("arrow_target", {"x": tref["x2"] + dx, "y": tref["y2"] + dy, "w": tw, "h": th})
+    wait_tracking()
+    adopt(tail_arrow, tref)
+    textref = ref_fx["text"]
+    on_dialog(fill_text(photo["phone"], textref["size"]))
+    app.start_draw("text")
+    app._on_drawn("text", {"x": textref["x"], "y": textref["y"]})
+    pump(0.5)
+    phone_text = app.project.effects[-1]
+    adopt(phone_text, textref)
+    phone_text["text"] = photo["phone"]
+    app.refresh()
+    app.select("effect", tail_arrow["id"])
+    app.seek(9.0)
+    pump(0.6)
+    grab("32_arrow_tail", (reveal(find_button(app.panel, tr("Coda"))), fx_bar(tail_arrow),
+                           preview_box(tref["x1"] - 30, tref["y1"] - 30, 60, 60)))
+
+    # la timeline: ogni effetto sulla sua riga (piu' alta, per vederle tutte)
+    app.select(None, None)
+    app.timeline.configure(height=430)
+    app.timeline.zoom_fit()
+    app.seek(6.0)
+    pump(0.8)
+    grab("33_timeline_rows", (app.timeline,))
+    app.timeline.configure(height=215)
+    pump(0.5)
 
     files["save"] = str(work / "progetto_manuale.json")
     app.save_project_as()
@@ -580,8 +670,79 @@ def main() -> int:
     pump(0.4)
     grab("30_language", (app._language_buttons[args.lang],))
 
+    # il manuale in una finestra a parte, dal tab di sinistra
+    app.open_manual()
+    pump(1.5)
+    win = app.manual_window
+    win.attributes("-topmost", True)
+    win.geometry(f"1180x820+{app.winfo_rootx() + 360}+{app.winfo_rooty() + 90}")
+    pump(1.0)
+    grab("34_manual", (app._rail_buttons["manual"][0],), extra=(win,), wait=False)
+    win.destroy()
+    pump(0.5)
+
+    # ================================================================== parte 3: la pagina Immagini
+    app.show_page("image")
+    page = app.image_page
+    pump(0.8)
+    page.show_layouts()
+    pump(0.6)
+    grab("40_images_layout", (app._rail_buttons["image"][0], page.chooser), wait=False)
+    page.choose_layout("2h")
+    pump(0.4)
+    folder = Path(args.images_project).parent
+    photos = sorted(str(f) for f in folder.glob("pexels-*.jpg"))
+    page._load_paths(photos[:2], 0)
+    pump(1.0)
+    page.select("cell", 0)
+    pump(0.6)
+    grab("41_images_loaded", (page.tool_buttons["Layout"], page.tool_buttons["Carica"], page.panel), wait=False)
+
+    page.load_project(args.images_project)
+    pump(0.6)
+    page.board.caption = photo["img_caption"]
+    for fx in page.project.effects:
+        if fx["type"] == "marker":
+            fx["note"] = photo["img_notes"].get(fx["label"], fx.get("note", ""))
+        elif fx["type"] == "text":
+            fx["text"] = photo["img_title"]
+    page.refresh()
+    link = next(fx for fx in page.project.effects if fx["type"] == "link")
+    page.select("effect", link["id"])
+    pump(0.8)
+    grab("42_images_annotations", (page.tool_buttons["Collega"], page.tool_buttons["Freccia"],
+                                   page.tool_buttons["Zoom"], page.tool_buttons["Pixel"]), wait=False)
+
+    first = next(fx for fx in page.project.effects if fx["type"] == "marker" and fx["label"] == "1")
+    page.select("effect", first["id"])
+    pump(0.6)
+    note_box = next((w for w in page.panel.body.winfo_children() if w.__class__.__name__ == "CTkTextbox"), None)
+    b = overlays.effect_bbox(first)
+    grab("43_images_marker_note", (page.tool_buttons["Numeri"], page.tool_buttons["Lettere"],
+                                   reveal(note_box, page.panel),
+                                   preview_box(b[0], b[1], b[2] - b[0], b[3] - b[1], page.preview)), wait=False)
+
+    page.select(None, None)
+    pump(0.4)
+    on_dialog(lambda d: d._cancel(), "44_images_caption", marks=lambda d: (page.tool_buttons["Didascalia"],))
+    page.edit_caption()
+    pump(0.5)
+
+    word = Image.open(args.word_image).convert("RGB")
+    if word.width > 1600:
+        word = word.resize((1600, round(word.height * 1600 / word.width)), Image.LANCZOS)
+    word.save(out / "45_images_word.webp", "WEBP", quality=88, method=6)
+    print("   45_images_word", flush=True)
+
+    files["save"] = str(work / "immagini_manuale.json")
+    page.save_project(ask=True)
+    pump(0.6)
+    grab("46_images_output", (page.tool_buttons["Apri"], page.tool_buttons["Salva"], page.tool_buttons["Esporta"],
+                              page.tool_buttons["Copia"], page.tool_buttons["Word"]), wait=False)
+
     print("errori Tk:", errors or "nessuno", flush=True)
     app.project.dirty = False
+    page._saved_state = page._state()
     app.destroy()
     return 0
 

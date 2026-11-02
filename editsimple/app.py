@@ -25,7 +25,7 @@ from tkinter import filedialog
 import customtkinter as ctk
 from PIL import Image
 
-from . import APP_NAME, COPYRIGHT, CREDITS, __version__, audio, frameless, i18n, media, overlays, procs, render, theme, tools, tracking, widgets
+from . import APP_NAME, COPYRIGHT, CREDITS, __version__, audio, frameless, i18n, manual, media, overlays, procs, render, theme, tools, tracking, widgets
 from .i18n import N_, again, tr, upper
 from .config import Config
 from .fonts import FontPicker, default_font
@@ -52,9 +52,15 @@ LOGO_CORNERS = {"top-left": N_("In alto a sinistra"), "top-right": N_("In alto a
 G["zoomo"] = (G["oval"][0], "ZO")    # zoom ovale: stessa icona dell'ovale
 G["zoom"] = (G["box"][0], "Z")      # zoom rettangolare: stessa icona del riquadro
 G["image"] = ("\uEB9F", "IMG")
+G["link"] = (G["box"][0] + "\uE71B", "[]-[]")     # collegamento: forma + catena
+G["linko"] = (G["oval"][0] + "\uE71B", "O-O")
+G["num"] = ("\u2460", "1")                          # punti numerati: (1) e (A) cerchiati
+G["abc"] = ("\u24B6", "A")
+G["word"] = ("\uE8C8", "W")                         # copia per Word
 G["timer"] = ("\uE916", "T0")
 G["frames"] = ("\uE714", "#")
 G["detach"] = ("\uE8A7", "^")     # apri in una finestra a parte
+G["manual"] = ("\uE897", "?")     # manuale d'uso
 G["attach"] = ("\uE73F", "v")     # torna nella finestra principale
 TIMELINE_MIN = 150      # altezze minime quando si sposta il divisore anteprima/timeline
 PREVIEW_MIN = 140
@@ -147,11 +153,17 @@ class App(ctk.CTk):
         widgets.rule(body, False).grid(row=0, column=1, sticky="ns")
         self.pages: dict[str, ctk.CTkFrame] = {}
         self.tool_buttons: dict[str, ctk.CTkButton] = {}
-        for key in ("edit", "settings"):
+        for key in ("edit", "image", "settings"):
             page = ctk.CTkFrame(body, fg_color=theme.BG, corner_radius=0)
             page.grid(row=0, column=2, sticky="nsew")
             self.pages[key] = page
         self._build_edit_page(self.pages["edit"])
+        # pagina Immagini: annotazione di immagini ferme, separata dal montaggio video
+        from .image_page import ImagePage
+        self.pages["image"].grid_columnconfigure(0, weight=1)
+        self.pages["image"].grid_rowconfigure(0, weight=1)
+        self.image_page = ImagePage(self.pages["image"], self)
+        self.image_page.grid(row=0, column=0, sticky="nsew")
         self._build_settings_page(self.pages["settings"])
         self._build_footer()
         self.show_page("edit")
@@ -239,7 +251,10 @@ class App(ctk.CTk):
         rail.grid_propagate(False)
         ctk.CTkLabel(rail, text=tr("PAGINE"), font=self.fonts.caption, text_color=theme.TEXT_FAINT).pack(pady=(14, 6))
         self._rail_buttons: dict[str, tuple[ctk.CTkButton, ctk.CTkLabel]] = {}
-        for key, label, glyph in (("edit", N_("Montaggio"), "edit"), ("settings", N_("Configura"), "settings")):
+        for key, label, glyph in (("edit", N_("Video"), "edit"), ("image", N_("Immagini"), "image"),
+                                  ("settings", N_("Configura"), "settings"), ("manual", N_("Manuale"), "manual")):
+            # il manuale non e' una pagina: si apre in una finestra a parte, nella lingua in uso
+            open_it = self.open_manual if key == "manual" else (lambda k=key: self.show_page(k))
             box = ctk.CTkFrame(rail, fg_color="transparent", corner_radius=4, width=74, height=62)
             box.pack(pady=(0, 6), padx=5)
             box.pack_propagate(False)
@@ -247,19 +262,33 @@ class App(ctk.CTk):
                                  width=74, height=36, corner_radius=4, fg_color="transparent",
                                  hover_color=theme.HOVER, text_color=theme.TEXT_DIM,
                                  font=self.fonts.icon(16) if self._has_icons else self.fonts.bold,
-                                 command=lambda k=key: self.show_page(k))
+                                 command=open_it)
             if not self._has_icons:
                 # senza icone il pulsante mostra l'iniziale del nome della pagina, nella lingua in uso
                 item.retranslate = lambda b=item, t=label: b.configure(text=tr(t)[:1])
             item.pack()
             text = ctk.CTkLabel(box, text=tr(label), font=self.fonts.tiny, text_color=theme.TEXT_DIM, cursor="hand2")
             text.pack()
-            text.bind("<Button-1>", lambda _e, k=key: self.show_page(k))
+            text.bind("<Button-1>", lambda _e, f=open_it: f())
             self._rail_buttons[key] = (item, text)
 
+    def open_manual(self) -> None:
+        """Il manuale d'uso nella lingua dell'interfaccia, in una finestra a parte (una sola)."""
+        win = self.manual_window
+        if win is not None and win.winfo_exists():
+            win.deiconify()
+            win.lift()
+            win.focus_set()
+            return
+        self.manual_window = manual.ManualWindow(self, self.fonts)
+
     def show_page(self, key: str) -> None:
+        if key != "edit":
+            self.stop_play()
         self._page = key
         self.pages[key].tkraise()
+        if key == "image":
+            self.image_page.refresh()
         for name, (item, text) in self._rail_buttons.items():
             item.configure(fg_color=theme.ACCENT_BG if name == key else "transparent",
                            text_color=theme.ACCENT if name == key else theme.TEXT_DIM)
@@ -333,6 +362,10 @@ class App(ctk.CTk):
         self._tool(g, "box", tr("Riquadro"), lambda: self.start_draw("box"), tr("Riquadro (R): puo' seguire il soggetto"))
         self._tool(g, "oval", tr("Ovale"), lambda: self.start_draw("oval"), tr("Ovale (E): puo' seguire il soggetto"))
         self._tool(g, "arrow", tr("Freccia"), lambda: self.start_draw("arrow"), tr("Freccia (A): puo' seguire il soggetto"))
+        self._tool(g, "num", tr("Numeri"), lambda: self.start_draw("marker_number"),
+                   tr("Punto numerato 1, 2, 3 (N): clic dove metterlo, il prossimo prende il numero dopo"))
+        self._tool(g, "abc", tr("Lettere"), lambda: self.start_draw("marker_letter"),
+                   tr("Punto con lettera A, B, C (Maiusc+N): clic dove metterlo, il prossimo prende la lettera dopo"))
         self._tool(g, "zoom", tr("Zoom"), lambda: self.start_draw("zoom"), tr("Zoom rettangolare: l'area scelta in un riquadro ingrandito (Z)"))
         self._tool(g, "zoomo", tr("Zoom"), lambda: self.start_draw("zoom_oval"), tr("Zoom ovale: l'area scelta in un ovale ingrandito (Maiusc+Z)"))
         self._tool(g, "pixel", tr("Pixel"), lambda: self.start_draw("pixelate"), tr("Pixelatura rettangolare che insegue il soggetto (P)"))
@@ -343,6 +376,7 @@ class App(ctk.CTk):
         # anteprima + proprieta'
         self._edit_page = page
         self.preview_window: ctk.CTkToplevel | None = None     # anteprima staccata in una finestra a parte
+        self.manual_window: manual.ManualWindow | None = None   # il manuale d'uso, se aperto
         self.preview = self._make_preview(page)
         self.preview.grid(row=1, column=0, sticky="nsew", padx=(theme.PAD, theme.GAP))
         self.panel = PropertiesPanel(page, self.fonts, self)
@@ -696,6 +730,8 @@ class App(ctk.CTk):
         self.config_store.save()
         self._paint_language()
         widgets.retranslate_all(self)
+        if self.manual_window is not None and self.manual_window.winfo_exists():
+            self.manual_window.load(code)
         # cio' che si costruisce da capo: pannello delle proprieta', timeline, anteprima, stato
         self.panel.show(self.selected_kind, self._selected_obj())
         self.timeline.schedule()
@@ -875,7 +911,7 @@ class App(ctk.CTk):
         self.refresh()
 
     def _on_close(self) -> None:
-        if not self._confirm_discard():
+        if not self._confirm_discard() or not self.image_page.confirm_discard():
             return
         self.stop_play()
         try:
@@ -901,7 +937,10 @@ class App(ctk.CTk):
     # ================================================================ tastiera
 
     def _bind_keys(self) -> None:
+        # le scorciatoie del montaggio valgono solo nella sua pagina (la pagina Immagini ha le sue)
         def key(event, handler, *args):
+            if self._page != "edit":
+                return None
             widget = self.focus_get()
             if isinstance(widget, (tk.Entry, tk.Text, ctk.CTkEntry, ctk.CTkTextbox)) or \
                     widget.__class__.__name__ in ("Entry", "Text"):
@@ -932,17 +971,23 @@ class App(ctk.CTk):
         self.bind("<z>", lambda e: key(e, self.start_draw, "zoom"))
         self.bind("<Z>", lambda e: key(e, self.start_draw, "zoom_oval"))
         self.bind("<p>", lambda e: key(e, self.start_draw, "pixelate"))
+        self.bind("<n>", lambda e: key(e, self.start_draw, "marker_number"))
+        self.bind("<N>", lambda e: key(e, self.start_draw, "marker_letter"))
         self.bind("<l>", lambda e: key(e, self.add_logo))
         self.bind("<Delete>", lambda e: key(e, self.delete_selection))
-        self.bind("<Escape>", lambda e: self.cancel_mode())
+        self.bind("<Escape>", lambda e: self.cancel_mode() if self._page == "edit" else None)
         self.bind("<Control-z>", lambda e: key(e, self.undo))
         self.bind("<Control-y>", lambda e: key(e, self.redo))
-        self.bind("<Control-s>", lambda e: self.save_project())
-        self.bind("<Control-Shift-S>", lambda e: self.save_project_as())
-        self.bind("<Control-o>", lambda e: self.open_project())
-        self.bind("<Control-n>", lambda e: self.new_project())
-        self.bind("<Control-i>", lambda e: self.import_video())
-        self.bind("<Control-e>", lambda e: self.export())
+        def video(handler):
+            return lambda e: handler() if self._page == "edit" else None
+
+        self.bind("<Control-s>", video(self.save_project))
+        self.bind("<Control-Shift-S>", video(self.save_project_as))
+        self.bind("<Control-o>", video(self.open_project))
+        self.bind("<Control-n>", video(self.new_project))
+        self.bind("<Control-i>", video(self.import_video))
+        self.bind("<Control-e>", video(self.export))
+        self.image_page.bind_keys()          # dopo queste: si aggiungono senza sostituirle
 
     # ================================================================ stato e ridisegno
 
@@ -1875,6 +1920,9 @@ class App(ctk.CTk):
         self._zoom_shape = "oval" if mode == "zoom_oval" else "rect"
         if mode == "zoom_oval":
             mode = "zoom"
+        if mode.startswith("marker_"):
+            self._marker_style = mode[7:]
+            mode = "marker"
         self.preview.zoom_shape = self._zoom_shape
         if mode == "zoom":
             factor = int(self.config_store.get("zoom_factor") or 2)
@@ -2086,7 +2134,7 @@ class App(ctk.CTk):
     def _on_drawn(self, mode: str, geometry: dict) -> None:
         pending = getattr(self, "_arrow_pending", None)
         self.cancel_mode()
-        if mode == "arrow_target":
+        if mode in ("arrow_target", "marker_target"):
             if pending is not None:
                 self._set_arrow_target(*pending, geometry)
             return
@@ -2101,6 +2149,9 @@ class App(ctk.CTk):
                       radius=float(self.config_store.get("round_box")) if mode == "box" else 0.0)
         elif mode == "arrow":
             fx.update(color="#FF3B30", thickness=max(4, self.project.height // 180))
+        elif mode == "marker":
+            fx.update(overlays.new_marker(self.project.effects, getattr(self, "_marker_style", "number"),
+                                          fx["x"], fx["y"], self.project.height))
         elif mode == "zoom":
             self._create_zoom(fx)
             return
@@ -2334,9 +2385,10 @@ class App(ctk.CTk):
                     fx[key] = [k for k in fx[key] if k[0] <= t + 1e-6]
         self.project.dirty = True
         self.refresh()
-        if longer and fx.get("follow") and fx.get("track") and fx.get("type") in TRACKABLE:
-            # segue un soggetto: l'inseguimento continua dall'ultimo punto fino alla nuova fine
-            self.retrack(fx, start=float(fx["track"][-1][0]), undo=False)
+        if longer and fx.get("track") and fx.get("follow", True) and fx.get("type") in TRACKABLE:
+            # segue un soggetto: l'inseguimento continua dall'ultimo punto fino alla nuova fine; la fine
+            # l'ha scelta l'utente, quindi resta anche se il soggetto si perde (la figura si ferma li')
+            self.retrack(fx, start=float(fx["track"][-1][0]), undo=False, keep_end=True)
             return
         self.status((tr("{effect} allungato fino a {t:.2f} s.") if longer else
                      tr("{effect} interrotto a {t:.2f} s.")).format(effect=tr(EFFECT_NAMES.get(fx["type"], fx["type"])), t=t))
@@ -2361,26 +2413,29 @@ class App(ctk.CTk):
         self.seek(target)
 
     def pick_arrow_target(self, fx: dict, start: float | None = None) -> None:
-        """Per far seguire un soggetto alla freccia: si disegna un rettangolo attorno al soggetto.
+        """Per far seguire un soggetto alla freccia o a un punto numerato: si disegna un rettangolo attorno
+        al soggetto.
 
         Il modello dell'inseguimento e' quel rettangolo (non quello che sta
-        sotto la punta, che spesso e' lo sfondo: la punta tocca il soggetto ma
-        non ci sta sopra). La punta resta agganciata al rettangolo.
+        sotto la punta o sotto il punto, che spesso e' lo sfondo o il punto
+        stesso). La punta, o il punto, resta agganciata al rettangolo.
         """
         if not self.project.clips:
             return
         self.stop_play()
-        self.preview.set_mode("arrow_target")
+        marker = fx.get("type") == "marker"
+        self.preview.set_mode("marker_target" if marker else "arrow_target")
         self._arrow_pending = (fx, start)
-        self.mode_label.configure(text=tr("Disegna: {effect}  (Esc annulla)").format(effect=tr("soggetto della freccia")))
-        self.status(tr("Trascina un rettangolo attorno al soggetto: la freccia lo seguira' tenendo la punta dov'e'."))
+        self.mode_label.configure(text=tr("Disegna: {effect}  (Esc annulla)").format(
+            effect=tr("soggetto del punto") if marker else tr("soggetto della freccia")))
+        self.status(tr("Trascina un rettangolo attorno al soggetto: il punto lo seguira' restandogli accanto.") if marker
+                    else tr("Trascina un rettangolo attorno al soggetto: la freccia lo seguira' tenendo la punta dov'e'."))
 
     def _set_arrow_target(self, fx: dict, start: float | None, area: dict) -> None:
         t = start if start is not None else (self.playhead if fx["start"] <= self.playhead < fx["end"] else fx["start"])
-        tip = overlays.displaced(fx, t)
-        # il rettangolo si ricorda rispetto alla punta: si sposta con lei (keyframe, inseguimenti successivi)
-        fx["target"] = [round(area["x"] - float(tip["x2"]), 1), round(area["y"] - float(tip["y2"]), 1),
-                        int(area["w"]), int(area["h"])]
+        ax, ay = overlays.anchor_of(overlays.displaced(fx, t))
+        # il rettangolo si ricorda rispetto alla punta (o al punto): si sposta con lei (keyframe, inseguimenti successivi)
+        fx["target"] = [round(area["x"] - ax, 1), round(area["y"] - ay, 1), int(area["w"]), int(area["h"])]
         self.project.dirty = True
         self.retrack(fx, start=t)
 
@@ -2395,14 +2450,16 @@ class App(ctk.CTk):
         self.refresh()
         self.select("effect", fx["id"])
 
-    def retrack(self, fx: dict, start: float | None = None, undo: bool = True) -> None:
+    def retrack(self, fx: dict, start: float | None = None, undo: bool = True, keep_end: bool = False) -> None:
         """Esegue (o ripete) l'inseguimento del soggetto per una pixelatura, un riquadro, un ovale o una freccia.
 
         Parte da `start` (o dal cursore, se dentro l'effetto, o dall'inizio
         dell'effetto) e arriva al keyframe successivo, se c'e', altrimenti alla
         fine dell'effetto o della clip. Verso un keyframe il percorso viene
         corretto per arrivarci esatto. Se il soggetto esce dall'inquadratura o
-        viene perso (e non c'e' un keyframe dopo), l'effetto finisce li'.
+        viene perso (e non c'e' un keyframe dopo), l'effetto finisce li'; con
+        `keep_end` (allungato dall'utente fino al cursore) la fine resta e la
+        figura si ferma dove il soggetto e' stato perso.
         """
         if fx.get("type") not in TRACKABLE:
             return
@@ -2437,15 +2494,16 @@ class App(ctk.CTk):
             w_now, h_now = float(fx["w"]) * s_start, float(fx["h"]) * s_start
             box = (x - (w_now - float(fx["w"])) / 2, y - (h_now - float(fx["h"])) / 2, w_now, h_now)
             anchor_off = ((w_now - float(fx["w"])) / 2, (h_now - float(fx["h"])) / 2)
-        elif fx["type"] == "arrow":
-            # il modello e' il rettangolo disegnato attorno al soggetto (ricordato rispetto alla punta);
-            # senza, prima si chiede di disegnarlo
+        elif fx["type"] in ("arrow", "marker"):
+            # il modello e' il rettangolo disegnato attorno al soggetto (ricordato rispetto alla punta o al
+            # punto); senza, prima si chiede di disegnarlo
             if not fx.get("target"):
                 self.pick_arrow_target(fx, start)
                 return
             dx, dy, tw, th = (float(v) for v in fx["target"])
-            box = (float(shown["x2"]) + dx, float(shown["y2"]) + dy, tw, th)
-            anchor_off = (-dx, -dy)                    # dall'angolo del rettangolo alla punta
+            ax, ay = overlays.anchor_of(shown)
+            box = (ax + dx, ay + dy, tw, th)
+            anchor_off = (-dx, -dy)                    # dall'angolo del rettangolo alla punta (o al punto)
         else:
             box = (float(shown["x"]), float(shown["y"]), float(fx["w"]), float(fx["h"]))
             anchor_off = (0.0, 0.0)
@@ -2508,7 +2566,10 @@ class App(ctk.CTk):
                 fx["track"] = before + keys + after
             else:
                 fx["track"] = before + keys
-                if result.lost_at is not None:
+                if result.lost_at is not None and keep_end:
+                    text += tr("; soggetto perso da {time}: la figura resta ferma li' fino alla fine").format(
+                        time=media.format_time(to_timeline(result.lost_at)))
+                elif result.lost_at is not None:
                     # uscito o perso: l'inseguimento si ferma e l'effetto finisce li'
                     stop = to_timeline(result.lost_at) + 1.0 / max(1.0, self.project.fps)
                     ending = (tr("; soggetto uscito dall'inquadratura: l'effetto finisce a {time}") if result.reason == "uscito"

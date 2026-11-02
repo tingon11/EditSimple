@@ -406,6 +406,9 @@ class Exporter:
                 if len(spans) > 1 or spans[0][2] != 1.0:
                     cur = self._scaled_figure(cur, fx, spans, workdir, n)
                     continue
+            if fx["type"] == "arrow" and fx.get("tail") == "fixed" and fx.get("track"):
+                cur = self._arrow_frames(cur, fx, workdir, n)
+                continue
             rendered = overlays.render_effect(fx)
             if rendered is None:
                 continue
@@ -537,6 +540,33 @@ class Exporter:
                               f"enable='between(t,{_num(ta)},{_num(tb)})':eof_action=repeat[o{n}_{k}]")
             cur = f"o{n}_{k}"
         return cur
+
+    def _arrow_frames(self, cur: str, fx: dict, workdir: str, n: int) -> str:
+        """Freccia con la coda fissa che segue un soggetto: cambia forma a ogni fotogramma, quindi e' una
+        sequenza di PNG (su una tela grande quanto l'insieme delle sue posizioni) che parte con l'effetto."""
+        p = self.project
+        W, H = p.width, p.height
+        count = max(1, int(math.ceil((fx["end"] - fx["start"]) * p.fps)) + 1)
+        times = [fx["start"] + i / p.fps for i in range(count)]
+        boxes = [overlays.effect_bbox(overlays.displaced(fx, t)) for t in times]
+        x0 = max(0, int(min(b[0] for b in boxes)))
+        y0 = max(0, int(min(b[1] for b in boxes)))
+        x1 = min(W, int(math.ceil(max(b[2] for b in boxes))))
+        y1 = min(H, int(math.ceil(max(b[3] for b in boxes))))
+        folder = os.path.join(workdir, f"arrow_{n}")
+        os.makedirs(folder, exist_ok=True)
+        for i, t in enumerate(times):
+            canvas = Image.new("RGBA", (max(1, x1 - x0), max(1, y1 - y0)), (0, 0, 0, 0))
+            rendered = overlays.render_effect(overlays.displaced(fx, t))
+            if rendered is not None:
+                image, x, y = rendered
+                canvas.paste(image, (int(x) - x0, int(y) - y0), image)
+            canvas.save(os.path.join(folder, f"a_{i:05d}.png"), compress_level=1)
+        j = self._add_input(["-framerate", _num(p.fps), "-i", os.path.join(folder, "a_%05d.png")])
+        self.lines.append(f"[{j}:v]setpts=PTS-STARTPTS+{_num(fx['start'])}/TB[am{n}]")
+        self.lines.append(f"[{cur}][am{n}]overlay=x={x0}:y={y0}:"
+                          f"enable='between(t,{_num(fx['start'])},{_num(fx['end'])})':eof_action=pass[o{n}]")
+        return f"o{n}"
 
     def _zoom_decor(self, fx: dict, workdir: str, n: int) -> tuple[str, tuple[int, int], int]:
         """PNG (o sequenza di PNG) con contorno dell'area e linea verso il riquadro; restituisce il percorso

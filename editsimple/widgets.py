@@ -406,6 +406,61 @@ def ask_form(parent, title: str, fields: list[dict], fonts: theme.Fonts, ok_text
 ALIGN_NAMES = {"left": N_("Sinistra"), "center": N_("Centro"), "right": N_("Destra")}
 
 
+class NoteDialog(ctk.CTkToplevel):
+    """Un testo su piu' righe (la didascalia del foglio): Invio va a capo, Ctrl+Invio conferma.
+    `result` e' il testo o None se annullato."""
+
+    def __init__(self, parent, title: str, text: str, fonts: theme.Fonts, intro: str = "") -> None:
+        super().__init__(parent)
+        self.title(title)
+        self.configure(fg_color=theme.BG)
+        self.transient(parent)
+        self.resizable(False, False)
+        style_dialog(self)
+        self.result: str | None = None
+        box = ctk.CTkFrame(self, fg_color=theme.PANEL, border_width=1, border_color=theme.BORDER, corner_radius=4)
+        box.pack(fill="both", expand=True, padx=14, pady=14)
+        ctk.CTkLabel(box, text=title, font=fonts.page, text_color=theme.TEXT, anchor="w").pack(fill="x", padx=16, pady=(14, 2))
+        if intro:
+            note(box, intro, fonts, wraplength=460).pack(fill="x", padx=16)
+        self.text = ctk.CTkTextbox(box, width=460, height=130, font=fonts.body, wrap="word")
+        self.text.pack(fill="x", padx=16, pady=(8, 0))
+        self.text.insert("1.0", text)
+        note(box, tr("Invio va a capo, Ctrl+Invio conferma."), fonts, wraplength=460).pack(fill="x", padx=16, pady=(4, 0))
+        row = ctk.CTkFrame(box, fg_color="transparent")
+        row.pack(fill="x", padx=16, pady=(10, 14))
+        button(row, tr("OK"), self._ok, primary=True, width=110).pack(side="right")
+        button(row, tr("Annulla"), self._cancel, width=100).pack(side="right", padx=(0, 8))
+        self.bind("<Control-Return>", lambda _e: self._ok())
+        self.bind("<Escape>", lambda _e: self._cancel())
+        self.protocol("WM_DELETE_WINDOW", self._cancel)
+        self.update_idletasks()
+        _place(self, parent, max(500, self.winfo_reqwidth()), self.winfo_reqheight())
+        self.after(50, self.text.focus_set)
+        self.grab_set()
+
+    def _ok(self) -> None:
+        self.result = self.text.get("1.0", "end-1c")
+        self._close()
+
+    def _cancel(self) -> None:
+        self.result = None
+        self._close()
+
+    def _close(self) -> None:
+        try:
+            self.grab_release()
+        except tk.TclError:
+            pass
+        self.destroy()
+
+
+def ask_note(parent, title: str, text: str, fonts: theme.Fonts, intro: str = "") -> str | None:
+    dialog = NoteDialog(parent, title, text, fonts, intro=intro)
+    dialog.wait_window()
+    return dialog.result
+
+
 class TextDialog(ctk.CTkToplevel):
     """Scrittura di un testo: piu' righe, allineamento, dimensione, colore, ombra, fondo, centratura.
 

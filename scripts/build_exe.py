@@ -48,6 +48,7 @@ from editsimple import APP_NAME, AUTHOR, AUTHOR_EMAIL, AUTHOR_URL, COPYRIGHT, __
 
 PACKAGE = "editsimple"
 ASSETS = ROOT / PACKAGE / "assets"
+MANUAL = ROOT / "docs" / "manual"          # il manuale con le immagini, letto dalla finestra Manuale
 FONT = ROOT / "font"
 ICON = ASSETS / "editsimple.ico"
 BUILD = ROOT / "build"
@@ -146,7 +147,7 @@ a = Analysis(
     pathex=[{root!r}],
     binaries=[],
     # logo e icona accanto a theme.py; caratteri in font/; temi e caratteri di customtkinter
-    datas=[({assets!r}, {assets_dest!r})] + {fonts!r} + collect_data_files("customtkinter"),
+    datas=[({assets!r}, {assets_dest!r}), ({manual!r}, "docs/manual")] + {fonts!r} + collect_data_files("customtkinter"),
     hiddenimports=["PIL._tkinter_finder"],
     hookspath=[],
     hooksconfig={{}},
@@ -313,6 +314,7 @@ def main() -> None:
     spec = BUILD / f"{APP_NAME}.spec"
     spec.write_text(SPEC.format(
         entry=str(ROOT / "EditSimple.py"), root=str(ROOT), assets=str(ASSETS), assets_dest=f"{PACKAGE}/assets",
+        manual=str(MANUAL),
         fonts=bundled_fonts(), name=APP_NAME, version_file=str(version_file), icon=str(ICON)), encoding="utf-8")
     print(f"Compilo {EXE} ...")
     subprocess.run([sys.executable, "-m", "PyInstaller", "--noconfirm", "--clean", "--distpath", str(DIST),
