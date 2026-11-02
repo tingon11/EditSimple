@@ -90,7 +90,6 @@ CATALOG: dict[str, str] = {
     "Progetto non salvato": "Projekt niezapisany",
     "Salvare le modifiche al progetto?": "Zapisać zmiany w projekcie?",
     "Nuovo progetto.": "Nowy projekt.",
-    "Lettura del video...": "Wczytywanie wideo...",
     "Importato {file}: {width}x{height}, {fps:g} fps, {duration}":
         "Zaimportowano {file}: {width}x{height}, {fps:g} fps, {duration}",
     "Importato {file}: {width}x{height}, {fps:g} fps, {duration}, senza audio":
@@ -658,4 +657,10 @@ CATALOG: dict[str, str] = {
     "Si disegna un rettangolo attorno al soggetto: la freccia lo segue nei fotogrammi successivi tenendo la punta su di lui; quando esce dall'inquadratura l'effetto finisce.": 'Narysuj prostokąt wokół obiektu: strzałka podąża za nim w kolejnych klatkach, trzymając na nim grot; gdy wyjdzie z kadru, efekt się kończy.',
     'Scegli un altro soggetto': 'Wybierz inny obiekt',
     'Trascina un rettangolo attorno al soggetto che la freccia deve seguire': 'Przeciągnij prostokąt wokół obiektu, za którym ma podążać strzałka',
+    'EditSimple richiede Python {required} o successivo (in uso: {current}).': 'EditSimple wymaga Pythona {required} lub nowszego (używany: {current}).',
+    'Lettura di {file}...': 'Odczyt {file}...',
+    'ffmpeg non ha risposto entro {seconds:.0f} secondi.': 'ffmpeg nie odpowiedział w ciągu {seconds:.0f} sekund.',
+    "Impossibile leggere l'impronta SHA-256 di ffmpeg: {error}": 'Nie można odczytać odcisku SHA-256 ffmpeg: {error}',
+    'Impronta SHA-256 di ffmpeg non valida.': 'Nieprawidłowy odcisk SHA-256 ffmpeg.',
+    "L'archivio di ffmpeg scaricato non corrisponde all'impronta SHA-256 pubblicata: non viene installato.": 'Pobrane archiwum ffmpeg nie zgadza się z opublikowanym odciskiem SHA-256: nie zostanie zainstalowane.',
 }

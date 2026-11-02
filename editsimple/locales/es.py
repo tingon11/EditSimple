@@ -95,7 +95,6 @@ CATALOG: dict[str, str] = {
     "Progetto non salvato": "Proyecto no guardado",
     "Salvare le modifiche al progetto?": "¿Guardar los cambios del proyecto?",
     "Nuovo progetto.": "Nuevo proyecto.",
-    "Lettura del video...": "Leyendo el vídeo...",
     "Importato {file}: {width}x{height}, {fps:g} fps, {duration}":
         "Importado {file}: {width}x{height}, {fps:g} fps, {duration}",
     "Importato {file}: {width}x{height}, {fps:g} fps, {duration}, senza audio":
@@ -689,4 +688,10 @@ CATALOG: dict[str, str] = {
     "Si disegna un rettangolo attorno al soggetto: la freccia lo segue nei fotogrammi successivi tenendo la punta su di lui; quando esce dall'inquadratura l'effetto finisce.": 'Se dibuja un rectángulo alrededor del sujeto: la flecha lo sigue en los fotogramas siguientes manteniendo la punta sobre él; cuando sale del encuadre el efecto termina.',
     'Scegli un altro soggetto': 'Elegir otro sujeto',
     'Trascina un rettangolo attorno al soggetto che la freccia deve seguire': 'Arrastre un rectángulo alrededor del sujeto que debe seguir la flecha',
+    'EditSimple richiede Python {required} o successivo (in uso: {current}).': 'EditSimple requiere Python {required} o posterior (en uso: {current}).',
+    'Lettura di {file}...': 'Leyendo {file}...',
+    'ffmpeg non ha risposto entro {seconds:.0f} secondi.': 'ffmpeg no respondió en {seconds:.0f} segundos.',
+    "Impossibile leggere l'impronta SHA-256 di ffmpeg: {error}": 'No se puede leer la huella SHA-256 de ffmpeg: {error}',
+    'Impronta SHA-256 di ffmpeg non valida.': 'Huella SHA-256 de ffmpeg no válida.',
+    "L'archivio di ffmpeg scaricato non corrisponde all'impronta SHA-256 pubblicata: non viene installato.": 'El archivo de ffmpeg descargado no coincide con la huella SHA-256 publicada: no se instala.',
 }

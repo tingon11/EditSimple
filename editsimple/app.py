@@ -104,7 +104,7 @@ class App(ctk.CTk):
         self._build()
         self.protocol("WM_DELETE_WINDOW", self._on_close)
         self._bind_keys()
-        self.after(50, self._pump_posted)
+        self._pump_job = self.after(50, self._pump_posted)
         self.after(200, lambda: self._startup(initial))
 
     def post(self, func, *args) -> None:
@@ -114,14 +114,19 @@ class App(ctk.CTk):
     def _pump_posted(self) -> None:
         try:
             while True:
-                func, args = self._posted.get_nowait()
+                try:
+                    func, args = self._posted.get_nowait()
+                except queue.Empty:
+                    break
                 try:
                     func(*args)
                 except tk.TclError:
-                    pass
-        except queue.Empty:
-            pass
-        self.after(40, self._pump_posted)
+                    pass                    # un widget gia' distrutto
+                except Exception as exc:  # noqa: BLE001 - un callback rotto non deve fermare la coda
+                    self.report_callback_exception(type(exc), exc, exc.__traceback__)
+        finally:
+            # sempre riarmato: senza, i messaggi dei thread di lavoro non arriverebbero piu'
+            self._pump_job = self.after(40, self._pump_posted)
 
     # ================================================================ costruzione
 
@@ -1354,6 +1359,35 @@ class App(ctk.CTk):
         return json.dumps([p.clips, p.audio_tracks, p.original_volume, p.original_muted, p.original_fade_in,
                            p.original_fade_out], sort_keys=True, default=str)
 
+    @staticmethod
+    def _mix_folder() -> str:
+        folder = os.path.join(tempfile.gettempdir(), "editsimple-audio")
+        os.makedirs(folder, exist_ok=True)
+        return folder
+
+    def _remove_mix_files(self) -> None:
+        """Toglie i mix rimasti di questo processo (un lavoro interrotto dalla chiusura)."""
+        folder = os.path.join(tempfile.gettempdir(), "editsimple-audio")
+        try:
+            names = os.listdir(folder)
+        except OSError:
+            return
+        for name in names:
+            if name.startswith(f"mix_{os.getpid()}_"):
+                try:
+                    os.remove(os.path.join(folder, name))
+                except OSError:
+                    pass
+
+    def destroy(self) -> None:
+        """Ferma i cicli `after` dell'app e pulisce i file temporanei prima di chiudere."""
+        try:
+            self.after_cancel(self._pump_job)
+        except (AttributeError, tk.TclError, ValueError):
+            pass
+        self._remove_mix_files()
+        super().destroy()
+
     def _mix_ready_for_play(self) -> bool:
         return self.playing and self._mix_samples_key == self._mix_key() and self.player.samples is not None
 
@@ -1370,9 +1404,9 @@ class App(ctk.CTk):
         self._mix_job = key
         snapshot = Project.from_dict(self.project.to_dict())
         snapshot.sync_full()
-        folder = os.path.join(tempfile.gettempdir(), "editsimple-audio")
-        os.makedirs(folder, exist_ok=True)
-        path = os.path.join(folder, f"mix_{os.getpid()}.wav")
+        # un file per lavoro: se si cambia qualcosa mentre un mix e' in corso, i due non si pestano i piedi
+        handle, path = tempfile.mkstemp(prefix=f"mix_{os.getpid()}_", suffix=".wav", dir=self._mix_folder())
+        os.close(handle)
 
         def work() -> None:
             try:
@@ -1382,6 +1416,11 @@ class App(ctk.CTk):
             except Exception as exc:  # noqa: BLE001 - l'anteprima resta muta, il montaggio continua
                 message = str(exc)        # exc sparisce alla fine del blocco except
                 self.post(lambda: done(None, message))
+            finally:
+                try:
+                    os.remove(path)       # i campioni sono gia' in memoria
+                except OSError:
+                    pass
 
         def done(samples, error) -> None:
             if self._mix_job == key:
@@ -1464,7 +1503,7 @@ class App(ctk.CTk):
             return self.save_project_as()
         try:
             self.project.save()
-        except OSError as exc:
+        except (OSError, TypeError, ValueError) as exc:
             messagebox.showerror(tr("Salvataggio"), str(exc), self)
             return False
         self.refresh(preview=False)
@@ -1506,15 +1545,50 @@ class App(ctk.CTk):
             at_end = bool(answer)
         self._import_path(path, at_end=at_end)
 
+    def _probe_async(self, path: str, title: str, on_done) -> None:
+        """Legge le informazioni del file in un thread (su file grandi o in rete puo' durare): l'interfaccia
+        resta viva e, se ci vuole piu' di un attimo, compare una finestra con Annulla.
+        `on_done(info, errore)` arriva nel thread dell'interfaccia (non arriva se si annulla)."""
+        state = {"dialog": None, "cancelled": False, "done": False}
+
+        def cancel() -> None:
+            state["cancelled"] = True
+
+        def show_dialog() -> None:
+            if not state["done"]:
+                state["dialog"] = widgets.ProgressDialog(self, title, self.fonts, on_cancel=cancel)
+                state["dialog"].set(tr("Lettura di {file}...").format(file=os.path.basename(path)), 0.0)
+
+        def work() -> None:
+            try:
+                info, error = media.probe(path), None
+            except media.MediaError as exc:
+                info, error = None, str(exc)
+            self.post(lambda: finish(info, error))
+
+        def finish(info, error) -> None:
+            state["done"] = True
+            if state["dialog"] is not None:
+                state["dialog"].close()
+            if not state["cancelled"]:
+                on_done(info, error)
+            else:
+                self.status(tr("Pronto."))
+
+        self.status(tr("Lettura di {file}...").format(file=os.path.basename(path)))
+        self.after(400, show_dialog)
+        threading.Thread(target=work, daemon=True).start()
+
     def _import_path(self, path: str, at_end: bool) -> None:
-        self.status(tr("Lettura del video..."))
-        self.update_idletasks()
-        try:
-            info = media.probe(path)
-        except media.MediaError as exc:
-            messagebox.showerror(tr("Importazione"), str(exc), self)
-            self.status(tr("Pronto."))
-            return
+        def done(info, error) -> None:
+            if error:
+                messagebox.showerror(tr("Importazione"), error, self)
+                self.status(tr("Pronto."))
+                return
+            self._finish_import(path, at_end, info)
+        self._probe_async(path, tr("Importazione"), done)
+
+    def _finish_import(self, path: str, at_end: bool, info: dict) -> None:
         if not info.get("has_video"):
             messagebox.showerror(tr("Importazione"), tr("Il file non contiene video. Per l'audio usa il pulsante Audio."), self)
             return
@@ -1547,11 +1621,16 @@ class App(ctk.CTk):
             return
         self.config_store.set("last_audio_dir", os.path.dirname(path))
         self.config_store.save()
-        try:
-            info = media.probe(path)
-        except media.MediaError as exc:
-            messagebox.showerror(tr("Audio"), str(exc), self)
-            return
+
+        def done(info, error) -> None:
+            if error:
+                messagebox.showerror(tr("Audio"), error, self)
+                self.status(tr("Pronto."))
+                return
+            self._finish_add_audio(path, info)
+        self._probe_async(path, tr("Audio"), done)
+
+    def _finish_add_audio(self, path: str, info: dict) -> None:
         if not info.get("has_audio"):
             messagebox.showerror(tr("Audio"), tr("Il file non contiene audio."), self)
             return
@@ -2469,7 +2548,11 @@ class App(ctk.CTk):
         self.config_store.save()
         cancel = threading.Event()
         dialog = widgets.ProgressDialog(self, tr("Esportazione in corso"), self.fonts, on_cancel=cancel.set)
-        exporter = render.Exporter(self.project, output, crf=int(self.config_store.get("export_crf")),
+        # il thread di esportazione lavora su una copia: l'interfaccia resta modificabile mentre esporta
+        snapshot = Project.from_dict(self.project.to_dict())
+        snapshot.path = self.project.path
+        snapshot.sync_full()
+        exporter = render.Exporter(snapshot, output, crf=int(self.config_store.get("export_crf")),
                                    preset=str(self.config_store.get("export_preset")),
                                    audio_kbps=int(self.config_store.get("export_audio_kbps")),
                                    progress=lambda m, f: self.post(lambda: dialog.set(m, f)), cancel=cancel)
@@ -2487,11 +2570,13 @@ class App(ctk.CTk):
 
         def done(error: str | None) -> None:
             dialog.close()
-            if error == "annullato":
+            if error:
+                # annullata o fallita: non resta un MP4 troncato con il nome scelto
                 try:
                     os.remove(output)
                 except OSError:
                     pass
+            if error == "annullato":
                 self.status(tr("Esportazione annullata."))
                 return
             if error:

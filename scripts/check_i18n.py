@@ -104,6 +104,10 @@ def dump_keys(path: str) -> None:
 
 
 def main() -> int:
+    # la console di Windows (cp1252) non sa scrivere i nomi delle lingue (Ελληνικά): si passa a UTF-8
+    for stream in (sys.stdout, sys.stderr):
+        if hasattr(stream, "reconfigure"):
+            stream.reconfigure(encoding="utf-8", errors="replace")
     if len(sys.argv) == 3 and sys.argv[1] == "--dump":
         dump_keys(sys.argv[2])
         return 0

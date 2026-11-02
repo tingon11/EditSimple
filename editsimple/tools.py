@@ -14,6 +14,7 @@ globale, nessuna modifica al PATH: tutto resta dentro tools/.
 
 from __future__ import annotations
 
+import re
 import shutil
 import subprocess
 import sys
@@ -36,6 +37,7 @@ FFMPEG_EXE = FFMPEG_DIR / ("ffmpeg.exe" if sys.platform == "win32" else "ffmpeg"
 VERSION_FILE = FFMPEG_DIR / "VERSION"
 
 FFMPEG_URL = "https://www.gyan.dev/ffmpeg/builds/ffmpeg-release-essentials.zip"
+FFMPEG_SHA256_URL = FFMPEG_URL + ".sha256"          # impronta pubblicata da gyan.dev accanto all'archivio
 FFMPEG_VERSION_URL = "https://www.gyan.dev/ffmpeg/builds/release-version"
 FFMPEG_PAGE = "https://www.gyan.dev/ffmpeg/builds/"
 KEEP_FILES = ("LICENSE", "README.txt")
@@ -121,6 +123,19 @@ def latest_release() -> str:
     return text
 
 
+def ffmpeg_sha256() -> str:
+    """L'impronta SHA-256 dell'archivio pubblicata da gyan.dev (64 cifre esadecimali)."""
+    try:
+        with _open(FFMPEG_SHA256_URL) as response:
+            text = response.read(400).decode("ascii", "replace")
+    except (urllib.error.URLError, OSError, TimeoutError) as exc:
+        raise ToolsError(tr("Impossibile leggere l'impronta SHA-256 di ffmpeg: {error}").format(error=exc)) from exc
+    match = re.search(r"\b[0-9a-fA-F]{64}\b", text)
+    if match is None:
+        raise ToolsError(tr("Impronta SHA-256 di ffmpeg non valida."))
+    return match.group(0).lower()
+
+
 def _download(url: str, target: Path, label: str, progress: ProgressCb | None,
               cancel: threading.Event | None) -> None:
     """Scarica un file mostrando l'avanzamento; si ferma se `cancel` viene impostato."""
@@ -196,7 +211,14 @@ def install(progress: ProgressCb | None = None, cancel: threading.Event | None =
     with tempfile.TemporaryDirectory(prefix="editsimple-") as tmp:
         tmp_dir = Path(tmp)
         archive = tmp_dir / "ffmpeg.zip"
+        expected = ffmpeg_sha256()              # prima del download: senza impronta non si installa nulla
         _download(FFMPEG_URL, archive, "ffmpeg", progress, cancel)
+        if _sha256(archive) != expected:
+            # l'archivio puo' essere cambiato fra la lettura dell'impronta e il download: si riprova una volta
+            expected = ffmpeg_sha256()
+            if _sha256(archive) != expected:
+                raise ToolsError(tr("L'archivio di ffmpeg scaricato non corrisponde all'impronta SHA-256 "
+                                    "pubblicata: non viene installato."))
         if progress:
             progress(tr("Estrazione di ffmpeg"), 0, 0)
         out = tmp_dir / "ffmpeg"
@@ -219,9 +241,13 @@ def install(progress: ProgressCb | None = None, cancel: threading.Event | None =
 
 VIT_DIR = TOOLS_DIR / "vittrack"
 VIT_MODEL = VIT_DIR / "object_tracking_vittrack_2023sep.onnx"
-VIT_URL = ("https://github.com/opencv/opencv_zoo/raw/main/models/object_tracking_vittrack/"
+# URL fissati al commit di opencv_zoo che contiene esattamente questo modello: un aggiornamento del file
+# su main non rompe il download (l'impronta qui sotto e' di quella versione)
+VIT_COMMIT = "fef72f8fa7c52eaf116d3df358d24e6e959ada0e"
+VIT_URL = (f"https://github.com/opencv/opencv_zoo/raw/{VIT_COMMIT}/models/object_tracking_vittrack/"
            "object_tracking_vittrack_2023sep.onnx")
-VIT_LICENSE_URL = "https://raw.githubusercontent.com/opencv/opencv_zoo/main/models/object_tracking_vittrack/LICENSE"
+VIT_LICENSE_URL = (f"https://raw.githubusercontent.com/opencv/opencv_zoo/{VIT_COMMIT}/models/"
+                   "object_tracking_vittrack/LICENSE")
 VIT_PAGE = "https://github.com/opencv/opencv_zoo/tree/main/models/object_tracking_vittrack"
 VIT_SHA256 = "2990f0b7cd44d92afa48cd97db6de7be113fc1d9594fddb74e2725c10478e91d"
 

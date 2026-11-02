@@ -731,7 +731,7 @@ class PropertiesPanel(ctk.CTkFrame):
         index = project.clip_index(clip["id"])
         start = project.clip_start(index) if index >= 0 else 0.0
         self._label_row(tr("Pezzo"), f"{format_time(start)} - {format_time(start + clip_duration(clip))}")
-        has_audio = project.source_info(clip["source"]).get("has_audio", False)
+        has_audio = project.has_audio(clip["source"])
         if not has_audio:
             self._label_row(tr("Audio"), tr("il file non ha audio"))
             return

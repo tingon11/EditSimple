@@ -210,15 +210,6 @@ class Exporter:
         self.inputs.append(args)
         return len(self.inputs) - 1
 
-    def _segment_input(self, seg: Segment) -> int:
-        """Ogni segmento video e' un ingresso a se', con ricerca nel file (-ss) e durata (-t).
-
-        Cosi' ffmpeg decodifica solo la parte che serve, e ogni ingresso viene
-        usato da un solo trim: lo stesso stream collegato a piu' trim (anche
-        con split) fa fermare questo ffmpeg prima della fine.
-        """
-        return self._add_input(["-ss", _num(seg.src_in), "-t", _num(seg.src_out - seg.src_in), "-i", seg.source])
-
     def _report(self, message: str, fraction: float) -> None:
         if self.cancel is not None and self.cancel.is_set():
             raise Cancelled()
@@ -251,7 +242,11 @@ class Exporter:
                 lo, hi = max(0.0, want_in), min(limit, stop)
                 pad_a = (lo - want_in) / seg.speed
                 pad_b = 2 * seg.tail + (stop - hi) / seg.speed
-                i = self._add_input(["-ss", _num(lo), "-t", _num(hi - lo), "-i", seg.source])
+                # l'ingresso arriva fino al taglio anche se il video si ferma prima: l'audio della clip che
+                # esce deve restare intero (prima perdeva `tail` secondi a ogni fusione); il video si
+                # ferma comunque a `hi` con il suo trim
+                read_end = max(hi, min(limit, seg.src_out))
+                i = self._add_input(["-ss", _num(lo), "-t", _num(read_end - lo), "-i", seg.source])
                 pts = "PTS-STARTPTS" if abs(seg.speed - 1.0) < 1e-9 else f"(PTS-STARTPTS)/{_num(seg.speed)}"
                 pad = ""
                 if pad_a > 1e-3 or pad_b > 1e-3:
@@ -285,11 +280,10 @@ class Exporter:
             if not self.audio_only:
                 # stessa base dei tempi per tutti i pezzi: xfade rifiuta ingressi con basi diverse (dopo un
                 # concat la base cambia, e una fusione dopo un taglio netto falliva)
-                self.lines.append(f"[{cur}]settb=AVTB[t{k}]")
-                cur = f"t{k}"
+                self.lines.append(f"[{cur}]settb=AVTB[vtb{k}]")
+                cur = f"vtb{k}"
             vlabels.append(cur)
             # audio del segmento (senza allungamenti: nella fusione l'audio cala e risale attorno al taglio)
-            info = p.source_info(seg.source)
             afades = []
             clip = p.clips[seg.index]
             a_in = max(seg.fade_in, seg.head, float(clip.get("afade_in") or 0.0))
@@ -300,10 +294,13 @@ class Exporter:
             if a_out > 1e-3:
                 afades.append(f"afade=t=out:st={_num(max(0.0, seg.duration - a_out))}:d={_num(a_out)}")
             atail = ("," + ",".join(afades)) if afades else ""
-            if seg.kind == "video" and seg.audio and info.get("has_audio") and p.original_volume > 0 and not p.original_muted:
+            if seg.kind == "video" and seg.audio and p.has_audio(seg.source) and p.original_volume > 0 and not p.original_muted:
                 tempo = ("," + _atempo(seg.speed)) if abs(seg.speed - 1) > 1e-9 else ""
+                # apad + atrim: il segmento audio dura esattamente quanto il video, anche se il sorgente
+                # finisce prima (i segmenti si uniscono uno dopo l'altro: uno scarto si sommerebbe)
                 self.lines.append(f"[{i}:a]atrim=start={_num(seg.src_in - lo)}:duration={_num(src_len)},"
-                                  f"asetpts=PTS-STARTPTS{tempo},volume={_num(p.original_volume * float(clip.get('volume', 1.0)))},"
+                                  f"asetpts=PTS-STARTPTS{tempo},apad=whole_dur={_num(seg.duration)},"
+                                  f"atrim=duration={_num(seg.duration)},volume={_num(p.original_volume * float(clip.get('volume', 1.0)))},"
                                   f"{AFMT}{atail}[a{k}]")
             else:
                 self.lines.append(f"anullsrc=r=48000:cl=stereo:d={_num(seg.duration)},{AFMT}[a{k}]")
@@ -475,7 +472,7 @@ class Exporter:
         for n, track in enumerate(p.audio_tracks):
             if track.get("muted") or float(track.get("volume", 1.0)) <= 0:
                 continue
-            if not p.source_info(track["source"]).get("has_audio", True):
+            if not p.has_audio(track["source"]):
                 continue
             j = self._add_input(["-i", track["source"]])
             delay = max(0, int(round(float(track["start"]) * 1000)))

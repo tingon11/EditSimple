@@ -166,7 +166,7 @@ def _track_template(path: str, t_start: float, t_end: float, box: tuple[float, f
                 helper = _VitHelper(vit, fit, ox, oy, src_w, src_h)
                 qx, qy = to_project(pcx, pcy)
                 helper.init(frame, qx, qy, bw, bh)
-            except cv2.error:
+            except (cv2.error, AttributeError):     # TrackerVit c'e' da OpenCV 4.9: senza, solo il confronto a modello
                 helper = None
         last_good = len(points) - 1      # indice in `points` dell'ultimo fotogramma con il soggetto
         lost_at: float | None = None

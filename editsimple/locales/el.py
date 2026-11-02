@@ -151,8 +151,6 @@ CATALOG: dict[str, str] = {
         "Αποθήκευση των αλλαγών στο έργο;",
     "Nuovo progetto.":
         "Νέο έργο.",
-    "Lettura del video...":
-        "Ανάγνωση του βίντεο...",
     "Importato {file}: {width}x{height}, {fps:g} fps, {duration}":
         "Εισήχθη το {file}: {width}x{height}, {fps:g} fps, {duration}",
     "Importato {file}: {width}x{height}, {fps:g} fps, {duration}, senza audio":
@@ -1013,4 +1011,10 @@ CATALOG: dict[str, str] = {
     "Si disegna un rettangolo attorno al soggetto: la freccia lo segue nei fotogrammi successivi tenendo la punta su di lui; quando esce dall'inquadratura l'effetto finisce.": 'Σχεδιάζεται ένα ορθογώνιο γύρω από το θέμα: το βέλος το ακολουθεί στα επόμενα καρέ κρατώντας τη μύτη πάνω του· όταν βγει από το κάδρο, το εφέ τελειώνει.',
     'Scegli un altro soggetto': 'Επιλογή άλλου θέματος',
     'Trascina un rettangolo attorno al soggetto che la freccia deve seguire': 'Σύρετε ένα ορθογώνιο γύρω από το θέμα που πρέπει να ακολουθεί το βέλος',
+    'EditSimple richiede Python {required} o successivo (in uso: {current}).': 'Το EditSimple απαιτεί Python {required} ή νεότερη (σε χρήση: {current}).',
+    'Lettura di {file}...': 'Ανάγνωση του {file}...',
+    'ffmpeg non ha risposto entro {seconds:.0f} secondi.': 'Το ffmpeg δεν απάντησε μέσα σε {seconds:.0f} δευτερόλεπτα.',
+    "Impossibile leggere l'impronta SHA-256 di ffmpeg: {error}": 'Δεν είναι δυνατή η ανάγνωση του αποτυπώματος SHA-256 του ffmpeg: {error}',
+    'Impronta SHA-256 di ffmpeg non valida.': 'Μη έγκυρο αποτύπωμα SHA-256 για το ffmpeg.',
+    "L'archivio di ffmpeg scaricato non corrisponde all'impronta SHA-256 pubblicata: non viene installato.": 'Το αρχείο ffmpeg που λήφθηκε δεν ταιριάζει με το δημοσιευμένο αποτύπωμα SHA-256: δεν εγκαθίσταται.',
 }

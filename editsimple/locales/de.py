@@ -151,8 +151,6 @@ CATALOG: dict[str, str] = {
         "Änderungen am Projekt speichern?",
     "Nuovo progetto.":
         "Neues Projekt.",
-    "Lettura del video...":
-        "Video wird gelesen...",
     "Importato {file}: {width}x{height}, {fps:g} fps, {duration}":
         "{file} importiert: {width}x{height}, {fps:g} fps, {duration}",
     "Importato {file}: {width}x{height}, {fps:g} fps, {duration}, senza audio":
@@ -1013,4 +1011,10 @@ CATALOG: dict[str, str] = {
     "Si disegna un rettangolo attorno al soggetto: la freccia lo segue nei fotogrammi successivi tenendo la punta su di lui; quando esce dall'inquadratura l'effetto finisce.": 'Ein Rechteck um das Motiv ziehen: der Pfeil folgt ihm in den nächsten Frames und hält die Spitze darauf; verlässt es das Bild, endet der Effekt.',
     'Scegli un altro soggetto': 'Anderes Motiv wählen',
     'Trascina un rettangolo attorno al soggetto che la freccia deve seguire': 'Ziehe ein Rechteck um das Motiv, dem der Pfeil folgen soll',
+    'EditSimple richiede Python {required} o successivo (in uso: {current}).': 'EditSimple benötigt Python {required} oder neuer (verwendet: {current}).',
+    'Lettura di {file}...': '{file} wird gelesen...',
+    'ffmpeg non ha risposto entro {seconds:.0f} secondi.': 'ffmpeg hat nicht innerhalb von {seconds:.0f} Sekunden geantwortet.',
+    "Impossibile leggere l'impronta SHA-256 di ffmpeg: {error}": 'Der SHA-256-Fingerabdruck von ffmpeg kann nicht gelesen werden: {error}',
+    'Impronta SHA-256 di ffmpeg non valida.': 'Ungültiger SHA-256-Fingerabdruck für ffmpeg.',
+    "L'archivio di ffmpeg scaricato non corrisponde all'impronta SHA-256 pubblicata: non viene installato.": 'Das heruntergeladene ffmpeg-Archiv stimmt nicht mit dem veröffentlichten SHA-256-Fingerabdruck überein: es wird nicht installiert.',
 }

@@ -59,6 +59,7 @@ class Thumbs:
     PHOTO_MAX = 700
     RUN_GAP = 4       # fotogrammi non richiesti tollerati dentro un lotto sequenziale
     RUN_MAX = 48      # fotogrammi per lotto
+    CAPS_MAX = 3      # decoder aperti al massimo (uno per sorgente usata di recente)
 
     def __init__(self, height: int) -> None:
         self.height = height
@@ -139,7 +140,8 @@ class Thumbs:
         return [(first[0], i) for i in ordered[lo:hi + 1]]
 
     def _loop(self) -> None:
-        caps: dict[str, cv2.VideoCapture] = {}
+        caps: OrderedDict[str, cv2.VideoCapture] = OrderedDict()
+        seen_generation = self._generation
         while True:
             with self._cond:
                 while not self._wanted or self._paused:
@@ -149,6 +151,11 @@ class Thumbs:
                 for key in run:
                     self._wanted.pop(key, None)
                     self._pending.add(key)
+            if generation != seen_generation:
+                # progetto nuovo o svuotato: i decoder (e i file aperti, bloccati su Windows) si chiudono
+                seen_generation = generation
+                while caps:
+                    caps.popitem(last=False)[1].release()
             path = run[0][0]
             results: dict[tuple[str, int], Image.Image] = {}
             try:
@@ -158,6 +165,9 @@ class Thumbs:
                     cap = caps[path] = cv2.VideoCapture(path, cv2.CAP_FFMPEG, [cv2.CAP_PROP_N_THREADS, 2])
                     if not cap.isOpened():
                         cap = caps[path] = cv2.VideoCapture(path, cv2.CAP_FFMPEG)
+                caps.move_to_end(path)
+                while len(caps) > self.CAPS_MAX:            # sorgenti usate da tempo: si richiudono
+                    caps.popitem(last=False)[1].release()
                 first, last = run[0][1], run[-1][1]
                 cap.set(cv2.CAP_PROP_POS_FRAMES, first)
                 wanted = {k[1] for k in run}
@@ -168,12 +178,15 @@ class Thumbs:
                     if not ok or frame is None:
                         break
                     if index in wanted or index - first <= self.RUN_MAX:
-                        h, w = frame.shape[:2]
-                        tw = max(8, int(round(w * self.height / h)))
-                        small = cv2.resize(frame, (tw, self.height), interpolation=cv2.INTER_AREA)
-                        results[(path, index)] = Image.fromarray(cv2.cvtColor(small, cv2.COLOR_BGR2RGB))
-            except Exception:  # noqa: BLE001 - le miniature restano vuote
-                results = {}
+                        try:
+                            h, w = frame.shape[:2]
+                            tw = max(8, int(round(w * self.height / h)))
+                            small = cv2.resize(frame, (tw, self.height), interpolation=cv2.INTER_AREA)
+                            results[(path, index)] = Image.fromarray(cv2.cvtColor(small, cv2.COLOR_BGR2RGB))
+                        except Exception:  # noqa: BLE001 - solo questo fotogramma resta vuoto
+                            pass
+            except Exception:  # noqa: BLE001 - i fotogrammi gia' letti restano; gli altri restano vuoti
+                pass
             with self._cond:
                 self._pending.difference_update(run)
                 if generation != self._generation:
@@ -209,6 +222,7 @@ class TimelineView(ctk.CTkFrame):
         self.selection: tuple[str | None, str | None] = (None, None)
         self._drag: dict | None = None
         self._rows: list[dict] = []
+        self._height = 0                  # altezza del contenuto: la calcola _layout_rows al primo ridisegno
         self._thumbs = Thumbs(STRIP_H)
         self._redraw_job: str | None = None
         self._tk_font = tkfont.Font(family=theme.ui_font(), size=9)
@@ -255,7 +269,7 @@ class TimelineView(ctk.CTkFrame):
         self.tracks.bind("<Shift-MouseWheel>", self._vwheel)
         self.labels.bind("<MouseWheel>", self._vwheel)
         self.labels.bind("<ButtonPress-1>", self._label_press)
-        self.after(150, self._poll_thumbs)
+        self._poll_job = self.after(150, self._poll_thumbs)
 
     # ------------------------------------------------------------- stato
 
@@ -291,7 +305,17 @@ class TimelineView(ctk.CTkFrame):
     def _poll_thumbs(self) -> None:
         if self._thumbs.poll():
             self.schedule()
-        self.after(150, self._poll_thumbs)
+        self._poll_job = self.after(150, self._poll_thumbs)
+
+    def destroy(self) -> None:
+        # i cicli after si fermano prima che il widget sparisca (niente "invalid command name")
+        for job in (self._poll_job, self._redraw_job):
+            if job is not None:
+                try:
+                    self.after_cancel(job)
+                except (tk.TclError, ValueError):
+                    pass
+        super().destroy()
 
     def _scrolled(self, *args) -> None:
         """Scorrimento orizzontale: le miniature visibili cambiano, quindi si ridisegna."""
@@ -574,7 +598,7 @@ class TimelineView(ctk.CTkFrame):
                 # l'audio di ogni pezzo si seleziona da solo (volume, dissolvenze, eliminazione)
                 atags = ("oaudio", clip["id"])
                 asel = sel_kind == "oaudio" and sel_id == clip["id"]
-                has_audio = self.project.source_info(clip["source"]).get("has_audio", False)
+                has_audio = self.project.has_audio(clip["source"])
                 on = bool(clip.get("audio", True)) and has_audio and self.project.original_volume > 0
                 c.create_rectangle(x0, ay0, x1, ay1, fill=theme.CLIP_AUDIO if on else theme.CLIP_AUDIO_MUTED,
                                    outline=theme.TEXT if asel else (theme.CLIP_AUDIO_BORDER if on else theme.BORDER_STRONG),

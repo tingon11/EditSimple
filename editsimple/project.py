@@ -17,6 +17,7 @@ import json
 import os
 import uuid
 
+from .config import write_atomic
 from .i18n import N_, tr
 
 SPEEDS = (0.25, 0.5, 1, 2, 4, 8, 16, 32)   # sotto 1 = rallentatore
@@ -173,8 +174,8 @@ class Project:
         path = path or self.path
         if not path:
             raise ValueError(tr("Percorso del progetto mancante"))
-        with open(path, "w", encoding="utf-8") as fh:
-            json.dump(self.to_dict(), fh, ensure_ascii=False, indent=2)
+        # prima tutto in memoria (un valore non serializzabile non tocca il file), poi scrittura atomica
+        write_atomic(path, json.dumps(self.to_dict(), ensure_ascii=False, indent=2))
         self.path = path
         self.dirty = False
 
@@ -204,6 +205,11 @@ class Project:
 
     def source_info(self, path: str) -> dict:
         return self.sources.get(path, {})
+
+    def has_audio(self, path: str) -> bool:
+        """La sorgente ha una traccia audio. Senza l'informazione vale no: e' la scelta che non rompe
+        l'esportazione (cercare uno stream audio che non c'e' farebbe fallire ffmpeg)."""
+        return bool(self.source_info(path).get("has_audio", False))
 
     def source_duration(self, path: str) -> float:
         info = self.source_info(path)
@@ -449,7 +455,7 @@ class Project:
         duration = float(info.get("video_duration") or info.get("duration", 0.0))
         return {"id": new_id(), "kind": "video", "source": path,
                 "in": float(start or 0.0), "out": float(end if end is not None else duration),
-                "audio": bool(info.get("has_audio", True)), "speed": 1, "clock": False}
+                "audio": self.has_audio(path), "speed": 1, "clock": False}
 
     # ------------------------------------------------------------- effetti
 

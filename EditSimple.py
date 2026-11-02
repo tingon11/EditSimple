@@ -26,7 +26,18 @@ def _fail(message: str) -> int:
     return 1
 
 
+MIN_PYTHON = (3, 11)      # la versione con cui il programma e' provato
+
+
 def main() -> int:
+    if sys.version_info < MIN_PYTHON:
+        try:
+            from editsimple.i18n import tr
+        except ImportError:
+            def tr(text: str) -> str:
+                return text
+        return _fail(tr("EditSimple richiede Python {required} o successivo (in uso: {current}).").format(
+            required=".".join(map(str, MIN_PYTHON)), current=".".join(map(str, sys.version_info[:3]))))
     try:
         from editsimple.app import run
     except ImportError as exc:  # pragma: no cover - ambiente incompleto

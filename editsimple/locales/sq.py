@@ -100,7 +100,6 @@ CATALOG: dict[str, str] = {
     "Progetto non salvato": "Projekt i paruajtur",
     "Salvare le modifiche al progetto?": "Të ruhen ndryshimet në projekt?",
     "Nuovo progetto.": "Projekt i ri.",
-    "Lettura del video...": "Po lexohet videoja...",
     "Importato {file}: {width}x{height}, {fps:g} fps, {duration}":
         "U importua {file}: {width}x{height}, {fps:g} fps, {duration}",
     "Importato {file}: {width}x{height}, {fps:g} fps, {duration}, senza audio":
@@ -689,4 +688,10 @@ CATALOG: dict[str, str] = {
     "Si disegna un rettangolo attorno al soggetto: la freccia lo segue nei fotogrammi successivi tenendo la punta su di lui; quando esce dall'inquadratura l'effetto finisce.": 'Vizatohet një drejtkëndësh rreth subjektit: shigjeta e ndjek në kuadrot pasuese duke mbajtur majën mbi të; kur del nga kuadri, efekti mbaron.',
     'Scegli un altro soggetto': 'Zgjidhni një subjekt tjetër',
     'Trascina un rettangolo attorno al soggetto che la freccia deve seguire': 'Tërhiqni një drejtkëndësh rreth subjektit që duhet të ndjekë shigjeta',
+    'EditSimple richiede Python {required} o successivo (in uso: {current}).': 'EditSimple kërkon Python {required} ose më të ri (në përdorim: {current}).',
+    'Lettura di {file}...': 'Po lexohet {file}...',
+    'ffmpeg non ha risposto entro {seconds:.0f} secondi.': 'ffmpeg nuk u përgjigj brenda {seconds:.0f} sekondave.',
+    "Impossibile leggere l'impronta SHA-256 di ffmpeg: {error}": 'Nuk mund të lexohet gjurma SHA-256 e ffmpeg: {error}',
+    'Impronta SHA-256 di ffmpeg non valida.': 'Gjurmë SHA-256 e pavlefshme për ffmpeg.',
+    "L'archivio di ffmpeg scaricato non corrisponde all'impronta SHA-256 pubblicata: non viene installato.": 'Arkivi i ffmpeg i shkarkuar nuk përputhet me gjurmën SHA-256 të publikuar: nuk instalohet.',
 }

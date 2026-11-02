@@ -41,8 +41,15 @@ def ffmpeg_exe() -> str:
     return str(path)
 
 
-def _run(cmd: list[str], check: bool = False) -> subprocess.CompletedProcess:
-    result = procs.run(cmd)
+PROBE_TIMEOUT = 60.0        # secondi per leggere l'intestazione di un file
+SCAN_TIMEOUT = 300.0        # secondi per scorrere tutti i pacchetti di uno stream
+
+
+def _run(cmd: list[str], check: bool = False, timeout: float | None = None) -> subprocess.CompletedProcess:
+    try:
+        result = procs.run(cmd, timeout=timeout)
+    except subprocess.TimeoutExpired:
+        raise MediaError(tr("ffmpeg non ha risposto entro {seconds:.0f} secondi.").format(seconds=timeout)) from None
     if check and result.returncode != 0:
         raise MediaError(result.stderr.decode("utf-8", "replace").strip()
                          or tr("ffmpeg: codice di uscita {code}").format(code=result.returncode))
@@ -65,7 +72,7 @@ def probe(path: str | os.PathLike) -> dict:
     path = Path(path)
     if not path.is_file():
         raise MediaError(tr("File non trovato: {path}").format(path=path))
-    result = _run([ffmpeg_exe(), "-hide_banner", "-nostdin", "-i", str(path)])
+    result = _run([ffmpeg_exe(), "-hide_banner", "-nostdin", "-i", str(path)], timeout=PROBE_TIMEOUT)
     text = result.stderr.decode("utf-8", "replace")
 
     info = {"path": str(path), "duration": 0.0, "fps": 0.0, "width": 0, "height": 0,
@@ -112,8 +119,11 @@ _TIME = re.compile(r"time=(\d+):(\d+):(\d+(?:\.\d+)?)")
 
 def _stream_length(path: Path, stream: str) -> float:
     """Durata effettiva di uno stream, leggendo i pacchetti senza decodificarli."""
-    result = _run([ffmpeg_exe(), "-hide_banner", "-nostdin", "-i", str(path), "-map", stream,
-                   "-c", "copy", "-f", "null", "-"])
+    try:
+        result = _run([ffmpeg_exe(), "-hide_banner", "-nostdin", "-i", str(path), "-map", stream,
+                       "-c", "copy", "-f", "null", "-"], timeout=SCAN_TIMEOUT)
+    except MediaError:
+        return 0.0          # troppo lento (disco di rete): resta la durata dichiarata dal contenitore
     text = result.stderr.decode("utf-8", "replace")
     times = _TIME.findall(text)
     if not times:
@@ -448,13 +458,14 @@ class Frames:
                     self._store(key, image)
 
     def close(self, path: str | None = None) -> None:
+        # i decoder si tolgono sotto self._lock ma si rilasciano dopo, fuori: release() prende il lucchetto
+        # del decoder, e get() / _read_into_cache() li prendono nell'ordine opposto (decoder, poi self._lock)
         with self._lock:
             paths = [path] if path else list(self._sources)
-            for p in paths:
-                src = self._sources.pop(p, None)
-                if src is not None:
-                    src.release()
+            closing = [src for src in (self._sources.pop(p, None) for p in paths) if src is not None]
             self._cache = OrderedDict((k, v) for k, v in self._cache.items() if k[0] not in paths)
+        for src in closing:
+            src.release()
 
 
 # ------------------------------------------------------------------ tempi

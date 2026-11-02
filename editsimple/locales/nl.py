@@ -90,7 +90,6 @@ CATALOG: dict[str, str] = {
     "Progetto non salvato": "Project niet opgeslagen",
     "Salvare le modifiche al progetto?": "Wijzigingen in het project opslaan?",
     "Nuovo progetto.": "Nieuw project.",
-    "Lettura del video...": "Video lezen...",
     "Importato {file}: {width}x{height}, {fps:g} fps, {duration}":
         "{file} geïmporteerd: {width}x{height}, {fps:g} fps, {duration}",
     "Importato {file}: {width}x{height}, {fps:g} fps, {duration}, senza audio":
@@ -654,4 +653,10 @@ CATALOG: dict[str, str] = {
     "Si disegna un rettangolo attorno al soggetto: la freccia lo segue nei fotogrammi successivi tenendo la punta su di lui; quando esce dall'inquadratura l'effetto finisce.": 'Teken een rechthoek rond het onderwerp: de pijl volgt het in de volgende frames met de punt erop; als het uit beeld gaat, stopt het effect.',
     'Scegli un altro soggetto': 'Ander onderwerp kiezen',
     'Trascina un rettangolo attorno al soggetto che la freccia deve seguire': 'Sleep een rechthoek rond het onderwerp dat de pijl moet volgen',
+    'EditSimple richiede Python {required} o successivo (in uso: {current}).': 'EditSimple vereist Python {required} of nieuwer (in gebruik: {current}).',
+    'Lettura di {file}...': '{file} wordt gelezen...',
+    'ffmpeg non ha risposto entro {seconds:.0f} secondi.': 'ffmpeg reageerde niet binnen {seconds:.0f} seconden.',
+    "Impossibile leggere l'impronta SHA-256 di ffmpeg: {error}": 'De SHA-256-vingerafdruk van ffmpeg kan niet worden gelezen: {error}',
+    'Impronta SHA-256 di ffmpeg non valida.': 'Ongeldige SHA-256-vingerafdruk voor ffmpeg.',
+    "L'archivio di ffmpeg scaricato non corrisponde all'impronta SHA-256 pubblicata: non viene installato.": 'Het gedownloade ffmpeg-archief komt niet overeen met de gepubliceerde SHA-256-vingerafdruk: het wordt niet geïnstalleerd.',
 }

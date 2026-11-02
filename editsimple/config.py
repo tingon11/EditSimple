@@ -6,7 +6,9 @@
 from __future__ import annotations
 
 import json
+import os
 import sys
+import tempfile
 from pathlib import Path
 from typing import Any
 
@@ -104,7 +106,29 @@ class Config:
 
     def save(self) -> None:
         try:
-            CONFIG_FILE.write_text(json.dumps(self._data, indent=2, ensure_ascii=False),
-                                   encoding="utf-8")
+            write_atomic(str(CONFIG_FILE), json.dumps(self._data, indent=2, ensure_ascii=False))
+        except (OSError, TypeError, ValueError):
+            pass
+
+
+def write_atomic(path: str, text: str) -> None:
+    """Scrive `text` in `path` senza mai lasciare un file a meta'.
+
+    Il testo va in un file temporaneo nella stessa cartella, che poi prende il
+    posto di quello vecchio in un colpo solo (os.replace): se qualcosa va
+    storto, il file precedente resta com'era.
+    """
+    folder = os.path.dirname(os.path.abspath(path))
+    handle, temp = tempfile.mkstemp(prefix=".tmp-", suffix=".json", dir=folder)
+    try:
+        with os.fdopen(handle, "w", encoding="utf-8", newline="\n") as fh:
+            fh.write(text)
+            fh.flush()
+            os.fsync(fh.fileno())
+        os.replace(temp, path)
+    except BaseException:
+        try:
+            os.remove(temp)
         except OSError:
             pass
+        raise
