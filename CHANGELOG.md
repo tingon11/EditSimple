@@ -3,6 +3,19 @@
 The most recent section is used by `scripts/build_exe.py --release` as the
 release notes: first the introduction, then the list of changes.
 
+## 1.0.1
+
+Fixes from a code review of 1.0.0 (thanks to SOsintOps for the detailed reports, issues #1–#12) and an export error with added audio tracks. Updating is recommended.
+
+- **Export with an added audio track** no longer fails with "Media type mismatch" (a label clash in the ffmpeg filter graph introduced in 1.0.0).
+- **Audio after a cross-fade**: the exported audio is no longer shorter than the video by half the fade at every cross-fade (#1).
+- **Tracking** falls back to template matching when OpenCV has no VitTrack support, instead of failing (#2).
+- **Safer saving**: project and settings are written atomically, so a failed save never leaves a truncated file (#4); an export always works on a copy of the project, so editing during an export cannot affect it (#6), and a failed export no longer leaves a partial MP4.
+- **Responsiveness**: reading the information of an imported video or audio file happens in the background, with a cancellable progress window, and ffmpeg calls have timeouts (#8).
+- **ffmpeg download** is checked against the SHA-256 fingerprint published by gyan.dev before it is installed; the VitTrack model is downloaded from a fixed commit of opencv_zoo matching its fingerprint (#11).
+- **Robustness**: errors in background callbacks no longer stop the interface updates (#3), a possible deadlock when closing video sources is removed (#5), preview audio uses one temporary file per job and deletes it (#9), timeline thumbnails release their video files (#10), and several minor fixes (#12).
+- **Requirements**: Pillow 10.1 and OpenCV 4.9 or later; the program checks at start that Python is 3.11 or later (#7).
+
 ## 1.0.0
 
 First release of EditSimple, a simple video editor made to explain a fact or show evidence in a video: import the footage, point at what matters, and arrows, boxes, zooms and pixelations follow the subject on their own; where the tracking goes wrong, drag the figure back onto the subject. In a few minutes you get an MP4 ready to show, with opening and closing slides, texts, logo and the operator's signature.
