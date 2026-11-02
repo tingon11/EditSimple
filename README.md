@@ -12,6 +12,11 @@ as it comes closer. Where the tracking goes wrong, dragging the figure back
 onto the subject creates a keyframe that corrects the path. The result is
 exported to MP4 with ffmpeg. A project is a JSON file.
 
+The **Images** page does the same work on photographs: one to four photos on
+a sheet, the same annotations plus a link between two points and numbered
+points with notes, and a **Word** button that inserts the figure with its
+caption straight into the open Word document.
+
 **Author: Andrea Cumini — [www.osintinfo.net](https://www.osintinfo.net) — andrea@osintinfo.net**
 
 EditSimple is one of the tools of [Seity](https://www.seity.com), the author's
@@ -22,7 +27,9 @@ main project: the interface is written in CustomTkinter, with Seity's dark theme
 The **user manual**, with screenshots of every feature, is in
 [docs/manual](docs/manual/README.md) in 9 languages:
 [English](docs/manual/manual.en.md) · [Italiano](docs/manual/manual.it.md) · [Deutsch](docs/manual/manual.de.md) · [Français](docs/manual/manual.fr.md) · [Español](docs/manual/manual.es.md) · [Nederlands](docs/manual/manual.nl.md) · [Polski](docs/manual/manual.pl.md) · [Ελληνικά](docs/manual/manual.el.md) · [Shqip](docs/manual/manual.sq.md).
-This README covers installation, structure and how the program works inside.
+The same manual opens inside the program (**Manual** in the bar on the left),
+in the language of the interface. This README covers installation, structure
+and how the program works inside.
 
 The interface is available in the same 9 languages and can be switched at any
 time, without restarting, from the *Language* box of the **Configure** page.
@@ -142,13 +149,20 @@ background.
    the timeline (the right edge changes the duration). In the panel: text on
    several lines, **font** (a picker that shows every font), size, colour,
    alignment, shadow, background with opacity and rounded corners; colour,
-   thickness and fill of boxes, ovals and arrows. On the preview the selected
+   thickness and fill of boxes, ovals and arrows; for the arrow also the
+   **heads** (at the tip, at the tail, both or none) and their style (solid or
+   open arrowhead, dot, small square, bar). On the preview the selected
    item is moved by dragging it and resized from its handles (arrows from
    their two ends). **Time** and **Frames** write the elapsed time or the frame
-   number where you click.
-   - **Follow the subject**: boxes, ovals and arrows can track what they frame
-     (the content of the figure is the template; for the arrow a rectangle is
-     drawn around the subject and the tip stays on it). Where the tracking is
+   number where you click. **Numbers** (N) and **Letters** (Shift+N) put a
+   **numbered point**: a small circle with a number or a capital letter,
+   always the next after the last one placed; every point takes a new press
+   of the button.
+   - **Follow the subject**: boxes, ovals, arrows and numbered points can
+     track what they frame (the content of the figure is the template; for
+     the arrow and the point a rectangle is drawn around the subject and the
+     tip stays on it). The arrow's **Tail** can stay fixed where it was drawn
+     while the tip follows the subject. Where the tracking is
      wrong, drag the figure onto the subject: a **keyframe** is created, the
      path is corrected and tracking restarts from there. Boxes and ovals grow
      and shrink with the subject when it comes closer or moves away. If a
@@ -191,12 +205,49 @@ background.
     progress window can be cancelled.
 
 Undo/Redo: Ctrl+Z / Ctrl+Y. Save: Ctrl+S (Ctrl+Shift+S to save as).
-On the timeline Ctrl+wheel zooms and the wheel scrolls (Shift+wheel, or the
-wheel on the row names, scrolls audio and effects vertically); a right click on
-an effect bar extends it to the cursor or stops it there, and the eye icon
+On the timeline every effect has its own row, in the order it was added;
+Ctrl+wheel zooms and the wheel scrolls (Shift+wheel, or the wheel on the row
+names, scrolls audio and effects vertically); a right click on an effect bar
+extends it to the cursor (tracking goes on, and if the subject is lost the
+figure stays where it was last seen) or stops it there, and the eye icon
 hides or shows it. On the preview the wheel moves by one frame and Ctrl+wheel
 zooms the view; the button at its top right **detaches** the preview into a
 separate window. Esc cancels a drawing.
+
+## Images page
+
+The **Images** page (bar on the left) prepares a figure for a report from one
+or more photographs:
+
+1. **Layout**: one image; two side by side or one above the other; three in
+   a row, in a column, one large on the left or on top; four in a grid, in a
+   row, one large on the left or on top. Sheet formats: 16:9, 4:3, square,
+   9:16 and A4 portrait. Both can be changed at any time.
+2. **Photos**: **Load**, a click on an empty cell, a file dropped on it or
+   Ctrl+V from the clipboard. The wheel zooms the photo in its cell, dragging
+   pans it.
+3. **Annotations**: the same tools as the video (text, image, logo, box,
+   oval, arrow, numbered points, zoom, pixelation) without times or tracking,
+   plus **Link** (C rectangles, Shift+C ovals): two clicks, a shape around
+   each point and a line from border to border. Every annotation belongs to
+   the photo it lies on and follows it when the photo is panned or zoomed;
+   an arrow or a link between two photos has one end on each; an annotation
+   straddling two photos stays whole.
+4. **Numbered points and caption**: each point has a **Note** in its panel;
+   **Caption** (or the box in the sheet panel) holds the text after
+   "Figure N :". The caption becomes `Figure 1 : text. 1) note, 2) note, A)
+   note`.
+5. **Word**: inserts the picture and the caption into the open Word document
+   at the cursor, through Word automation (`editsimple/wordcopy.py`, a
+   PowerShell script): the caption is in Word's *Caption* style with the
+   automatic SEQ number, so cross-references and the table of figures work.
+   If Word is not running it is started; if it does not answer, picture and
+   caption go to the clipboard as RTF.
+6. **Save** (Ctrl+S) writes an editable JSON (`kind: editsimple-images`) with
+   layout, format, caption, cells and annotations, and a `<name>_file` folder
+   next to it with copies of the photos, overlay images and logo; **Open**
+   (Ctrl+O) reloads it. **Export** saves the sheet as PNG or JPG; **Copy**
+   puts it on the clipboard.
 
 ## The project file
 
@@ -346,7 +397,10 @@ logo and icon (it needs the Panchang font in `font\`).
 | File | Content |
 | --- | --- |
 | `EditSimple.py` | entry point |
-| `editsimple/app.py` | main window: header, Editing and Configure pages, actions, tracking |
+| `editsimple/app.py` | main window: header, Video and Configure pages, actions, tracking, manual window |
+| `editsimple/image_page.py`, `editsimple/imageboard.py` | Images page: toolbar, panel, project file; the sheet (layouts, formats, cells, anchoring of annotations, rendering) |
+| `editsimple/wordcopy.py`, `editsimple/winshell.py` | insertion into Word (PowerShell automation) and RTF fallback; Windows clipboard |
+| `editsimple/manual.py` | the user manual rendered in a window (Markdown with images) |
 | `editsimple/project.py` | project model (clips, audio tracks, effects) and JSON file |
 | `editsimple/render.py` | export: segments, ffmpeg filter graph, progress |
 | `editsimple/overlays.py` | drawing of text, boxes, ovals, arrows, clock, time; zoom and pixelation; frame composition |
@@ -364,8 +418,8 @@ logo and icon (it needs the Panchang font in `font\`).
 | `font/` | fonts shipped with the program (DejaVu; Panchang for the logo, not redistributed) |
 | `scripts/build_exe.py`, `scripts/make_brand.py` | single executable and release zip; logo and icon |
 | `scripts/check_i18n.py` | check of the language catalogs |
-| `scripts/manual_screenshots.py` | rebuilds the example project step by step and takes the manual's screenshots |
-| `docs/manual/` | user manual in 9 languages with screenshots |
+| `scripts/manual_screenshots.py` | rebuilds the example projects (video and images) step by step and takes the manual's screenshots |
+| `docs/manual/` | user manual in 9 languages with screenshots, also bundled in the executable |
 | `tools/` | downloaded third-party programs (ffmpeg, VitTrack): outside the repository and the bundle |
 
 ## License and credits

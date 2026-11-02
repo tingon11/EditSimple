@@ -3,6 +3,18 @@
 The most recent section is used by `scripts/build_exe.py --release` as the
 release notes: first the introduction, then the list of changes.
 
+## 1.0.2
+
+A new **Images** page for figures made from photographs, numbered points with notes and a button that inserts the figure with its caption into Word, more arrow options, and the user manual readable inside the program.
+
+- **Images page**: one to four photos on a sheet (eleven layouts, five formats), loaded from files, dropped or pasted; wheel and drag frame each photo in its cell. The same annotations as the video, plus **Link**: two rectangles or ovals joined by a line. Annotations belong to the photo they lie on and follow it when it is panned or zoomed; an arrow or a link between two photos has one end on each, and an annotation straddling two photos stays whole. Export to PNG or JPG, copy to the clipboard.
+- **Numbered points** (Numbers / Letters): a circle with a number or a capital letter, always the next after the last one, one point per press of the button; in the video they follow a subject like the other figures.
+- **Caption and Word**: in the Images page every point has a note; the Caption button holds the text after "Figure N :"; the **Word** button inserts picture and caption into the open Word document at the cursor, in the Caption style with the automatic SEQ number (cross-references and table of figures work), with an RTF clipboard fallback.
+- **Images project**: saved as an editable JSON with a `<name>_file` folder of copies of the photos and images; Open / Save / Save as, undo and redo for everything.
+- **Arrows**: heads at the tip, the tail, both or none, in five styles; in the video the **Tail** can stay fixed where it was drawn while the tip follows the subject.
+- **Timeline**: every effect on its own row in the order it was added; *Extend to cursor* keeps tracking and, if the subject is lost, leaves the figure where it was last seen.
+- **Manual**: a *Manual* entry in the bar on the left opens the user manual in a window with table of contents and language menu, in the language of the interface; the manual is bundled in the executable. Manuals in the nine languages rewritten for the new features, with a chapter on the Images page and all screenshots retaken.
+
 ## 1.0.1
 
 Fixes from a code review of 1.0.0 (thanks to SOsintOps for the detailed reports, issues #1–#12) and an export error with added audio tracks. Updating is recommended.

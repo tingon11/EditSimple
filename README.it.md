@@ -11,6 +11,11 @@ pixelatura rettangolare o ovale che insegue un soggetto (volto, oggetto,
 targa) e cresce quando si avvicina. Il risultato viene esportato in un mp4 con ffmpeg.
 Un progetto è un file JSON.
 
+La pagina **Immagini** fa lo stesso lavoro sulle fotografie: da una a quattro
+foto su un foglio, le stesse annotazioni più un collegamento fra due punti e i
+punti numerati con le note, e un pulsante **Word** che inserisce la figura con
+la didascalia direttamente nel documento Word aperto.
+
 Fa parte degli strumenti di [Seity](https://www.seity.com), il progetto principale
 dell'autore: l'interfaccia è in CustomTkinter, con il tema scuro di Seity.
 
@@ -19,7 +24,9 @@ dell'autore: l'interfaccia è in CustomTkinter, con il tema scuro di Seity.
 Il **manuale d'uso**, con gli screenshot di ogni funzione, è in
 [docs/manual](docs/manual/README.md) in 9 lingue
 ([italiano](docs/manual/manual.it.md), [English](docs/manual/manual.en.md), ...).
-Questo README riguarda installazione, struttura e funzionamento interno.
+Lo stesso manuale si apre dentro il programma (**Manuale** nella barra a
+sinistra), nella lingua dell'interfaccia. Questo README riguarda
+installazione, struttura e funzionamento interno.
 
 ## Requisiti
 
@@ -126,12 +133,20 @@ agganciato allo sfondo.
    pannello: testo su più righe, **carattere** (finestra di scelta con
    l'anteprima di ogni carattere), dimensione, colore,
    allineamento, ombra, sfondo con opacità; colore, spessore e riempimento di
-   riquadri, ovali e frecce. Sull'anteprima l'elemento selezionato si sposta
-   trascinandolo e si ridimensiona dalle maniglie (le frecce dalle due punte).
-   - **Segui il soggetto**: riquadri, ovali e frecce possono inseguire ciò che
-     inquadrano (il contenuto della figura fa da modello; per la freccia si
-     disegna un rettangolo attorno al soggetto e la punta resta agganciata a lui).
-     Dove l'inseguimento sbaglia si trascina la figura sul soggetto: nasce un
+   riquadri, ovali e frecce; per la freccia anche i **terminali** (alla
+   punta, alla coda, su entrambi i lati o nessuno) e il loro tipo (freccia
+   piena o aperta, pallino, quadratino, barra). Sull'anteprima l'elemento
+   selezionato si sposta trascinandolo e si ridimensiona dalle maniglie (le
+   frecce dalle due punte). **Numeri** (N) e **Lettere** (Maiusc+N) mettono
+   un **punto numerato**: un cerchietto con un numero o una lettera
+   maiuscola, sempre il successivo dell'ultimo messo; ogni punto vuole un
+   nuovo clic sul pulsante.
+   - **Segui il soggetto**: riquadri, ovali, frecce e punti numerati possono
+     inseguire ciò che inquadrano (il contenuto della figura fa da modello;
+     per la freccia e per il punto si disegna un rettangolo attorno al
+     soggetto e la punta resta agganciata a lui). La **coda** della freccia
+     può restare fissa dove è stata disegnata mentre la punta segue il
+     soggetto. Dove l'inseguimento sbaglia si trascina la figura sul soggetto: nasce un
      **keyframe**, il percorso viene corretto e l'inseguimento riparte da lì. Riquadri e ovali crescono e calano con il
      soggetto se si avvicina o si allontana. Se un soggetto in movimento sparisce
      dietro a qualcosa, la figura prosegue con la sua velocità fino a 1,5 s
@@ -183,8 +198,47 @@ agganciato allo sfondo.
    avanzamento si può annullare.
 
 Annulla/Ripeti: Ctrl+Z / Ctrl+Y. Salva: Ctrl+S (Ctrl+Maiusc+S con nome).
-Ctrl+rotellina sulla timeline la ingrandisce, la rotellina la scorre; la
-rotellina sull'anteprima scorre di un fotogramma. Esc annulla un disegno.
+Nella timeline ogni effetto ha la sua riga, nell'ordine in cui è stato
+aggiunto; Ctrl+rotellina la ingrandisce, la rotellina la scorre; il tasto
+destro su una barra la allunga fino al cursore (l'inseguimento continua e, se
+il soggetto si perde, la figura resta dove l'ha visto l'ultima volta) o la
+interrompe lì. La rotellina sull'anteprima scorre di un fotogramma. Esc
+annulla un disegno.
+
+## Pagina Immagini
+
+La pagina **Immagini** (barra a sinistra) prepara una figura per un rapporto
+da una o più fotografie:
+
+1. **Layout**: una immagine; due affiancate o una sopra l'altra; tre in fila,
+   in colonna, una grande a sinistra o sopra; quattro in griglia, in fila,
+   una grande a sinistra o sopra. Formati del foglio: 16:9, 4:3, quadrato,
+   9:16 e A4 verticali. Tutti e due si cambiano in ogni momento.
+2. **Foto**: **Carica**, un clic su un riquadro vuoto, un file trascinato sopra
+   o Ctrl+V dagli appunti. La rotellina ingrandisce la foto nel suo riquadro,
+   il trascinamento la sposta.
+3. **Annotazioni**: gli stessi strumenti del video (testo, immagine, logo,
+   riquadro, ovale, freccia, punti numerati, zoom, pixelatura) senza tempi né
+   inseguimento, più **Collega** (C rettangoli, Maiusc+C ovali): due clic,
+   una forma attorno a ciascun punto e una linea da bordo a bordo. Ogni
+   annotazione appartiene alla foto su cui sta e la segue quando la foto si
+   sposta o si ingrandisce; una freccia o un collegamento fra due foto hanno
+   un capo su ciascuna; un'annotazione a cavallo di due foto resta intera.
+4. **Punti numerati e didascalia**: ogni punto ha una **Nota** nel pannello;
+   **Didascalia** (o la casella nel pannello del foglio) contiene il testo
+   dopo "Figura N :". La didascalia diventa `Figura 1 : testo. 1) nota, 2)
+   nota, A) nota`.
+5. **Word**: inserisce immagine e didascalia nel documento Word aperto, dove
+   c'è il cursore, con l'automazione di Word (`editsimple/wordcopy.py`, uno
+   script PowerShell): la didascalia è nello stile *Didascalia* di Word con
+   il numero automatico SEQ, quindi riferimenti incrociati e indice delle
+   figure funzionano. Se Word non è aperto viene avviato; se non risponde,
+   immagine e didascalia vanno negli appunti come RTF.
+6. **Salva** (Ctrl+S) scrive un JSON modificabile (`kind: editsimple-images`)
+   con layout, formato, didascalia, riquadri e annotazioni, e accanto una
+   cartella `<nome>_file` con le copie delle foto, delle immagini sovrapposte
+   e del logo; **Apri** (Ctrl+O) lo riapre. **Esporta** salva il foglio in PNG
+   o JPG; **Copia** lo mette negli appunti.
 
 ## Il file di progetto
 
@@ -335,7 +389,10 @@ icona (serve il carattere Panchang in `font\`).
 | File | Contenuto |
 | --- | --- |
 | `EditSimple.py` | punto di ingresso |
-| `editsimple/app.py` | finestra principale: intestazione, pagine Montaggio e Configurazione, azioni, inseguimento |
+| `editsimple/app.py` | finestra principale: intestazione, pagine Video e Configura, azioni, inseguimento, finestra del manuale |
+| `editsimple/image_page.py`, `editsimple/imageboard.py` | pagina Immagini: barra, pannello, file di progetto; il foglio (layout, formati, riquadri, ancoraggio delle annotazioni, resa) |
+| `editsimple/wordcopy.py`, `editsimple/winshell.py` | inserimento in Word (automazione PowerShell) e ripiego RTF; appunti di Windows |
+| `editsimple/manual.py` | il manuale d'uso impaginato in una finestra (Markdown con immagini) |
 | `editsimple/project.py` | modello del progetto (clip, tracce audio, effetti) e file JSON |
 | `editsimple/render.py` | esportazione: segmenti, grafo di filtri ffmpeg, avanzamento |
 | `editsimple/overlays.py` | disegno di testo, riquadri, ovali, frecce, orologio; zoom e pixelatura; composizione del fotogramma |
@@ -353,8 +410,8 @@ icona (serve il carattere Panchang in `font\`).
 | `editsimple/audio.py` | riproduzione dell'audio nell'anteprima (Windows) |
 | `scripts/build_exe.py`, `scripts/make_brand.py` | eseguibile unico; logo e icona |
 | `scripts/check_i18n.py` | controllo dei cataloghi delle lingue |
-| `scripts/manual_screenshots.py` | rifà il progetto d'esempio passo per passo e prende gli screenshot del manuale |
-| `docs/manual/` | manuale d'uso in 9 lingue con gli screenshot |
+| `scripts/manual_screenshots.py` | rifà i progetti d'esempio (video e immagini) passo per passo e prende gli screenshot del manuale |
+| `docs/manual/` | manuale d'uso in 9 lingue con gli screenshot, incluso anche nell'eseguibile |
 | `tools/` | programmi di terze parti scaricati (ffmpeg): fuori dal repository e dal bundle |
 
 ## Crediti
