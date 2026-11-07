@@ -3,6 +3,13 @@
 The most recent section is used by `scripts/build_exe.py --release` as the
 release notes: first the introduction, then the list of changes.
 
+## 1.0.3
+
+Two fixes to the fade transitions.
+
+- **Fade from black / to black** now applies to the finished frame: texts, images and the logo placed on a slide (or on a video clip) fade together with it, in the preview and in the exported MP4. Before, only the background faded and the overlays stayed bright.
+- **Cleared number box** in the properties panel now means zero: emptying the "To black (s)" box (or any numeric box) removes the value instead of keeping the previous one.
+
 ## 1.0.2
 
 A new **Images** page for figures made from photographs, numbered points with notes and a button that inserts the figure with its caption into Word, more arrow options, and the user manual readable inside the program.

@@ -264,7 +264,7 @@ class PropertiesPanel(ctk.CTkFrame):
         raw = self._vars[key].get().strip().replace(",", ".")
         if kind in ("float", "int"):
             try:
-                value = float(raw)
+                value = float(raw) if raw else 0.0      # casella svuotata: vale zero (niente dissolvenza, ecc.)
             except ValueError:
                 return
             if kind == "int":

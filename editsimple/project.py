@@ -375,6 +375,21 @@ class Project:
             return 0.0
         return min(d, 0.9 * min(clip_duration(self.clips[index]), clip_duration(self.clips[index + 1])))
 
+    def fade_level(self, t: float) -> float:
+        """Quanto si vede il fotogramma a t: 1 tutto, 0 nero (dissolvenze dal nero e al nero della clip).
+        Vale per il fotogramma finito, sovraimpressioni comprese."""
+        _index, clip, local = self.locate(t)
+        if clip is None:
+            return 1.0
+        fi, fo = self.fades(clip)
+        dur = clip_duration(clip)
+        k = 1.0
+        if fi > 0 and local < fi:
+            k = local / fi
+        if fo > 0 and local > dur - fo:
+            k = min(k, (dur - local) / fo)
+        return max(0.0, min(1.0, k))
+
     @staticmethod
     def fades(clip: dict) -> tuple[float, float]:
         """(dissolvenza dal nero, dissolvenza al nero) della clip, in secondi, entro la sua durata."""

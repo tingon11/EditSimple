@@ -9,7 +9,7 @@ inseguimento del soggetto. Un progetto e' un file JSON; il risultato viene
 reso con ffmpeg in un mp4.
 """
 
-__version__ = "1.0.2"
+__version__ = "1.0.3"
 APP_NAME = "EditSimple"
 AUTHOR = "Andrea Cumini"
 AUTHOR_EMAIL = "andrea@osintinfo.net"

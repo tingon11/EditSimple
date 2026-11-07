@@ -1227,6 +1227,11 @@ class App(ctk.CTk):
         except Exception as exc:  # noqa: BLE001 - un effetto con valori strani non deve bloccare l'anteprima
             self.status(tr("Anteprima: {error}").format(error=exc))
             image = overlays.fit_frame(base, dw, dh)
+        k = self.project.fade_level(self.playhead)
+        if k < 1.0:
+            # dal nero / al nero: su tutto il fotogramma, con gli oggetti della slide, il logo e i testi
+            image = image.convert("RGB")
+            image = Image.blend(Image.new("RGB", image.size, (0, 0, 0)), image, k)
         self.preview.set_frame(image)
 
     def _clip_frame(self, clip: dict, local: float, dw: int, dh: int):
@@ -1251,7 +1256,8 @@ class App(ctk.CTk):
         return max(0.0, local - 1.0 / (fps * float(clip.get("speed", 1) or 1)))
 
     def _with_transitions(self, index: int, clip: dict, local: float, base, dw: int, dh: int):
-        """Fusione con la clip vicina e dissolvenze dal/al nero, come nell'esportazione."""
+        """Fusione con la clip vicina, come nell'esportazione (le dissolvenze dal/al nero si applicano
+        dopo, sul fotogramma finito: vedi refresh_preview)."""
         from PIL import Image
         p = self.project
         dur = clip_duration(clip)
@@ -1273,14 +1279,6 @@ class App(ctk.CTk):
             if other.size != base.size:
                 other = other.resize(base.size)
             base = Image.blend(base, other, max(0.0, min(1.0, weight)))
-        fi, fo = p.fades(clip)
-        k = 1.0
-        if fi > 0 and local < fi:
-            k = local / fi
-        if fo > 0 and local > dur - fo:
-            k = min(k, (dur - local) / fo)
-        if k < 1.0:
-            base = Image.blend(Image.new("RGB", base.size, (0, 0, 0)), base, max(0.0, k))
         return base
 
     def seek(self, t: float) -> None:

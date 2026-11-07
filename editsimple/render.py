@@ -269,14 +269,6 @@ class Exporter:
                 if fx["end"] <= span.start + EPS or fx["start"] >= span.end - EPS:
                     continue
                 cur = self._pixelate(cur, f"p{k}_{n}", fx, span)
-            fades = []
-            if seg.fade_in > 1e-3:
-                fades.append(f"fade=t=in:st={_num(seg.head)}:d={_num(seg.fade_in)}")
-            if seg.fade_out > 1e-3:
-                fades.append(f"fade=t=out:st={_num(seg.head + seg.duration - seg.fade_out)}:d={_num(seg.fade_out)}")
-            if fades and not self.audio_only:
-                self.lines.append(f"[{cur}]{','.join(fades)}[f{k}]")
-                cur = f"f{k}"
             if not self.audio_only:
                 # stessa base dei tempi per tutti i pezzi: xfade rifiuta ingressi con basi diverse (dopo un
                 # concat la base cambia, e una fusione dopo un taglio netto falliva)
@@ -469,6 +461,20 @@ class Exporter:
             enable = "+".join(f"between(t,{_num(a)},{_num(b)})" for a, b in spans)
             self.lines.append(f"[{cur}][{j}:v]overlay=x={x}:y={y}:enable='{enable}':eof_action=repeat[c{n}]")
             cur = f"c{n}"
+
+        # dissolvenze dal nero e al nero: sul fotogramma finito, con gli oggetti delle slide, il logo e i
+        # testi; ogni fade e' limitato al suo tratto con enable (fuori dal tratto annerirebbe tutto il resto)
+        fades = []
+        for seg in segments:
+            if seg.fade_in > 1e-3:
+                a, b = seg.start, seg.start + seg.fade_in
+                fades.append(f"fade=t=in:st={_num(a)}:d={_num(seg.fade_in)}:enable='gte(t,{_num(a)})*lt(t,{_num(b)})'")
+            if seg.fade_out > 1e-3:
+                a, b = seg.end - seg.fade_out, seg.end
+                fades.append(f"fade=t=out:st={_num(a)}:d={_num(seg.fade_out)}:enable='gte(t,{_num(a)})*lt(t,{_num(b)})'")
+        if fades and not self.audio_only:
+            self.lines.append(f"[{cur}]{','.join(fades)}[vfade]")
+            cur = "vfade"
 
         # tracce audio aggiunte
         mix: list[str] = []
