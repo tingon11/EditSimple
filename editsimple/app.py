@@ -1591,32 +1591,51 @@ class App(ctk.CTk):
     def _probe_async(self, path: str, title: str, on_done) -> None:
         """Legge le informazioni del file in un thread (su file grandi o in rete puo' durare): l'interfaccia
         resta viva e, se ci vuole piu' di un attimo, compare una finestra con Annulla.
-        `on_done(info, errore)` arriva nel thread dell'interfaccia (non arriva se si annulla)."""
-        state = {"dialog": None, "cancelled": False, "done": False}
+        `on_done(info, errore)` arriva nel thread dell'interfaccia (non arriva se si annulla).
+        Annulla chiude subito la finestra e ferma ffmpeg; qualunque errore della lettura arriva a
+        `on_done`, cosi' la finestra non resta mai aperta."""
+        state = {"dialog": None, "done": False, "shown": -1.0}
+        stop = threading.Event()
+        name = os.path.basename(path)
 
         def cancel() -> None:
-            state["cancelled"] = True
+            stop.set()
+            state["done"] = True
+            if state["dialog"] is not None:
+                state["dialog"].close()
+            self.status(tr("Lettura di {file} annullata.").format(file=name))
 
         def show_dialog() -> None:
             if not state["done"]:
                 state["dialog"] = widgets.ProgressDialog(self, title, self.fonts, on_cancel=cancel)
-                state["dialog"].set(tr("Lettura di {file}...").format(file=os.path.basename(path)), 0.0)
+                state["dialog"].set(tr("Lettura di {file}...").format(file=name), 0.0)
+
+        def progress(fraction: float) -> None:
+            # dal thread di lavoro: al massimo un aggiornamento per punto percentuale
+            if fraction - state["shown"] >= 0.01:
+                state["shown"] = fraction
+                self.post(lambda f=fraction: show_progress(f))
+
+        def show_progress(fraction: float) -> None:
+            if state["dialog"] is not None and not state["done"]:
+                state["dialog"].set(tr("Lettura della durata del video in {file}...").format(file=name), fraction)
 
         def work() -> None:
             try:
-                info, error = media.probe(path), None
+                info, error = media.probe(path, progress, stop), None
             except media.MediaError as exc:
                 info, error = None, str(exc)
+            except Exception as exc:  # noqa: BLE001 - un errore inatteso non deve lasciare la finestra aperta
+                info, error = None, f"{type(exc).__name__}: {exc}"
             self.post(lambda: finish(info, error))
 
         def finish(info, error) -> None:
+            if stop.is_set():
+                return                          # annullato: finestra gia' chiusa
             state["done"] = True
             if state["dialog"] is not None:
                 state["dialog"].close()
-            if not state["cancelled"]:
-                on_done(info, error)
-            else:
-                self.status(tr("Pronto."))
+            on_done(info, error)
 
         self.status(tr("Lettura di {file}...").format(file=os.path.basename(path)))
         self.after(400, show_dialog)

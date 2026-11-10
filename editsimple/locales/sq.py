@@ -906,4 +906,10 @@ CATALOG: dict[str, str] = {
         'Manuali nuk është përfshirë në këtë kopje të programit.',
     'Si legge in linea su GitHub:':
         'Lexohet online në GitHub:',
+    'Lettura di {file} annullata.':
+        'Leximi i {file} u anulua.',
+    'Lettura della durata del video in {file}...':
+        'Po lexohet kohëzgjatja e videos në {file}...',
+    'Annullato.':
+        'U anulua.',
 }

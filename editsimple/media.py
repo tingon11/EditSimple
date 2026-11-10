@@ -16,7 +16,9 @@ import queue
 import re
 import subprocess
 import threading
+import time
 from collections import OrderedDict
+from typing import Callable
 from pathlib import Path
 
 import cv2
@@ -67,8 +69,14 @@ _TBR = re.compile(r"([\d.]+)\s*tbr")
 _ROTATION = re.compile(r"rotation of (-?[\d.]+) degrees")
 
 
-def probe(path: str | os.PathLike) -> dict:
-    """Durata, frequenza, dimensioni e presenza di audio/video dal rapporto di `ffmpeg -i`."""
+def probe(path: str | os.PathLike, progress: Callable[[float], None] | None = None,
+          cancel: threading.Event | None = None) -> dict:
+    """Durata, frequenza, dimensioni e presenza di audio/video dal rapporto di `ffmpeg -i`.
+
+    `progress(frazione)` (dal thread che chiama) segue la lettura dei pacchetti
+    del video, che su un file lungo dura un po'; `cancel` la interrompe
+    (MediaError).
+    """
     path = Path(path)
     if not path.is_file():
         raise MediaError(tr("File non trovato: {path}").format(path=path))
@@ -108,7 +116,7 @@ def probe(path: str | os.PathLike) -> dict:
         # la traccia video puo' finire prima dell'audio: una clip che arriva alla fine del file
         # avrebbe il video piu' corto dell'audio e, nel montaggio, l'ultimo fotogramma resterebbe
         # fermo fino alla fine dell'audio. Si legge quindi la durata vera del video (senza decodificare).
-        video_duration = _stream_length(path, "0:v:0")
+        video_duration = _stream_length(path, "0:v:0", info["duration"], progress, cancel)
         if video_duration > 0:
             info["video_duration"] = min(video_duration, info["duration"])
     return info
@@ -117,19 +125,52 @@ def probe(path: str | os.PathLike) -> dict:
 _TIME = re.compile(r"time=(\d+):(\d+):(\d+(?:\.\d+)?)")
 
 
-def _stream_length(path: Path, stream: str) -> float:
-    """Durata effettiva di uno stream, leggendo i pacchetti senza decodificarli."""
+def _stream_length(path: Path, stream: str, duration: float = 0.0, progress: Callable[[float], None] | None = None,
+                   cancel: threading.Event | None = None) -> float:
+    """Durata effettiva di uno stream, leggendo i pacchetti senza decodificarli.
+
+    ffmpeg scrive l'avanzamento (`-progress pipe:1`) riga per riga: da li' la
+    frazione per `progress` e, alla fine, la durata. Annullando (`cancel`) il
+    processo viene ucciso e si solleva MediaError; troppo lento (disco di rete):
+    0, e resta la durata dichiarata dal contenitore.
+    """
+    proc = procs.popen([ffmpeg_exe(), "-hide_banner", "-nostdin", "-loglevel", "error", "-nostats",
+                        "-progress", "pipe:1", "-i", str(path), "-map", stream, "-c", "copy", "-f", "null", "-"],
+                       stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
+    lines: queue.Queue = queue.Queue()
+
+    def reader() -> None:
+        for raw in proc.stdout:
+            lines.put(raw.decode("utf-8", "replace").strip())
+        lines.put(None)
+
+    threading.Thread(target=reader, daemon=True).start()
+    last = 0.0
+    deadline = time.monotonic() + SCAN_TIMEOUT
     try:
-        result = _run([ffmpeg_exe(), "-hide_banner", "-nostdin", "-i", str(path), "-map", stream,
-                       "-c", "copy", "-f", "null", "-"], timeout=SCAN_TIMEOUT)
-    except MediaError:
-        return 0.0          # troppo lento (disco di rete): resta la durata dichiarata dal contenitore
-    text = result.stderr.decode("utf-8", "replace")
-    times = _TIME.findall(text)
-    if not times:
-        return 0.0
-    h, m, s = times[-1]
-    return int(h) * 3600 + int(m) * 60 + float(s)
+        while True:
+            if cancel is not None and cancel.is_set():
+                raise MediaError(tr("Annullato."))
+            if time.monotonic() > deadline:
+                return 0.0
+            try:
+                line = lines.get(timeout=0.1)
+            except queue.Empty:
+                continue
+            if line is None:
+                break
+            if line.startswith("out_time_us="):
+                try:
+                    last = max(last, int(line.split("=", 1)[1]) / 1e6)
+                except ValueError:
+                    continue            # "N/A" prima del primo pacchetto
+                if progress is not None and duration > 0:
+                    progress(min(1.0, last / duration))
+    finally:
+        if proc.poll() is None:
+            proc.kill()
+        proc.wait()
+    return last
 
 
 # ------------------------------------------------------------ fotogrammi

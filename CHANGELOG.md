@@ -3,6 +3,14 @@
 The most recent section is used by `scripts/build_exe.py --release` as the
 release notes: first the introduction, then the list of changes.
 
+## 1.0.4
+
+A fix for video import that could leave the loading window open.
+
+- **Reading a video no longer seems stuck**: for a video with sound the program reads the whole file once to measure the true length of the video track; on a large file or a network drive this takes a while, and the window stayed at 0 %. The progress bar now moves during that reading.
+- **Cancel** in the loading window closes it at once and stops ffmpeg, instead of waiting for the reading to finish.
+- **Unexpected errors** while reading a file now close the loading window and show a message; before, the window could stay open forever and the video was never added.
+
 ## 1.0.3
 
 Two fixes to the fade transitions.

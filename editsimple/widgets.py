@@ -602,7 +602,10 @@ class ProgressDialog(ctk.CTkToplevel):
     def _cancel(self) -> None:
         if self._on_cancel is not None:
             self._on_cancel()
-        self._cancel_btn.configure(state="disabled", text=tr("Interruzione..."))
+        try:
+            self._cancel_btn.configure(state="disabled", text=tr("Interruzione..."))
+        except tk.TclError:
+            pass                    # chi annulla ha gia' chiuso la finestra
 
     def close(self) -> None:
         try:

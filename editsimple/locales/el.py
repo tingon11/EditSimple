@@ -1228,4 +1228,10 @@ CATALOG: dict[str, str] = {
         'Το εγχειρίδιο δεν περιλαμβάνεται σε αυτό το αντίγραφο του προγράμματος.',
     'Si legge in linea su GitHub:':
         'Διαβάζεται online στο GitHub:',
+    'Lettura di {file} annullata.':
+        'Η ανάγνωση του {file} ακυρώθηκε.',
+    'Lettura della durata del video in {file}...':
+        'Ανάγνωση της διάρκειας του βίντεο στο {file}...',
+    'Annullato.':
+        'Ακυρώθηκε.',
 }

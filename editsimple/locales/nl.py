@@ -871,4 +871,10 @@ CATALOG: dict[str, str] = {
         'De handleiding zit niet in deze kopie van het programma.',
     'Si legge in linea su GitHub:':
         'Online te lezen op GitHub:',
+    'Lettura di {file} annullata.':
+        'Lezen van {file} geannuleerd.',
+    'Lettura della durata del video in {file}...':
+        'Videolengte in {file} wordt gelezen...',
+    'Annullato.':
+        'Geannuleerd.',
 }

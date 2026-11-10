@@ -875,4 +875,10 @@ CATALOG: dict[str, str] = {
         'Podręcznik nie jest dołączony do tej kopii programu.',
     'Si legge in linea su GitHub:':
         'Można go przeczytać online w GitHubie:',
+    'Lettura di {file} annullata.':
+        'Odczyt pliku {file} anulowany.',
+    'Lettura della durata del video in {file}...':
+        'Odczyt długości wideo w {file}...',
+    'Annullato.':
+        'Anulowano.',
 }
