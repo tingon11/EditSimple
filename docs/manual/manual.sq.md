@@ -103,6 +103,10 @@ pengese. Pa të, ndjekja funksionon njësoj.
 - **Shiriti në të majtë**, me faqet: **Video** (montazhi), **Imazhe**
   (fotografitë, kapitulli 16), **Konfiguro** dhe **Manuali**, që e hap këtë
   manual në një dritare më vete, në gjuhën e ndërfaqes.
+- **I ri**, në fund të të njëjtit shirit, nis një punë tjetër: zbraz
+  montazhin e videos dhe fletën e imazheve. Nëse njëra prej tyre ka
+  ndryshime të paruajtura, më parë pyet nëse doni t'i ruani; Anulo i lë
+  të gjitha siç janë.
 - **Shiriti i mjeteve**, në katër grupe: *Projekti* (i ri, hap, ruaj, zhbëj,
   ribëj), *Klipi* (importo video, audio, prit, fshi, kuadër i ngrirë, slajd,
   shpejtësi), *Mbivendosje* (tekst, imazh, logo, koha, kuadrot, kornizë, oval,

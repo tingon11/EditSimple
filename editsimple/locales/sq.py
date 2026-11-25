@@ -912,4 +912,8 @@ CATALOG: dict[str, str] = {
         'Po lexohet kohëzgjatja e videos në {file}...',
     'Annullato.':
         'U anulua.',
+    'Nuovo lavoro: svuota Video e Immagini (prima chiede se salvare)':
+        'Punë e re: zbraz Videon dhe Imazhet (pyet më parë nëse do të ruani)',
+    'Nuovo lavoro: video e immagini svuotati.':
+        'Punë e re: videoja dhe imazhet u zbrazën.',
 }

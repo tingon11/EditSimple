@@ -105,6 +105,10 @@ tras un obstáculo. Sin él, el seguimiento funciona igualmente.
 - **Barra de la izquierda**, con las páginas: **Vídeo** (la edición),
   **Imágenes** (las fotografías, capítulo 16), **Configurar** y **Manual**,
   que abre este manual en una ventana aparte, en el idioma de la interfaz.
+- **Nuevo**, al final de la misma barra, empieza otro trabajo: vacía la
+  edición de vídeo y la hoja de imágenes. Si alguna de las dos tiene cambios
+  sin guardar, antes pregunta si guardarlos; Cancelar lo deja todo como
+  está.
 - **Barra de herramientas**, en cuatro grupos: *Proyecto* (nuevo, abrir,
   guardar, deshacer, rehacer), *Clip* (importar vídeo, audio, cortar,
   eliminar, imagen congelada, diapositiva, velocidad), *Superposiciones*

@@ -93,6 +93,13 @@ def clip_duration(clip: dict) -> float:
     return max(0.0, (float(clip["out"]) - float(clip["in"])) / speed)
 
 
+def _track_key_at(fx: dict, t: float) -> list[float]:
+    """Il punto del percorso dell'inseguimento all'istante t, interpolato: [t, x, y, scala]."""
+    from .overlays import key_scale, track_state
+    x, y, s = track_state(fx, t)
+    return [t, round(x, 1), round(y, 1), round(s * (key_scale(fx["track"][0]) or 1.0), 4)]
+
+
 def clip_label(clip: dict) -> str:
     if clip["kind"] == "slide":
         alone, with_text = _SLIDE_LABELS.get(clip.get("role"), _SLIDE_LABELS["open"])
@@ -406,9 +413,40 @@ class Project:
         slide.update(kind="slide", source="", role=role)
         if closing:
             self.append_clips([slide])
+        elif at is None:
+            self.insert_clips(0.0, [slide])
         else:
-            self.insert_clips(0.0 if at is None else at, [slide])
+            # gli effetti che attraversano il punto si dividono: una parte prima e una dopo la slide,
+            # cosi' frecce, zoom e riquadri del video non restano sopra la slide
+            t = max(0.0, min(at, self.duration()))
+            crossing = [fx for fx in self.effects if not fx.get("full")
+                        and float(fx["start"]) < t - EPS and float(fx["end"]) > t + EPS]
+            states = {fx["id"]: _track_key_at(fx, t) for fx in crossing if fx.get("track")}
+            self.insert_clips(t, [slide])
+            length = clip_duration(slide)
+            for fx in crossing:
+                self._split_effect(fx, t, length, states.get(fx["id"]))
         return slide
+
+    def _split_effect(self, fx: dict, t: float, length: float, key_at_t: list | None) -> None:
+        """Divide un effetto attraversato da una slide di `length` secondi inserita in t (gia' spostato:
+        la parte dopo la slide comincia in t + length). La parte dopo e' un effetto nuovo, subito dopo."""
+        after = copy.deepcopy(fx)
+        after["id"] = new_id()
+        fx["end"] = t
+        after["start"] = t + length
+        if fx.get("track"):
+            track = [list(k) for k in fx["track"]]
+            # stessa chiave di base (la geometria salvata vi corrisponde); un punto alla fine della prima
+            # parte e uno all'inizio della seconda, nella posizione che la figura aveva al punto di taglio
+            fx["track"] = [k for k in track if k[0] < t - EPS] + ([[t, *key_at_t[1:]]] if key_at_t else [])
+            after["track"] = track[:1] + ([[t + length, *key_at_t[1:]]] if key_at_t else []) \
+                + [k for k in track if k[0] > t + length + EPS]
+        if fx.get("keys"):
+            keys = [list(k) for k in fx["keys"]]
+            fx["keys"] = [k for k in keys if k[0] < t - EPS]
+            after["keys"] = [k for k in keys if k[0] > t + length - EPS]
+        self.effects.insert(self.effects.index(fx) + 1, after)
 
     def set_speed(self, a: float, b: float, factor: float, clock: bool) -> None:
         """Velocita' (0.25x..32x) sulle clip video fra a e b; la timeline si accorcia o si allunga."""

@@ -3,6 +3,13 @@
 The most recent section is used by `scripts/build_exe.py --release` as the
 release notes: first the introduction, then the list of changes.
 
+## 1.0.5
+
+A button to start a new job, and slides inserted in the middle of the video no longer carry the video's figures.
+
+- **Slide at the cursor**: effects that cross the insertion point (arrows, zooms, boxes, numbered points, texts) are split into a part before the slide and a part after it, with their tracking path and keyframes; before, they stretched over the slide and were drawn on its background. A logo placed for the whole video stays on the slide.
+- **New** in the bar on the left clears both the video editing and the Images sheet, to start another job in one step. If either has unsaved changes, it first asks whether to save them (one question for the video project, one for the images project); Cancel leaves everything as it is.
+
 ## 1.0.4
 
 A fix for video import that could leave the loading window open.

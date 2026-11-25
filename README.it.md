@@ -25,7 +25,9 @@ Il **manuale d'uso**, con gli screenshot di ogni funzione, è in
 [docs/manual](docs/manual/README.md) in 9 lingue
 ([italiano](docs/manual/manual.it.md), [English](docs/manual/manual.en.md), ...).
 Lo stesso manuale si apre dentro il programma (**Manuale** nella barra a
-sinistra), nella lingua dell'interfaccia. Questo README riguarda
+sinistra), nella lingua dell'interfaccia. **Nuovo**, in fondo alla stessa
+barra, svuota sia il video sia il foglio delle immagini per cominciare un
+altro lavoro (chiedendo prima se salvare ciò che non è salvato). Questo README riguarda
 installazione, struttura e funzionamento interno.
 
 ## Requisiti

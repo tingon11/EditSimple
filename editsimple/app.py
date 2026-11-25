@@ -252,11 +252,13 @@ class App(ctk.CTk):
         ctk.CTkLabel(rail, text=tr("PAGINE"), font=self.fonts.caption, text_color=theme.TEXT_FAINT).pack(pady=(14, 6))
         self._rail_buttons: dict[str, tuple[ctk.CTkButton, ctk.CTkLabel]] = {}
         for key, label, glyph in (("edit", N_("Video"), "edit"), ("image", N_("Immagini"), "image"),
-                                  ("settings", N_("Configura"), "settings"), ("manual", N_("Manuale"), "manual")):
-            # il manuale non e' una pagina: si apre in una finestra a parte, nella lingua in uso
-            open_it = self.open_manual if key == "manual" else (lambda k=key: self.show_page(k))
+                                  ("settings", N_("Configura"), "settings"), ("manual", N_("Manuale"), "manual"),
+                                  ("new", N_("Nuovo"), "new")):
+            # il manuale non e' una pagina: si apre in una finestra a parte, nella lingua in uso;
+            # Nuovo svuota video e immagini per cominciare un altro lavoro
+            open_it = {"manual": self.open_manual, "new": self.new_job}.get(key) or (lambda k=key: self.show_page(k))
             box = ctk.CTkFrame(rail, fg_color="transparent", corner_radius=4, width=74, height=62)
-            box.pack(pady=(0, 6), padx=5)
+            box.pack(pady=(14 if key == "new" else 0, 6), padx=5)
             box.pack_propagate(False)
             item = ctk.CTkButton(box, text=self._glyph(glyph) if self._has_icons else tr(label)[:1],
                                  width=74, height=36, corner_radius=4, fg_color="transparent",
@@ -271,6 +273,22 @@ class App(ctk.CTk):
             text.pack()
             text.bind("<Button-1>", lambda _e, f=open_it: f())
             self._rail_buttons[key] = (item, text)
+            if key == "new":
+                widgets.Tooltip(item, tr("Nuovo lavoro: svuota Video e Immagini (prima chiede se salvare)"), self.fonts)
+
+    def new_job(self) -> None:
+        """Svuota il montaggio video e il foglio delle immagini per cominciare un altro lavoro.
+
+        Prima chiede, per ciascuno dei due che ha modifiche non salvate, se salvarle;
+        Annulla (o un salvataggio non riuscito) lascia tutto com'e'.
+        """
+        if not self._confirm_discard() or not self.image_page.confirm_discard():
+            return
+        self.project.dirty = False              # gia' chiesto: new_project non lo richiede
+        self.new_project()
+        self.image_page.new_board()
+        self.show_page("edit")
+        self.status(tr("Nuovo lavoro: video e immagini svuotati."))
 
     def open_manual(self) -> None:
         """Il manuale d'uso nella lingua dell'interfaccia, in una finestra a parte (una sola)."""

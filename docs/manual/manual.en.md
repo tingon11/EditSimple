@@ -102,6 +102,9 @@ Without it, tracking works anyway.
 - **Bar on the left**, with the pages: **Video** (editing), **Images**
   (photographs, chapter 16), **Configure** and **Manual**, which opens this
   manual in a separate window, in the language of the interface.
+- **New**, at the bottom of the same bar, starts another job: it clears the
+  video editing and the images sheet. If either has unsaved changes, it first
+  asks whether to save them; Cancel leaves everything as it is.
 - **Toolbar**, in four groups: *Project* (new, open, save, undo, redo),
   *Clip* (import video, audio, cut, delete, freeze frame, slide, speed),
   *Overlays* (text, image, logo, time, frames, box, oval, arrow, numbers,

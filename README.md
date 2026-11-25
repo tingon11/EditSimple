@@ -28,7 +28,9 @@ The **user manual**, with screenshots of every feature, is in
 [docs/manual](docs/manual/README.md) in 9 languages:
 [English](docs/manual/manual.en.md) · [Italiano](docs/manual/manual.it.md) · [Deutsch](docs/manual/manual.de.md) · [Français](docs/manual/manual.fr.md) · [Español](docs/manual/manual.es.md) · [Nederlands](docs/manual/manual.nl.md) · [Polski](docs/manual/manual.pl.md) · [Ελληνικά](docs/manual/manual.el.md) · [Shqip](docs/manual/manual.sq.md).
 The same manual opens inside the program (**Manual** in the bar on the left),
-in the language of the interface. This README covers installation, structure
+in the language of the interface. **New**, at the bottom of that bar, clears
+both the video and the Images sheet to start another job (asking first
+whether to save what is not saved). This README covers installation, structure
 and how the program works inside.
 
 The interface is available in the same 9 languages and can be switched at any

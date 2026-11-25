@@ -929,6 +929,18 @@ class ImagePage(ctk.CTkFrame):
         if path:
             self.load_project(path)
 
+    def new_board(self) -> None:
+        """Foglio vuoto, senza layout, immagini ne' annotazioni (dopo aver chiesto se salvare)."""
+        self.cancel_mode()
+        self.board = Board()
+        self.path = None
+        self.active_cell = None
+        self.undo_stack.clear()
+        self.redo_stack.clear()
+        self._saved_state = self._state()
+        self.select(None, None)
+        self.refresh()
+
     def load_project(self, path: str) -> bool:
         try:
             board = Board.load(path)

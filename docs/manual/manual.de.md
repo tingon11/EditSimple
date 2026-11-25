@@ -105,6 +105,10 @@ Hindernis wiederzufinden. Ohne VitTrack funktioniert die Verfolgung trotzdem.
 - **Leiste links**, mit den Seiten: **Video** (der Schnitt), **Bilder** (die
   Fotografien, Kapitel 16), **Konfiguration** und **Handbuch**, das dieses
   Handbuch in einem eigenen Fenster öffnet, in der Sprache der Oberfläche.
+- **Neu**, unten in derselben Leiste, beginnt eine neue Arbeit: Es leert den
+  Videoschnitt und das Bilderblatt. Hat eines davon ungespeicherte
+  Änderungen, fragt es zuerst, ob sie gespeichert werden sollen; Abbrechen
+  lässt alles, wie es ist.
 - **Werkzeugleiste**, in vier Gruppen: *Projekt* (neu, öffnen, speichern,
   rückgängig, wiederholen), *Clip* (Video importieren, Audio, schneiden,
   löschen, Standbild, Folie, Tempo), *Einblendungen* (Text, Bild, Logo, Zeit,

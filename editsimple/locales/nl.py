@@ -877,4 +877,8 @@ CATALOG: dict[str, str] = {
         'Videolengte in {file} wordt gelezen...',
     'Annullato.':
         'Geannuleerd.',
+    'Nuovo lavoro: svuota Video e Immagini (prima chiede se salvare)':
+        'Nieuw werk: maakt Video en Afbeeldingen leeg (vraagt eerst of u wilt opslaan)',
+    'Nuovo lavoro: video e immagini svuotati.':
+        'Nieuw werk: video en afbeeldingen leeggemaakt.',
 }

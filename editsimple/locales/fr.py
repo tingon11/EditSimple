@@ -843,4 +843,8 @@ CATALOG: dict[str, str] = {
         'Lecture de la durée de la vidéo dans {file}...',
     'Annullato.':
         'Annulé.',
+    'Nuovo lavoro: svuota Video e Immagini (prima chiede se salvare)':
+        "Nouveau travail : vide Vidéo et Images (demande d'abord s'il faut enregistrer)",
+    'Nuovo lavoro: video e immagini svuotati.':
+        'Nouveau travail : vidéo et images vidées.',
 }

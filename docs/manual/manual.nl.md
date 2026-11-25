@@ -105,6 +105,10 @@ een obstakel. Zonder VitTrack werkt het volgen ook.
 - **Balk links**, met de pagina's: **Video** (de montage), **Afbeeldingen**
   (de foto's, hoofdstuk 16), **Configuratie** en **Handleiding**, die deze
   handleiding opent in een apart venster, in de taal van de interface.
+- **Nieuw**, onderaan dezelfde balk, begint een ander werk: het maakt de
+  videomontage en het afbeeldingenblad leeg. Heeft een van beide niet
+  opgeslagen wijzigingen, dan vraagt het eerst of je ze wilt opslaan;
+  Annuleren laat alles zoals het is.
 - **Werkbalk**, in vier groepen: *Project* (nieuw, openen, opslaan, ongedaan
   maken, opnieuw), *Clip* (video importeren, audio, knippen, verwijderen,
   stilstaand beeld, dia, snelheid), *Overlays* (tekst, afbeelding, logo, tijd,

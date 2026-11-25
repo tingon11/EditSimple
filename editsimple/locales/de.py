@@ -1234,4 +1234,8 @@ CATALOG: dict[str, str] = {
         'Videolänge in {file} wird gelesen...',
     'Annullato.':
         'Abgebrochen.',
+    'Nuovo lavoro: svuota Video e Immagini (prima chiede se salvare)':
+        'Neue Arbeit: leert Video und Bilder (fragt vorher, ob gespeichert werden soll)',
+    'Nuovo lavoro: video e immagini svuotati.':
+        'Neue Arbeit: Video und Bilder geleert.',
 }

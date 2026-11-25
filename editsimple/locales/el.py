@@ -1234,4 +1234,8 @@ CATALOG: dict[str, str] = {
         'Ανάγνωση της διάρκειας του βίντεο στο {file}...',
     'Annullato.':
         'Ακυρώθηκε.',
+    'Nuovo lavoro: svuota Video e Immagini (prima chiede se salvare)':
+        'Νέα εργασία: αδειάζει Βίντεο και Εικόνες (ρωτά πρώτα αν θα αποθηκευτούν)',
+    'Nuovo lavoro: video e immagini svuotati.':
+        'Νέα εργασία: βίντεο και εικόνες άδειασαν.',
 }

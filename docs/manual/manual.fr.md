@@ -105,6 +105,10 @@ après un obstacle. Sans lui, le suivi fonctionne quand même.
 - **Barre de gauche**, avec les pages : **Vidéo** (le montage), **Images**
   (les photographies, chapitre 16), **Configurer** et **Manuel**, qui ouvre ce
   manuel dans une fenêtre séparée, dans la langue de l'interface.
+- **Nouveau**, en bas de la même barre, commence un autre travail : il vide
+  le montage vidéo et la feuille des images. Si l'un des deux a des
+  modifications non enregistrées, il demande d'abord s'il faut les
+  enregistrer ; Annuler laisse tout tel quel.
 - **Barre d'outils**, en quatre groupes : *Projet* (nouveau, ouvrir,
   enregistrer, annuler, rétablir), *Clip* (importer une vidéo, audio, couper,
   supprimer, arrêt sur image, diapo, vitesse), *Incrustations* (texte, image,

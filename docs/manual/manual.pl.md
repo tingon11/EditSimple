@@ -103,6 +103,9 @@ przeszkodzie. Bez niego śledzenie też działa.
 - **Pasek po lewej**, ze stronami: **Wideo** (montaż), **Obrazy** (zdjęcia,
   rozdział 16), **Konfiguruj** i **Podręcznik**, który otwiera ten podręcznik
   w osobnym oknie, w języku interfejsu.
+- **Nowy**, na dole tego samego paska, zaczyna nową pracę: czyści montaż
+  wideo i arkusz obrazów. Jeśli któreś z nich ma niezapisane zmiany, najpierw
+  pyta, czy je zapisać; Anuluj zostawia wszystko bez zmian.
 - **Pasek narzędzi**, w czterech grupach: *Projekt* (nowy, otwórz, zapisz,
   cofnij, ponów), *Klip* (importuj wideo, audio, tnij, usuń, stopklatka,
   slajd, prędkość), *Nakładki* (tekst, obraz, logo, czas, klatki, ramka, owal,

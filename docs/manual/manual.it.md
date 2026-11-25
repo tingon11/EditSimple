@@ -103,6 +103,9 @@ dopo un ostacolo. Senza, l'inseguimento funziona lo stesso.
 - **Barra a sinistra**, con le pagine: **Video** (il montaggio), **Immagini**
   (le fotografie, capitolo 16), **Configura** e **Manuale**, che apre questo
   manuale in una finestra a parte, nella lingua dell'interfaccia.
+- **Nuovo**, in fondo alla stessa barra, comincia un altro lavoro: svuota il
+  montaggio video e il foglio delle immagini. Se uno dei due ha modifiche non
+  salvate, prima chiede se salvarle; Annulla lascia tutto com'è.
 - **Barra degli strumenti**, in quattro gruppi: *Progetto* (nuovo, apri, salva,
   annulla, ripeti), *Clip* (importa video, audio, taglia, elimina, fermo
   immagine, slide, velocità), *Sovraimpressioni* (testo, immagine, logo, tempo,
